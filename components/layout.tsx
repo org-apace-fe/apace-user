@@ -10,7 +10,7 @@ function Layout({ children }: any) {
         <ApaceHead />
         <Header />
 
-        <main className="w-full py-8 px-8 sm:px-6 lg:px-32 mx-auto min-h-screen my-12">
+        <main className="w-full  mx-auto min-h-screen ">
           {children}
         </main>
         <Footer />
