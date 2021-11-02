@@ -6,7 +6,7 @@ import ApaceHead from "./head";
 function Layout({ children }: any) {
   return (
     <>
-      <div className="relative bg-gray-100 w-full font-body">
+      <div className="relative bg-gray-100 w-full font-body mx-auto" style={{maxWidth: "1440px"}}>
         <ApaceHead />
         <Header />
 
