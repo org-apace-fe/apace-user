@@ -153,7 +153,7 @@ const HowItWorks: NextPage = () => {
               onSlideChange={() => console.log("slide change")}
             >
               {data1.map((item: any) => (
-                <SwiperSlide>
+                <SwiperSlide key={item.id}>
                   <div className="bg-apace-orange-light h-96">
                     <Items item={item} />
                   </div>
@@ -202,7 +202,7 @@ const HowItWorks: NextPage = () => {
 
               <div className="w-5/6">
                 {text.map((text) => (
-                  <p className="py-2 leading-loose" key={text.id}>
+                  <p key={text.id} className="py-2 leading-loose" >
                     {text.text}
                   </p>
                 ))}
@@ -232,7 +232,7 @@ const HowItWorks: NextPage = () => {
               onSlideChange={() => console.log("slide change")}
             >
               {data1.map((item: any) => (
-                <SwiperSlide>
+                <SwiperSlide key={item.id}>
                   <div className="bg-apace-orange-light h-96">
                     <Items item={item} />
                   </div>
