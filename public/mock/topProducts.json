@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "discount": "20%",
+    "photo": "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "logo": "https://picsum.photos/200",
+    "name": "Swarovski",
+    "description": "Treat yourself",
+    "category": "Apparel"
+  },
+  {
+    "id": 2,
+    "discount": "5%",
+    "photo": "https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "logo": "",
+    "name": "Cassina Spa",
+    "description": "Everyday is spa day",
+    "category": "Auto"
+  },
+  {
+    "id": 3,
+    "discount": "50%",
+    "photo": "https://images.pexels.com/photos/6069083/pexels-photo-6069083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "logo": "",
+    "name": "Rolex",
+    "description": "Time is timeless",
+    "category": "Beauty"
+  },
+  {
+    "id": 4,
+    "discount": "40%",
+    "photo": "https://images.pexels.com/photos/4210860/pexels-photo-4210860.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "logo": "",
+    "name": "Ikea",
+    "description": "20% Off couches ",
+    "category": "Electronics"
+  },
+  {
+    "id": 5,
+    "discount": "60%",
+    "photo": "https://images.pexels.com/photos/6068960/pexels-photo-6068960.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "logo": "",
+    "name": "Swarovski",
+    "description": "Treat yourself",
+    "category": "Apparel"
+  },
+  {
+    "id": 6,
+    "discount": "50%",
+    "photo": "https://images.pexels.com/photos/6069083/pexels-photo-6069083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "logo": "",
+    "name": "Swarovski",
+    "description": "Treat yourself",
+    "category": "Apparel"
+  }
+]
