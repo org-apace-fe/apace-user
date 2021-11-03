@@ -1,6 +1,3 @@
-import { SwarovskiIcon } from "./icons/logo";
-import Image from "next/image";
-
 export function TopDeals({ item }: any) {
   return (
     <div className="w-full text-white">
@@ -19,12 +16,8 @@ export function TopDeals({ item }: any) {
           <p className="text-4xl">{item.discount}</p>
           <span className="text-sm uppercase "> off </span>
         </div>
-        <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
-          <Image
-            src="/icons/swarovski.svg"
-            alt="Picture of the author"
-            layout="fill"
-          />
+        <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden z-30 ">
+          <img src="/icons/swarovski.svg" alt="Picture of the author" />
         </div>
       </div>
       <div className="mt-2">
@@ -49,11 +42,7 @@ export function FeaturedStore({ item }: any) {
       >
         <div className="w-full h-full bg-apace-black opacity-40"></div>
         <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
-          <Image
-            src="/icons/swarovski.svg"
-            alt="Picture of the author"
-            layout="fill"
-          />
+          <img src="/icons/swarovski.svg" alt="Picture of the author" />
         </div>
       </div>
     </div>

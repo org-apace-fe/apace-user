@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+
 import { useEffect, useState } from "react";
 import Container from "./container";
 import { Items } from "./caurosel-items";
-import Carousel from "react-elastic-carousel";
+
 import Button from "./button";
 
 // import Swiper JS
