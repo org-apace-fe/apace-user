@@ -65,17 +65,18 @@ const Header = () => {
                       </button>
 
                       {authNavigation.map((item) => (
-                        <Button
-                        
-                          className={classNames(
-                            item.current
-                              ? "bg-apace-orange-light border-apace-orange-light text-black"
-                              : "text-gray-300 border-none",
-                            "px-6 ml-3 py-2 rounded-full text-sm font-medium"
-                          )}
-                        >
-                          {item.name}
-                        </Button>
+                        <span key={item.name}>
+                          <Button
+                            className={classNames(
+                              item.current
+                                ? "bg-apace-orange-light border-apace-orange-light text-black"
+                                : "text-gray-300 border-none",
+                              "px-6 ml-3 py-2 rounded-full text-sm font-medium"
+                            )}
+                          >
+                            {item.name}
+                          </Button>
+                        </span>
                       ))}
                     </div>
                   </div>

@@ -179,7 +179,7 @@ const HowItWorks: NextPage = () => {
       >
         <div className="lg:w-1/2 w-full lg:mr-8 mr-0 z-20">
           <div className="pl-8 lg:pl-24">
-            <h4 className="text-7xl font-black"> How it works</h4>
+            <h4 className="text-7xl font-bold"> How it works</h4>
             <div className="flex mt-20 ">
               <div className="inline-flex flex-col">
                 {row.map((item) => (

@@ -49,3 +49,26 @@ export function BigAIcon() {
     </svg>
   );
 }
+
+export function SwarovskiIcon() {
+  return (
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 8C0 3.58172 3.58172 0 8 0H56C60.4183 0 64 3.58172 64 8V56C64 60.4183 60.4183 64 56 64H8C3.58172 64 0 60.4183 0 56V8Z"
+        fill="white"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4 4H60V60H4V4Z"
+        fill="white"
+      />
+    </svg>
+  );
+}
