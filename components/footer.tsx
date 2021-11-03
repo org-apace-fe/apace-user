@@ -11,7 +11,7 @@ import {
 function Footer({ children }: any) {
   return (
     <>
-      <footer className="bg-black text-white flex lg:flex-row flex-col items-center justify-between py-8  px-8 sm:px-6 lg:px-32">
+      <footer className="bg-apace-black text-white flex lg:flex-row flex-col items-center justify-between py-8  px-8 sm:px-6 lg:px-32">
         <div> &copy; 2021 Apace Inc. All right reserved.</div>
 
         <div className="flex mt-4 lg:mt-0">

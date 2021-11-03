@@ -1,5 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { SearchIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import Button from "./button";
 import { ApaceLogoIcon } from "./icons/logo";
 
 function classNames(...classes: any[]) {
@@ -64,19 +65,17 @@ const Header = () => {
                       </button>
 
                       {authNavigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
+                        <Button
+                        
                           className={classNames(
                             item.current
-                              ? "bg-apace-orange-light text-black"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              ? "bg-apace-orange-light border-apace-orange-light text-black"
+                              : "text-gray-300 border-none",
                             "px-6 ml-3 py-2 rounded-full text-sm font-medium"
                           )}
-                          aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Button>
                       ))}
                     </div>
                   </div>
