@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tailwind": "npx tailwindcss -i ./styles/globals.css -o tailwind.css"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
