@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <FavouriteStores />
         <Invite/>
         <ApaceApp/>
-        <HashTagUseApace />
+        {/* <HashTagUseApace /> */}
       </Layout>
     </div>
   );
