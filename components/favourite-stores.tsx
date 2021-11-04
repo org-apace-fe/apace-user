@@ -1,22 +1,22 @@
 import Button from "./button";
 import Container from "./container";
-
-// import Swiper JS
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import { useEffect, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import {
   FeaturedStore,
   ShopCategory,
   TopDeals,
 } from "./favourite-stores-items";
 import Axios from "axios";
+
+// import Swiper JS
+import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const FavouriteStores = () => {
   const [data1, setData1]: any = useState();
@@ -49,6 +49,18 @@ const FavouriteStores = () => {
     },
   };
 
+  const swiperRef: any = useRef(null);
+  const goNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+  const goPrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
       <Container>
@@ -64,18 +76,23 @@ const FavouriteStores = () => {
         </div>
 
         <section>
-          <div className="mb-4">
-            <p className="inline mr-4 text-xl font-normal ">Top Deal</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
-              View All
-            </Button>
+          <div className="mb-4 flex justify-between items-center">
+            <div>
+              <p className="inline mr-4 text-xl font-normal ">Top Deal</p>
+              <Button className="border-apace-orange-light text-apace-orange-light">
+                View All
+              </Button>
+            </div>
           </div>
 
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={20}
             slidesPerView={1}
-            navigation
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            }}
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
@@ -122,7 +139,7 @@ const FavouriteStores = () => {
           </div>
 
           <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
             spaceBetween={20}
             slidesPerView={1}
             breakpoints={breakPoints}
