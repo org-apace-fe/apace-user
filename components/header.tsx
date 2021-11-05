@@ -2,12 +2,16 @@ import { Disclosure } from "@headlessui/react";
 import { SearchIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import Button from "./button";
 import { ApaceLogoIcon } from "./icons/logo";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Header = () => {
+  const router = useRouter();
+
   const navigation = [
     { name: "For Shoppers", href: "#", current: false },
     { name: "For Business", href: "#", current: false },
@@ -15,24 +19,28 @@ const Header = () => {
   ];
 
   const authNavigation = [
-    { name: "Sign In", href: "#", current: false },
-    { name: "Sign Up", href: "#", current: true },
+    { name: "Sign In", href: "/auth/sign-in", current: false },
+    { name: "Sign Up", href: "/auth/signup-options", current: true },
   ];
 
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full ">
         <Disclosure
           as="nav"
           className="bg-apace-black border-b  border-gray-800 "
         >
           {({ open }) => (
             <>
-              <div className="mx-auto px-8 sm:px-6 lg:px-24">
+              <div className="mx-auto px-8 sm:px-6  lg:px-24">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0  ">
-                      <ApaceLogoIcon />
+                      <Link href="/">
+                        <a>
+                          <ApaceLogoIcon />
+                        </a>
+                      </Link>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -67,6 +75,7 @@ const Header = () => {
                       {authNavigation.map((item) => (
                         <span key={item.name}>
                           <Button
+                            onClick={() => router.push(item.href)}
                             className={classNames(
                               item.current
                                 ? "bg-apace-orange-light border-apace-orange-light text-black"
@@ -127,14 +136,11 @@ const Header = () => {
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {authNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
+                      <Link key={item.name} href={item.href}>
+                        <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
