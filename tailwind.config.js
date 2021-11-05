@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: {
+        "footer-texture": `url('/icons/footer@3x.png')`,
+      },
       colors: {
         "apace-orange-light": "#F0874A",
         "apace-orange-dark": "#ED6E24",

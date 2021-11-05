@@ -6,13 +6,13 @@ import ApaceHead from "./head";
 function Layout({ children }: any) {
   return (
     <>
-      <div className="relative bg-gray-100 w-full font-body mx-auto" style={{maxWidth: "1440px"}}>
+      <div
+        className="relative w-full font-body mx-auto"
+        style={{ maxWidth: "1440px", zIndex: 100 }}
+      >
         <ApaceHead />
         <Header />
-
-        <main className="w-full  mx-auto min-h-screen ">
-          {children}
-        </main>
+        <main className="w-full  mx-auto min-h-screen ">{children}</main>
         <Footer />
       </div>
     </>

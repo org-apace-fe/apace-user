@@ -1,20 +1,18 @@
 import type { NextPage } from "next";
-
 import { useEffect, useState } from "react";
 import Container from "./container";
 import { Items } from "./caurosel-items";
-
 import Button from "./button";
-
 // import Swiper JS
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { BigAIcon } from "./icons/logo";
+
 // import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { BigAIcon } from "./icons/logo";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -32,7 +30,7 @@ const HowItWorks: NextPage = () => {
   const note = [
     {
       id: 1,
-      text: "Select from a set of convenient payment options spread up to 4 months or choose to Pay now and keep track of your spend, see where your money goes, and budget wisely.",
+      text: "Find you favorite online shop on Apace or visit any brick-and-mortar store near you, add items to your cart, verify a few bits of information, leave the rest to us.",
     },
     {
       id: 2,
@@ -40,7 +38,7 @@ const HowItWorks: NextPage = () => {
     },
     {
       id: 3,
-      text: "Select from a set of convenient payment options spread up to 6 months or choose to Pay now and keep track of your spend, see where your money goes, and budget wisely,see where your money goes, and budget wisely.",
+      text: "Find you favorite online shop on Apace or visit any brick-and-mortar store near you, add items to your cart, verify a few bits of information, leave the rest to us.",
     },
   ];
 
@@ -66,42 +64,40 @@ const HowItWorks: NextPage = () => {
     {
       id: 1,
       discount: "20%",
-      photo:
-        "https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      photo: "/icons/headphones@3x.png",
     },
     {
       id: 2,
       discount: "5%",
-      photo:
-        "https://images.pexels.com/photos/18105/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      photo: "/icons/headphones@3x.png",
     },
     {
       id: 3,
       discount: "50%",
-      photo:
-        "https://images.pexels.com/photos/6069083/pexels-photo-6069083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      photo: "/icons/headphones@3x.png",
+    },
+  ];
+
+  const items2 = [
+    {
+      id: 1,
+      discount: "20%",
+      photo: "/icons/apacecard@3x.png",
     },
     {
-      id: 4,
-      discount: "40%",
-      photo:
-        "https://images.pexels.com/photos/4210860/pexels-photo-4210860.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      id: 2,
+      discount: "5%",
+      photo: "/icons/laptop@3x.png",
     },
     {
-      id: 5,
-      discount: "60%",
-      photo:
-        "https://images.pexels.com/photos/6068960/pexels-photo-6068960.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    },
-    {
-      id: 6,
+      id: 3,
       discount: "50%",
-      photo:
-        "https://images.pexels.com/photos/6069083/pexels-photo-6069083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      photo: "/icons/apaceapp@3x.png",
     },
   ];
 
   const [data1, setData1] = useState(items);
+  const [data2, setData2] = useState(items2);
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -150,14 +146,14 @@ const HowItWorks: NextPage = () => {
                 spaceBetween={50}
                 slidesPerView={1}
                 navigation
-                pagination={{ clickable: true }}
+                // pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log("slide change")}
               >
                 {data1.map((item: any) => (
                   <SwiperSlide key={item.id}>
-                    <div className=" h-96" style={{ height: "30rem" }}>
+                    <div>
                       <Items item={item} />
                     </div>
                   </SwiperSlide>
@@ -232,13 +228,13 @@ const HowItWorks: NextPage = () => {
                 slidesPerView={1}
                 navigation
                 pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
+                // scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log("slide change")}
               >
-                {data1.map((item: any) => (
+                {data2.map((item: any) => (
                   <SwiperSlide key={item.id}>
-                    <div className=" h-96" style={{ height: "30rem" }}>
+                    <div>
                       <Items item={item} />
                     </div>
                   </SwiperSlide>

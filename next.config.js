@@ -9,3 +9,4 @@ module.exports = {
     domains: ["images.pexels.com", "https://picsum.photos/"],
   },
 };
+
