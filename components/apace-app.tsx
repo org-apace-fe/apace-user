@@ -26,16 +26,16 @@ function ApaceApp() {
                   Coming soon. Keep me informed
                 </label>
 
-                <div>
+                <div className="relative lg:w-10/12 w-full">
                   <input
                     placeholder="Email address"
-                    className="bg-transparent border border-gray-100 py-3 lg:w-10/12 pl-4 w-full rounded-full outline-none"
+                    className="bg-transparent border border-gray-100 py-3  pl-4 w-full rounded-full outline-none"
                   />
                   <Button
-                    className="bg-apace-orange-light border-apace-orange-light text-black font-semibold"
-                    style={{ marginLeft: "-7.4rem" }}
+                    className="absolute  bg-apace-orange-light border-apace-orange-light text-black font-semibold"
+                    style={{ top: "-0.6rem", right: "0.4rem" }}
                   >
-                    Let me know{" "}
+                    Let me know
                   </Button>
                 </div>
               </div>

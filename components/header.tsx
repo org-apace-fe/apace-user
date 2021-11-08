@@ -1,9 +1,17 @@
-import { Disclosure } from "@headlessui/react";
-import { SearchIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  SearchIcon,
+  MenuIcon,
+  XIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PlusIcon,
+} from "@heroicons/react/outline";
 import Button from "./button";
 import { ApaceLogoIcon } from "./icons/logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Fragment } from "react";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -12,15 +20,58 @@ function classNames(...classes: any[]) {
 const Header = () => {
   const router = useRouter();
 
-  const navigation = [
-    { name: "For Shoppers", href: "#", current: false },
+  const noDropDownnavigation = [
     { name: "For Business", href: "/business", current: false },
-    { name: "How to APace", href: "#", current: false },
+  ];
+
+  const dropDownNavigation = [
+    {
+      name: "For Shoppers",
+      href: "#",
+      current: false,
+      subNav: [
+        { name: "All Stores", href: "/auth/sign-in", current: false },
+        { name: "Shop online", href: "/auth/sign-in", current: false },
+        { name: "Shop in-store", href: "/auth/sign-in", current: false },
+        { name: "Top deals", href: "/auth/sign-in", current: false },
+        { name: "Featured stores", href: "/auth/sign-in", current: false },
+        { name: "Categories", href: "/auth/sign-in", current: false },
+      ],
+    },
+    {
+      name: "How to Apace",
+      href: "#",
+      current: false,
+      subNav: [
+        { name: "Why Apace", href: "/auth/sign-in", current: false },
+        { name: "How it works", href: "/auth/sign-in", current: false },
+        { name: "Refer a friend", href: "/auth/sign-in", current: false },
+        { name: "Get the app", href: "/auth/sign-in", current: false },
+        { name: "About us", href: "/auth/sign-in", current: false },
+        { name: "Blog", href: "/auth/sign-in", current: false },
+      ],
+    },
   ];
 
   const authNavigation = [
-    { name: "Sign In", href: "/auth/sign-in", current: false },
-    { name: "Sign Up", href: "/auth/signup-options", current: true },
+    {
+      name: "Sign In",
+      href: "#",
+      current: false,
+      subNav: [
+        { name: "As shopper", href: "/auth/sign-in", current: false },
+        { name: "As business", href: "/auth/sign-in", current: false },
+      ],
+    },
+    {
+      name: "Sign Up",
+      href: "#",
+      current: true,
+      subNav: [
+        { name: "As shopper", href: "/auth/signup-options", current: false },
+        { name: "As business", href: "/auth/signup-options", current: false },
+      ],
+    },
   ];
 
   return (
@@ -44,13 +95,64 @@ const Header = () => {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
+                        {dropDownNavigation.map((nav) => (
+                          <Menu
+                            as="div"
+                            className="relative inline-block text-left"
+                          >
+                            <div>
+                              <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
+                                {nav.name}
+                                <ChevronDownIcon
+                                  className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+                                  aria-hidden="true"
+                                />
+                              </Menu.Button>
+                            </div>
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items
+                                style={{ zIndex: 100 }}
+                                className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg  "
+                              >
+                                {nav.subNav.map((a) => (
+                                  <div className="px-1 py-1 ">
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <Link href={a.href}>
+                                          <a
+                                            className={`${
+                                              active
+                                                ? "bg-violet-500  "
+                                                : "text-white"
+                                            } group text-white flex rounded-md items-center w-full px-2 py-2 text-sm   `}
+                                          >
+                                            {a.name}
+                                          </a>
+                                        </Link>
+                                      )}
+                                    </Menu.Item>
+                                  </div>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        ))}
+
+                        {noDropDownnavigation.map((item) => (
                           <Link key={item.name} href={item.href}>
                             <a
                               className={classNames(
                                 item.current
                                   ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                  : "text-gray-300  hover:text-apace-orange-light",
                                 "px-3 py-2 rounded-md text-sm font-medium"
                               )}
                               aria-current={item.current ? "page" : undefined}
@@ -72,20 +174,51 @@ const Header = () => {
                         <SearchIcon className="h-6 w-6 " aria-hidden="true" />
                       </button>
 
-                      {authNavigation.map((item) => (
-                        <span key={item.name}>
-                          <Button
-                            onClick={() => router.push(item.href)}
-                            className={classNames(
-                              item.current
-                                ? "bg-apace-orange-light border-apace-orange-light text-black"
-                                : "text-gray-300 border-none",
-                              "px-6 ml-3 py-2 rounded-full text-sm font-medium"
-                            )}
+                      {authNavigation.map((nav) => (
+                        <Menu
+                          as="div"
+                          className="relative inline-block text-left"
+                        >
+                          <div>
+                            <Menu.Button className="bg-apace-orange-light border-apace-orange-light text-black px-6 ml-3 py-2 rounded-full text-sm font-medium ">
+                              {nav.name}
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
                           >
-                            {item.name}
-                          </Button>
-                        </span>
+                            <Menu.Items
+                              style={{ zIndex: 100 }}
+                              className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg "
+                            >
+                              {nav.subNav.map((a) => (
+                                <div className="px-1 py-1 ">
+                                  <Menu.Item>
+                                    {({ active }) => (
+                                      <Link href={a.href}>
+                                        <a
+                                          className={`${
+                                            active
+                                              ? "bg-violet-500  "
+                                              : "text-white"
+                                          } group text-white flex rounded-md items-center w-full px-2 py-2 text-sm  `}
+                                        >
+                                          {a.name}
+                                        </a>
+                                      </Link>
+                                    )}
+                                  </Menu.Item>
+                                </div>
+                              ))}
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
                       ))}
                     </div>
                   </div>
@@ -107,7 +240,31 @@ const Header = () => {
 
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                  {navigation.map((item) => (
+                  {dropDownNavigation.map((nav) => (
+                    <Disclosure>
+                      {({ open }) => (
+                        <>
+                          <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
+                            <span> {nav.name} </span>
+                            <ChevronUpIcon
+                              className={`${
+                                open ? "transform rotate-180" : ""
+                              } w-5 h-5 `}
+                            />
+                          </Disclosure.Button>
+                          {nav.subNav.map((a) => (
+                            <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                              <Link href={a.href}>
+                                <a> {a.name} </a>
+                              </Link>
+                            </Disclosure.Panel>
+                          ))}
+                        </>
+                      )}
+                    </Disclosure>
+                  ))}
+
+                  {noDropDownnavigation.map((item) => (
                     <Link key={item.name} href={item.href}>
                       <a
                         className={classNames(
@@ -134,12 +291,28 @@ const Header = () => {
                     </button>
                   </div>
                   <div className="mt-3 px-2 space-y-1">
-                    {authNavigation.map((item) => (
-                      <Link key={item.name} href={item.href}>
-                        <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                          {item.name}
-                        </a>
-                      </Link>
+                    {authNavigation.map((nav) => (
+                      <Disclosure>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
+                              <span> {nav.name} </span>
+                              <ChevronUpIcon
+                                className={`${
+                                  open ? "transform rotate-180" : ""
+                                } w-5 h-5 `}
+                              />
+                            </Disclosure.Button>
+                            {nav.subNav.map((a) => (
+                              <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                                <Link href={a.href}>
+                                  <a> {a.name} </a>
+                                </Link>
+                              </Disclosure.Panel>
+                            ))}
+                          </>
+                        )}
+                      </Disclosure>
                     ))}
                   </div>
                 </div>
