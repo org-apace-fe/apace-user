@@ -165,7 +165,7 @@ const HIW = () => {
       <div className="lg:w-1/2 w-full  h-auto lg:ml-8 ml-0">
         {text.map((text) => {
           return (
-            <img className="w-full h-full object-contain " src={text.photo} />
+            <img key={text.id} className="w-full h-full object-contain " src={text.photo} />
           );
         })}
       </div>

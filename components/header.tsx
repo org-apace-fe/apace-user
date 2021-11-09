@@ -43,7 +43,7 @@ const Header = () => {
       href: "#",
       current: false,
       subNav: [
-        { name: "Why Apace", href: "/auth/sign-in", current: false },
+        { name: "Why Apace", href: "/why", current: false },
         { name: "How it works", href: "/auth/sign-in", current: false },
         { name: "Refer a friend", href: "/auth/sign-in", current: false },
         { name: "Get the app", href: "/auth/sign-in", current: false },
@@ -97,6 +97,7 @@ const Header = () => {
                       <div className="ml-10 flex items-baseline space-x-4">
                         {dropDownNavigation.map((nav) => (
                           <Menu
+                          key={nav.name}
                             as="div"
                             className="relative inline-block text-left"
                           >
@@ -123,7 +124,7 @@ const Header = () => {
                                 className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg  "
                               >
                                 {nav.subNav.map((a) => (
-                                  <div className="px-1 py-1 ">
+                                  <div className="px-1 py-1 " key={a.name} >
                                     <Menu.Item>
                                       {({ active }) => (
                                         <Link href={a.href}>
@@ -176,6 +177,7 @@ const Header = () => {
 
                       {authNavigation.map((nav) => (
                         <Menu
+                        key={nav.name}
                           as="div"
                           className="relative inline-block text-left"
                         >
@@ -198,7 +200,7 @@ const Header = () => {
                               className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg "
                             >
                               {nav.subNav.map((a) => (
-                                <div className="px-1 py-1 ">
+                                <div className="px-1 py-1 " key={a.name} >
                                   <Menu.Item>
                                     {({ active }) => (
                                       <Link href={a.href}>
@@ -241,7 +243,7 @@ const Header = () => {
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {dropDownNavigation.map((nav) => (
-                    <Disclosure>
+                    <Disclosure key={nav.name}>
                       {({ open }) => (
                         <>
                           <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
@@ -253,7 +255,7 @@ const Header = () => {
                             />
                           </Disclosure.Button>
                           {nav.subNav.map((a) => (
-                            <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                            <Disclosure.Panel key={a.name} className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
                               <Link href={a.href}>
                                 <a> {a.name} </a>
                               </Link>
@@ -292,7 +294,7 @@ const Header = () => {
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {authNavigation.map((nav) => (
-                      <Disclosure>
+                      <Disclosure key={nav.name} >
                         {({ open }) => (
                           <>
                             <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
@@ -304,7 +306,7 @@ const Header = () => {
                               />
                             </Disclosure.Button>
                             {nav.subNav.map((a) => (
-                              <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                              <Disclosure.Panel key={a.name} className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
                                 <Link href={a.href}>
                                   <a> {a.name} </a>
                                 </Link>

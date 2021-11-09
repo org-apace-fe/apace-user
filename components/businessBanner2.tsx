@@ -8,7 +8,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BigAIcon } from "./icons/logo";
 
-const WhateverYouSell: NextPage = () => {
+const WhateverYouSell = () => {
   return (
     <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
       <div
@@ -21,8 +21,8 @@ const WhateverYouSell: NextPage = () => {
       <Container>
         <div className="relative flex lg:flex-row flex-col items-center my-16">
           <div className="lg:w-1/2 w-full lg:mr-8 mr-0">
-            <h4 className="text-7xl font-black"> Whatever you sell,</h4>
-            <h4 className="text-7xl font-black text-apace-orange-dark">
+            <h4 className="text-7xl lg:text-8xl  font-black"> Whatever you sell,</h4>
+            <h4 className="text-7xl lg:text-8xl font-black text-apace-orange-dark">
               sell more
             </h4>
 
