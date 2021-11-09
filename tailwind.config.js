@@ -11,6 +11,7 @@ module.exports = {
         "apace-orange-dark": "#ED6E24",
         "apace-gray": "#1E1E1E",
         "apace-black": "#121212",
+        
       },
     },
   },

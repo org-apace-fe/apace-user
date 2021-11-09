@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 function AuthLayout({ children }: any) {
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <>
