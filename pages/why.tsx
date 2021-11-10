@@ -12,7 +12,7 @@ const WhyPage: NextPage = () => {
       <Layout>
         <WhyBanner />
         <Solution />
-        <Ongoing />
+        <Ongoing pictureUrl = "/icons/ongoing.png"  background =  "#F7D57B" />
         <CallToAction/>
         <SeeHow />
       </Layout>

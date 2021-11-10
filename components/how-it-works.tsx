@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from "./button";
 
-function classNames(...classes: any) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const HIW = () => {
-  const [data, setData]: any = useState();
+  const [data, setData] = useState<number>();
   const row = [
     { id: 1, name: "Online", current: false },
     { id: 2, name: "In-store", current: false },
@@ -104,7 +104,7 @@ const HIW = () => {
     },
   ];
 
-  const onClick = (e: any) => {
+  const onClick = (e: number) => {
     setData(e);
   };
 
@@ -117,18 +117,18 @@ const HIW = () => {
     <div className="bg-apace-black relative text-white lg:pb-32 lg:pt-32  pt-4 py-32 flex lg:flex-row flex-col justify-center items-center">
       <div className="lg:w-1/2 w-full lg:mr-8 mr-0 z-20">
         <div className="pl-8 lg:pl-24">
-          <h4 className="text-7xl font-bold"> How it works</h4>
+          <h4 className="text-7xl font-black"> How it works</h4>
           <div className="mt-20 ">
             <div className="inline-flex flex-row">
               {row.map((item) => (
                 <Button
                   key={item.name}
-                  onClick={(e: any) => onClick(item.id)}
+                  onClick={(e: number) => onClick(item.id)}
                   className={classNames(
                     data === item.id
                       ? "bg-apace-orange-dark border-apace-orange-dark  text-black "
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    " flex items-center cursor-pointer justify-center my-2 text-md font-semibold rounded-full border mr-4 border-none "
+                    " flex items-center cursor-pointer justify-center my-2 text-md  rounded-full border mr-4 border-none "
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
@@ -142,7 +142,7 @@ const HIW = () => {
                   text.data.map((text) => {
                     return (
                       <>
-                        <p key={text.id} className="py-1 text-xl font-bold">
+                        <p key={text.id} className="py-1 text-xl font-black">
                           {text.id}. {text.title}
                         </p>
                         <p className="py-2 leading-normal "> {text.text} </p>
@@ -155,7 +155,7 @@ const HIW = () => {
           </div>
 
           <div className="my-8 ">
-            <Button className=" bg-apace-orange-light border-apace-orange-light text-black font-semibold mr-8">
+            <Button className=" bg-apace-orange-light border-apace-orange-light text-black  mr-8">
               See how it works for shoppers
             </Button>
           </div>
@@ -165,7 +165,11 @@ const HIW = () => {
       <div className="lg:w-1/2 w-full  h-auto lg:ml-8 ml-0">
         {text.map((text) => {
           return (
-            <img key={text.id} className="w-full h-full object-contain " src={text.photo} />
+            <img
+              key={text.id}
+              className="w-full h-full object-contain "
+              src={text.photo}
+            />
           );
         })}
       </div>

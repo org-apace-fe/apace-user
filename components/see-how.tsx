@@ -15,11 +15,11 @@ const SeeHow = () => {
       >
         <Container>
           <div className="flex flex-col justify-center items-center  ">
-            <h1 className="text-7xl font-bold text-center">
+            <h1 className="text-7xl font-black text-center">
               See how Apace works
             </h1>
             <div className="mt-8">
-              <Button className="bg-apace-orange-light border-apace-orange-light font-bold text-black">
+              <Button className="bg-apace-orange-light border-apace-orange-light text-black">
                 #useApace
               </Button>
             </div>

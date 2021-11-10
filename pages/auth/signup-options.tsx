@@ -30,11 +30,11 @@ const options = [
 ];
 
 const SignUpOptions: NextPage = () => {
-  const [option1, setOption]: any = useState();
+  const [option1, setOption] = useState <number> ();
 
   const router = useRouter();
 
-  const onClick = (id: any) => {
+  const onClick = (id: number) => {
     setOption(id);
   };
 
@@ -45,7 +45,7 @@ const SignUpOptions: NextPage = () => {
   return (
     <div>
       <AuthLayout>
-        <h1 className="text-2xl font-semibold ">
+        <h1 className="text-2xl font-black ">
           How do you want to use apace?
         </h1>
 
@@ -74,7 +74,7 @@ const SignUpOptions: NextPage = () => {
                 </div>
 
                 <div className="py-2">
-                  <h2 className="mt-1 mb-2  font-semibold"> {option.name} </h2>
+                  <h2 className="mt-1 mb-2  font-black"> {option.name} </h2>
                   <p className="text-sm">{option.description}</p>
                 </div>
               </div>
@@ -82,7 +82,7 @@ const SignUpOptions: NextPage = () => {
           })}
         </div>
         <Button
-          className="flex justify-center items-center font-semibold bg-apace-orange-light border-apace-orange-light text-black  "
+          className="flex justify-center items-center  bg-apace-orange-light border-apace-orange-light text-black  "
           onClick={() => router.push("/auth/sign-up")}
         >
           <img src="/icons/arrow-v.svg" className="mr-2" /> Continue

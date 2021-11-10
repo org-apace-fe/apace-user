@@ -1,6 +1,11 @@
 import Container from "./container";
 
-const Ongoing = () => {
+type OngoinProps = {
+  pictureUrl: string;
+  background: string;
+};
+
+const Ongoing = ({ pictureUrl, background }: OngoinProps) => {
   return (
     <div className="relative w-full bg-apace-black text-white py-24">
       <div
@@ -15,17 +20,14 @@ const Ongoing = () => {
         <Container>
           <div className="flex flex-col justify-center items-center rounded-xl overflow-hidden ">
             <div
-              style={{ background: "#F7D57B" }}
+              style={{ background }}
               className="lg:w-full md:w-4/5 w-full lg:p-24 "
             >
-              <img
-                src="/icons/ongoing.png"
-                className="w-full h-full object-contain"
-              />
+              <img src={pictureUrl} className="w-full h-full object-contain" />
             </div>
 
             <div className="bg-apace-black lg:p-24 py-8">
-              <h1 className="text-7xl font-bold mt-4 mb-8 text-center">
+              <h1 className="text-7xl font-black mt-4 mb-8 text-center">
                 We’ve made shopping easier for you
               </h1>
 

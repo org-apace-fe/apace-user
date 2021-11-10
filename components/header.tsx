@@ -5,15 +5,13 @@ import {
   XIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-  PlusIcon,
 } from "@heroicons/react/outline";
-import Button from "./button";
 import { ApaceLogoIcon } from "./icons/logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Fragment } from "react";
 
-function classNames(...classes: any[]) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -44,7 +42,7 @@ const Header = () => {
       current: false,
       subNav: [
         { name: "Why Apace", href: "/why", current: false },
-        { name: "How it works", href: "/auth/sign-in", current: false },
+        { name: "How it works", href: "/how", current: false },
         { name: "Refer a friend", href: "/auth/sign-in", current: false },
         { name: "Get the app", href: "/auth/sign-in", current: false },
         { name: "About us", href: "/auth/sign-in", current: false },
@@ -74,6 +72,27 @@ const Header = () => {
     },
   ];
 
+  const hamburgerNavigation = [
+    {
+      name: "hamburger",
+      href: "#",
+      current: false,
+      subNav: [
+        { name: "Help", href: "/help", current: false },
+        { name: "FAQ's", href: "/faq", current: false },
+        { name: "For developers", href: "/auth/sign-in", current: false },
+        { name: "For partners", href: "/auth/sign-in", current: false },
+        { name: "Privacy policy", href: "/auth/sign-in", current: false },
+        { name: "Terms of use", href: "/auth/sign-in", current: false },
+        {
+          name: "Notices & disclosures",
+          href: "/auth/sign-in",
+          current: false,
+        },
+      ],
+    },
+  ];
+
   return (
     <>
       <div className="min-h-full ">
@@ -97,7 +116,7 @@ const Header = () => {
                       <div className="ml-10 flex items-baseline space-x-4">
                         {dropDownNavigation.map((nav) => (
                           <Menu
-                          key={nav.name}
+                            key={nav.name}
                             as="div"
                             className="relative inline-block text-left"
                           >
@@ -124,7 +143,7 @@ const Header = () => {
                                 className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg  "
                               >
                                 {nav.subNav.map((a) => (
-                                  <div className="px-1 py-1 " key={a.name} >
+                                  <div className="px-1 py-1 " key={a.name}>
                                     <Menu.Item>
                                       {({ active }) => (
                                         <Link href={a.href}>
@@ -177,7 +196,7 @@ const Header = () => {
 
                       {authNavigation.map((nav) => (
                         <Menu
-                        key={nav.name}
+                          key={nav.name}
                           as="div"
                           className="relative inline-block text-left"
                         >
@@ -200,7 +219,59 @@ const Header = () => {
                               className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg "
                             >
                               {nav.subNav.map((a) => (
-                                <div className="px-1 py-1 " key={a.name} >
+                                <div className="px-1 py-1 " key={a.name}>
+                                  <Menu.Item>
+                                    {({ active }) => (
+                                      <Link href={a.href}>
+                                        <a
+                                          className={`${
+                                            active
+                                              ? "bg-violet-500  "
+                                              : "text-white"
+                                          } group text-white flex rounded-md items-center w-full px-2 py-2 text-sm  `}
+                                        >
+                                          {a.name}
+                                        </a>
+                                      </Link>
+                                    )}
+                                  </Menu.Item>
+                                </div>
+                              ))}
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      ))}
+
+                      {/* hamburger */}
+                      {hamburgerNavigation.map((nav) => (
+                        <Menu
+                          key={nav.name}
+                          as="div"
+                          className="relative inline-block text-left"
+                        >
+                          <div>
+                            <Menu.Button className=" text-white px-6 ml-3 py-2  ">
+                              <MenuIcon
+                                className="block h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items
+                              style={{ zIndex: 100 }}
+                              className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg "
+                            >
+                              {nav.subNav.map((a) => (
+                                <div className="px-1 py-1 " key={a.name}>
                                   <Menu.Item>
                                     {({ active }) => (
                                       <Link href={a.href}>
@@ -255,7 +326,10 @@ const Header = () => {
                             />
                           </Disclosure.Button>
                           {nav.subNav.map((a) => (
-                            <Disclosure.Panel key={a.name} className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                            <Disclosure.Panel
+                              key={a.name}
+                              className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md "
+                            >
                               <Link href={a.href}>
                                 <a> {a.name} </a>
                               </Link>
@@ -294,7 +368,7 @@ const Header = () => {
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {authNavigation.map((nav) => (
-                      <Disclosure key={nav.name} >
+                      <Disclosure key={nav.name}>
                         {({ open }) => (
                           <>
                             <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
@@ -306,7 +380,39 @@ const Header = () => {
                               />
                             </Disclosure.Button>
                             {nav.subNav.map((a) => (
-                              <Disclosure.Panel key={a.name} className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md ">
+                              <Disclosure.Panel
+                                key={a.name}
+                                className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md "
+                              >
+                                <Link href={a.href}>
+                                  <a> {a.name} </a>
+                                </Link>
+                              </Disclosure.Panel>
+                            ))}
+                          </>
+                        )}
+                      </Disclosure>
+                    ))}
+                    {hamburgerNavigation.map((nav) => (
+                      <Disclosure key={nav.name}>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button className="flex justify-between w-full px-3 py-2  text-left text-gray-200 font-bold focus:outline-none">
+                              <MenuIcon
+                                className="block text-white h-6 w-6"
+                                aria-hidden="true"
+                              />
+                              <ChevronUpIcon
+                                className={`${
+                                  open ? "transform rotate-180" : ""
+                                } w-5 h-5 `}
+                              />
+                            </Disclosure.Button>
+                            {nav.subNav.map((a) => (
+                              <Disclosure.Panel
+                                key={a.name}
+                                className="px-4 pt-2 pb-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md "
+                              >
                                 <Link href={a.href}>
                                   <a> {a.name} </a>
                                 </Link>

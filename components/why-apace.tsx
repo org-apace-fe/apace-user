@@ -20,10 +20,10 @@ const WhyApace = () => {
             }}
             className="lg:mx-32 py-6"
           >
-            <div className="flex justify-center items-center">
-              <h1 className="text-7xl font-bold text-center">Why Apace?</h1>
+            <div className="flex justify-center items-center mx-2">
+              <h1 className="lg:text-7xl text-5xl font-black text-center">Why Apace?</h1>
               <div className="ml-8">
-                <Button className="bg-apace-orange-light border-apace-orange-light font-bold text-black">
+                <Button className="bg-apace-orange-light border-apace-orange-light text-black">
                   #useApace
                 </Button>
               </div>

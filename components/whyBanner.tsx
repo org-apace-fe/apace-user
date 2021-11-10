@@ -1,11 +1,4 @@
-import type { NextPage } from "next";
-import { useEffect, useState } from "react";
 import Container from "./container";
-import { Items } from "./caurosel-items";
-import Button from "./button";
-// import Swiper JS
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { BigAIcon } from "./icons/logo";
 
 const WhyBanner = () => {
@@ -60,7 +53,7 @@ const WhyBanner = () => {
         <Container>
           <div className="relative flex lg:flex-row flex-col items-center ">
             <div className="lg:w-1/2 w-full lg:mr-8 mr-0">
-              <h4 className="text-7xl  font-bold">No more roadblocks</h4>
+              <h4 className="text-7xl  font-black">No more roadblocks</h4>
               <div className="w-5/6 my-10">
                 <p className="text-lg">
                   The only thing standing between you and what you desire is how

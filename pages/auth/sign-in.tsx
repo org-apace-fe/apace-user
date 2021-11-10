@@ -33,7 +33,7 @@ const SignUpOptions: NextPage = () => {
             </div>
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
               <Button
-                className="flex justify-center py-0 mt-32 my-8 font-semibold w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
+                className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
                 type="submit"
               >
             <img src="/icons/account.svg" className="mr-2" />

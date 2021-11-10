@@ -22763,6 +22763,10 @@ video {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.font-body {
+  font-family: Geometria;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -32969,6 +32973,46 @@ video {
 
 .content-none {
   content: none;
+}
+
+@font-face {
+  font-family: Geometria;
+
+  font-weight: 300;
+
+  src: url("../fonts/geometria-cdnfonts/Geometria-Light.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+
+  font-weight: 400;
+
+  src: url("../fonts/geometria-cdnfonts/Geometria.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+
+  font-weight: 500;
+
+  src: url("../fonts/geometria-cdnfonts/Geometria-Medium.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+
+  font-weight: 700;
+
+  src: url("../fonts/geometria-cdnfonts/Geometria-Heavy.ttf");
+}
+
+@font-face {
+  font-family: Geometria;
+
+  font-weight: 900;
+
+  src: url("../fonts/geometria-cdnfonts/Geometria-Bold.ttf");
 }
 
 @media (min-width: 640px) {
@@ -55065,6 +55109,10 @@ video {
 
   .sm\:font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .sm\:font-body {
+    font-family: Geometria;
   }
 
   .sm\:text-xs {
@@ -87003,6 +87051,10 @@ video {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .md\:font-body {
+    font-family: Geometria;
+  }
+
   .md\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -118937,6 +118989,10 @@ video {
 
   .lg\:font-mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .lg\:font-body {
+    font-family: Geometria;
   }
 
   .lg\:text-xs {
@@ -150875,6 +150931,10 @@ video {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .xl\:font-body {
+    font-family: Geometria;
+  }
+
   .xl\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -182811,6 +182871,10 @@ video {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
+  .\32xl\:font-body {
+    font-family: Geometria;
+  }
+
   .\32xl\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -192650,5 +192714,3 @@ video {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
-
-

@@ -1,5 +1,11 @@
+import { ReactNode } from "react";
 
-function Container({ children }: any) {
+type MyComponentProps = {
+  children: ReactNode;
+};
+
+
+function Container({ children }: MyComponentProps) {
   return (
     <>
       <div className="relative">

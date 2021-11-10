@@ -1,20 +1,11 @@
-import type { NextPage } from "next";
-import { useEffect, useState } from "react";
 import Container from "./container";
-import { Items } from "./caurosel-items";
-import Button from "./button";
-// import Swiper JS
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { BigAIcon } from "./icons/logo";
-import Image from "next/image";
 
 const CallToAction = () => {
   return (
     <div className="relative bg-apace-black text-white min-h-full pt-8 pb-24 overflow-hidden ">
       <Container>
         <div className="lg:w-full md:w-5/6 w-full mx-auto flex flex-col justify-center text-center items-center">
-          <h4 className="text-7xl font-bold my-8 lg:w-4/6 w-full ">
+          <h4 className="text-7xl font-black my-8 lg:w-4/6 w-full ">
             Shop your favorite categories
           </h4>
 
@@ -28,7 +19,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Apparel
@@ -42,7 +33,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Auto
@@ -56,7 +47,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Beauty
@@ -70,7 +61,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Electronics
@@ -84,7 +75,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Fitness
@@ -98,7 +89,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Home & Furniture
@@ -112,7 +103,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Luxury{" "}
@@ -126,7 +117,7 @@ const CallToAction = () => {
                   />
                 </div>
                 <p
-                  className="absolute bottom-0 left-0 text-2xl font-semibold m-3 "
+                  className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                   style={{ zIndex: 100 }}
                 >
                   Travel

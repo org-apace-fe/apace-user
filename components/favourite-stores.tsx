@@ -17,9 +17,10 @@ import {
   TopDeals,
 } from "./favourite-stores-items";
 import Axios from "axios";
+import { ITopProducts } from "../interfaces/items.enum";
 
 const FavouriteStores = () => {
-  const [data1, setData1]: any = useState();
+  const [data1, setData1] = useState<ITopProducts[]>();
   const getProduct = async () => {
     try {
       const products = await Axios.get("./mock/topProducts.json");
@@ -53,8 +54,8 @@ const FavouriteStores = () => {
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
       <Container>
         <div>
-          <h1 className="text-7xl font-bold ">Your favorite stores</h1>
-          <h1 className="text-7xl font-bold text-apace-orange-dark">
+          <h1 className="text-7xl font-black ">Your favorite stores</h1>
+          <h1 className="text-7xl font-black text-apace-orange-dark">
             use Apace.
           </h1>
           <p className="text-gray-200 leading-loose my-6 lg:w-1/2 w-full ">
@@ -79,7 +80,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "26rem" }}>
                   <TopDeals item={item} />
@@ -104,7 +105,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <FeaturedStore item={item} />
@@ -129,7 +130,7 @@ const FavouriteStores = () => {
             navigation
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <ShopCategory item={item} />

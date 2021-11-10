@@ -1,5 +1,5 @@
 import Container from "./container";
-import { BigAIcon, BigAIcon2, BigAIconDark } from "./icons/logo";
+import {  BigAIconDark } from "./icons/logo";
 import {
   FacebookIcon,
   InstagramIcon,

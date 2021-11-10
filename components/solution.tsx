@@ -6,7 +6,7 @@ const Solution = () => {
       <Container>
         <div className="relative w-full flex lg:flex-row-reverse lg:px-12 flex-col items-center ">
           <div className="lg:w-1/2 w-full lg:ml-8 ml-0">
-            <h4 className="text-7xl font-bold">
+            <h4 className="text-7xl font-black">
               Take your time{" "}
               <span className="text-apace-orange-light"> to pay </span>{" "}
             </h4>

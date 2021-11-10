@@ -14,12 +14,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-function classNames(...classes: any) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const HowItWorks: NextPage = () => {
-  const [data, setData]: any = useState();
+  const [data, setData] = useState<number>();
 
   const row = [
     { name: 1, current: false },
@@ -30,19 +30,22 @@ const HowItWorks: NextPage = () => {
   const note = [
     {
       id: 1,
+      title: "Use Apace at checkout",
       text: "Find you favorite online shop on Apace or visit any brick-and-mortar store near you, add items to your cart, verify a few bits of information, leave the rest to us.",
     },
     {
       id: 2,
+      title: "Choose a convenient option",
       text: "Select from a set of convenient payment options spread up to 5 months or choose to Pay now and keep track of your spend, see where your money goes, and budget wisely, and budget wisely.",
     },
     {
       id: 3,
+      title: "Pay easily at your own pace",
       text: "Find you favorite online shop on Apace or visit any brick-and-mortar store near you, add items to your cart, verify a few bits of information, leave the rest to us.",
     },
   ];
 
-  const onClick = (e: any) => {
+  const onClick = (e: number) => {
     setData(e);
   };
 
@@ -51,14 +54,6 @@ const HowItWorks: NextPage = () => {
   useEffect(() => {
     setData(1);
   }, []);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   const items = [
     {
@@ -99,12 +94,12 @@ const HowItWorks: NextPage = () => {
   const [data1, setData1] = useState(items);
   const [data2, setData2] = useState(items2);
 
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
-  ];
+  interface IItem {
+    id: number;
+    discount: string;
+    photo: string;
+  }
+
   return (
     <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
       <div
@@ -117,8 +112,8 @@ const HowItWorks: NextPage = () => {
       <Container>
         <div className="relative flex lg:flex-row-reverse flex-col items-center my-16">
           <div className="lg:w-1/2 w-full lg:ml-8 ml-0">
-            <h4 className="text-7xl font-black"> Have it now!</h4>
-            <h4 className="text-7xl font-black text-apace-orange-dark">
+            <h4 className="text-8xl font-bold"> Have it now!</h4>
+            <h4 className="text-8xl font-bold text-apace-orange-dark">
               pay later.
             </h4>
 
@@ -129,8 +124,8 @@ const HowItWorks: NextPage = () => {
               </p>
             </div>
 
-            <div className="my-8 ">
-              <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8">
+            <div className="my-8   ">
+              <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8 ">
                 Try it free
               </Button>
 
@@ -151,7 +146,7 @@ const HowItWorks: NextPage = () => {
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log("slide change")}
               >
-                {data1.map((item: any) => (
+                {data1.map((item: IItem) => (
                   <SwiperSlide key={item.id}>
                     <div>
                       <Items item={item} />
@@ -175,7 +170,7 @@ const HowItWorks: NextPage = () => {
       >
         <div className="lg:w-1/2 w-full lg:mr-8 mr-0 z-20">
           <div className="pl-8 lg:pl-24">
-            <h4 className="text-7xl font-bold"> How it works</h4>
+            <h4 className="text-7xl font-black  "> How it works.</h4>
             <div className="flex mt-20 ">
               <div className="inline-flex flex-col">
                 {row.map((item) => (
@@ -195,17 +190,19 @@ const HowItWorks: NextPage = () => {
                 ))}
               </div>
               <div className="mx-8 ">
-                <h1 className="text-xl font-semibold">
-                  Choose a convinient option
-                </h1>
-
-                <div className="w-5/6">
-                  {text.map((text) => (
-                    <p key={text.id} className="py-2 leading-loose">
-                      {text.text}
-                    </p>
-                  ))}
-                </div>
+                {text.map((text) => (
+                  <div key={text.id}>
+                    <h1 className="text-xl font-medium">{text.title}</h1>
+                    <div className="w-5/6">
+                      <p
+                        key={text.id}
+                        className="py-2 text-gray-300 leading-loose"
+                      >
+                        {text.text}
+                      </p>
+                    </div>{" "}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -232,7 +229,7 @@ const HowItWorks: NextPage = () => {
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log("slide change")}
               >
-                {data2.map((item: any) => (
+                {data2.map((item: IItem) => (
                   <SwiperSlide key={item.id}>
                     <div>
                       <Items item={item} />

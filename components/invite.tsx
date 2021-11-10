@@ -20,7 +20,7 @@ function Invite() {
                 <img className="w-full h-full" src="/icons/invite@2x.png" />
               </div>
               <div className="lg:w-1/2 w-full lg:ml-8 ml-0 lg:flex lg:flex-col flex-row  lg:items-end">
-                <h4 className="text-7xl font-bold lg:text-right ">
+                <h4 className="text-7xl font-black lg:text-right ">
                   The most sense for your money.
                 </h4>
                 <div className="w-5/6 my-10 text-gray-200 lg:text-right">

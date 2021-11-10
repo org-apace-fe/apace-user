@@ -10,7 +10,7 @@ const SignUp: NextPage = () => {
   return (
     <div>
       <AuthLayout>
-        <h1 className="text-2xl font-semibold "> More information</h1>
+        <h1 className="text-2xl font-black "> More information</h1>
         <div className="lg:w-4/12 md:w-7/12 w-full">
           <Form className="w-full ">
             <Input
@@ -33,7 +33,7 @@ const SignUp: NextPage = () => {
             </div>
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
               <Button
-                className="flex justify-center py-0 mt-32 my-8 font-semibold w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
+                className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
                 type="submit"
               >
                 <img src="/icons/account.svg" className="mr-2" />
