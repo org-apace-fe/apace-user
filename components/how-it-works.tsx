@@ -123,7 +123,7 @@ const HIW = () => {
               {row.map((item) => (
                 <Button
                   key={item.name}
-                  onClick={(e: number) => onClick(item.id)}
+                  onClick={(e) => onClick(item.id)}
                   className={classNames(
                     data === item.id
                       ? "bg-apace-orange-dark border-apace-orange-dark  text-black "
