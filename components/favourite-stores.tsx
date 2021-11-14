@@ -1,5 +1,6 @@
 import Button from "./button";
 import Container from "./container";
+import { useRouter } from "next/router";
 
 // import Swiper JS
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -20,6 +21,8 @@ import Axios from "axios";
 import { ITopProducts } from "../interfaces/items.enum";
 
 const FavouriteStores = () => {
+  const router = useRouter();
+
   const [data1, setData1] = useState<ITopProducts[]>();
   const getProduct = async () => {
     try {
@@ -67,7 +70,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Top Deal</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>
@@ -92,7 +98,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Featued stores</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>
@@ -117,7 +126,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Shop by category</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>

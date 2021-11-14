@@ -28,7 +28,7 @@ const Header = () => {
       href: "#",
       current: false,
       subNav: [
-        { name: "All Stores", href: "/auth/sign-in", current: false },
+        { name: "All Stores", href: "/stores", current: false },
         { name: "Shop online", href: "/auth/sign-in", current: false },
         { name: "Shop in-store", href: "/auth/sign-in", current: false },
         { name: "Top deals", href: "/auth/sign-in", current: false },
@@ -66,7 +66,7 @@ const Header = () => {
       href: "#",
       current: true,
       subNav: [
-        { name: "As shopper", href: "/auth/signup-options", current: false },
+        { name: "As shopper", href: "/auth/shopper/sign-up", current: false },
         { name: "As business", href: "/auth/signup-options", current: false },
       ],
     },

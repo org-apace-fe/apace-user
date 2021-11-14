@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
-import AuthLayout from "../../components/auth/layout";
-import Button from "../../components/button";
-import Form from "../../components/form";
-import Input from "../../components/input";
-import ViewPassword from "../../components/view-paaword";
+import AuthLayout from "../../../components/auth/layout";
+import Button from "../../../components/button";
+import Form from "../../../components/form";
+import Input from "../../../components/input";
+import ViewPassword from "../../../components/view-paaword";
 import Link from "next/link";
 import { useState } from "react";
-import { registerAsBusiness } from "../../store/actions/user.action";
+import { registerAsBusiness } from "../../../store/actions/user.action";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -39,37 +39,26 @@ const SignUp: NextPage = () => {
         <div className="lg:w-4/12 md:w-7/12 w-full">
           <Form className="w-full " onSubmit={onSubmit}>
             <Input
-              placeholder="Email address*"
+              placeholder={`${status ? "Email address*" : "Phone number*"}`}
               className="mt-2 mb-4"
-              type="email"
-              name="email_address"
+              type={status ? "email" : "text"}
+              name="p"
               value={email_address}
               onChange={handleChange}
               required
             />
-            <Input
-              placeholder="Country*"
-              className="mt-2 mb-4"
-              type="text"
-              name="country"
-              value={country}
-              onChange={handleChange}
-              required
-            />
+            <small>
+              A verification code will be sent to this
+              {status ? "email address" : "phone number"}
+            </small>
 
-            <div className="relative mb-2">
-              <div className="absolute top-3 right-4">
-                <ViewPassword />
-              </div>
-              <Input
-                placeholder="Password*"
-                className="mb-4 w-full"
-                name="password"
-                type="password"
-                value={password}
-                onChange={handleChange}
-                required
-              />
+            <div className="flex items-center mx-auto mt-8 underline cursor-pointer  ">
+              <p onClick={() => setStatus(!status)} className="mr-2">
+                {!status
+                  ? "Use email address instead"
+                  : "Use phone number instead"}
+              </p>
+              <img src="/icons/warning-icon.svg" />
             </div>
 
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
@@ -77,9 +66,20 @@ const SignUp: NextPage = () => {
                 className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
                 type="submit"
               >
-                <img src="/icons/account.svg" className="mr-2" />
-                <p> Create an account </p>
+                <p> Send Code </p>
               </Button>
+            </div>
+
+            <div>
+              
+              <p className="text-center" >
+                By using Apace, you agree to our
+                <Link href="/">
+                  <a className="underline text-apace-orange-dark">
+                    Terms & conditions
+                  </a>
+                </Link>
+              </p>
             </div>
           </Form>
         </div>

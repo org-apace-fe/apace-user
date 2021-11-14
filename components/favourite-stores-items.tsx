@@ -1,4 +1,4 @@
-import { ITopProducts } from "../interfaces/items.enum";
+import { IStore, ITopProducts } from "../interfaces/items.enum";
 
 type ITopDealsProps = {
   item: ITopProducts;
