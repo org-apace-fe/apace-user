@@ -1,3 +1,8 @@
+interface Size {
+  width :string,
+  height : string
+}
+
 export function ApaceLogoIcon() {
   return (
     <svg
@@ -115,7 +120,7 @@ export function SwarovskiIcon() {
   );
 }
 
-export function HidePassword({ width, height }: any) {
+export function HidePassword({ width, height }: Partial< Size>) {
   return (
     <svg
       width="18"
@@ -132,7 +137,9 @@ export function HidePassword({ width, height }: any) {
   );
 }
 
-export function ShowPassword({ width, height }: any) {
+
+
+export function ShowPassword({ width, height }: Partial<Size>) {
   return (
     <svg
       width="18"
@@ -148,6 +155,24 @@ export function ShowPassword({ width, height }: any) {
       <path
         d="M10 4.16666C3.63917 4.16666 1.72751 9.68083 1.71001 9.73666L1.62167 10L1.70917 10.2633C1.72751 10.3192 3.63917 15.8333 10 15.8333C16.3608 15.8333 18.2725 10.3192 18.29 10.2633L18.3783 10L18.2908 9.73666C18.2725 9.68083 16.3608 4.16666 10 4.16666ZM10 14.1667C5.54084 14.1667 3.81334 10.9617 3.39501 10C3.81501 9.035 5.54334 5.83333 10 5.83333C14.4592 5.83333 16.1867 9.03833 16.605 10C16.185 10.965 14.4567 14.1667 10 14.1667V14.1667Z"
         fill="#909090"
+      />
+    </svg>
+  );
+}
+
+export function ArrowBack() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.0005 7.04221H3.83047L8.71047 2.16221C9.10047 1.77221 9.10047 1.13221 8.71047 0.742207C8.32047 0.352207 7.69047 0.352207 7.30047 0.742207L0.710469 7.33221C0.320469 7.72221 0.320469 8.35221 0.710469 8.74221L7.30047 15.3322C7.69047 15.7222 8.32047 15.7222 8.71047 15.3322C9.10047 14.9422 9.10047 14.3122 8.71047 13.9222L3.83047 9.04221H15.0005C15.5505 9.04221 16.0005 8.59221 16.0005 8.04221C16.0005 7.49221 15.5505 7.04221 15.0005 7.04221Z"
+        fill="black"
+        fillOpacity="0.87"
       />
     </svg>
   );

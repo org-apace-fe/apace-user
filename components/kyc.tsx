@@ -15,7 +15,7 @@ const KYC = () => {
       >
         <Container>
           <div className="w-full ">
-            <h4 className="lg:w-3/4 mx-auto text-7xl font-bold text-center">
+            <h4 className="lg:w-3/4 mx-auto text-7xl font-black text-center">
               Your customers will thank you!
             </h4>
 
@@ -30,7 +30,7 @@ const KYC = () => {
                 <div className="rounded-full h-10 w-10 flex items-center justify-center border border-gray-200 lg:my-2 my-6">
                   1
                 </div>
-                <h4 className="text-5xl font-bold lg:text-left ">
+                <h4 className="text-5xl font-black lg:text-left ">
                   Know and earn the trust of your customers
                 </h4>
                 <div className="w-5/6 my-10 text-gray-200 lg:text-left">
@@ -56,7 +56,7 @@ const KYC = () => {
                 <div className="rounded-full h-10 w-10 flex items-center justify-center border border-gray-200 lg:my-2 my-6">
                   2
                 </div>
-                <h4 className="text-5xl font-bold lg:text-left ">
+                <h4 className="text-5xl font-black lg:text-left ">
                   Apace shoppers, your customers, faster
                 </h4>
                 <div className="w-5/6 my-10 text-gray-200 lg:text-left">
@@ -83,7 +83,7 @@ const KYC = () => {
                 <div className="rounded-full h-10 w-10 flex items-center justify-center border border-gray-200 lg:my-2 my-6 ">
                   3
                 </div>
-                <h4 className="text-5xl font-bold lg:text-left ">
+                <h4 className="text-5xl font-black lg:text-left ">
                   Every channel, everywhere
                 </h4>
                 <div className="w-5/6 my-10 text-gray-200 lg:text-left">
@@ -112,11 +112,11 @@ const KYC = () => {
               />
             </div>
 
-            <h1 className="text-7xl font-bold mt-16 mb-12 text-center">
+            <h1 className="text-7xl font-black mt-16 mb-12 text-center">
               Let’s help you sell more
             </h1>
 
-            <Button className="my-8 px-8 bg-apace-orange-light border-apace-orange-light font-semibold text-black ">
+            <Button className="my-8 px-8 bg-apace-orange-light border-apace-orange-light  text-black ">
               Get started
             </Button>
           </div>

@@ -1,13 +1,17 @@
-import type { AppProps } from "next/app";
 import Header from "./header";
 import Footer from "./footer";
 import ApaceHead from "./head";
+import { ReactNode } from "react";
 
-function Layout({ children }: any) {
+type MyComponentProps = {
+  children: ReactNode;
+};
+
+function Layout({ children }: MyComponentProps) {
   return (
     <>
       <div
-        className="relative w-full font-body mx-auto"
+        className="relative w-full mx-auto"
         style={{ maxWidth: "1440px", zIndex: 100 }}
       >
         <ApaceHead />

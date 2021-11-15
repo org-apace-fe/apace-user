@@ -1,5 +1,6 @@
 import Button from "./button";
 import Container from "./container";
+import { useRouter } from "next/router";
 
 // import Swiper JS
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -17,9 +18,12 @@ import {
   TopDeals,
 } from "./favourite-stores-items";
 import Axios from "axios";
+import { ITopProducts } from "../interfaces/items.enum";
 
 const FavouriteStores = () => {
-  const [data1, setData1]: any = useState();
+  const router = useRouter();
+
+  const [data1, setData1] = useState<ITopProducts[]>();
   const getProduct = async () => {
     try {
       const products = await Axios.get("./mock/topProducts.json");
@@ -53,8 +57,8 @@ const FavouriteStores = () => {
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
       <Container>
         <div>
-          <h1 className="text-7xl font-bold ">Your favorite stores</h1>
-          <h1 className="text-7xl font-bold text-apace-orange-dark">
+          <h1 className="text-7xl font-black ">Your favorite stores</h1>
+          <h1 className="text-7xl font-black text-apace-orange-dark">
             use Apace.
           </h1>
           <p className="text-gray-200 leading-loose my-6 lg:w-1/2 w-full ">
@@ -66,7 +70,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Top Deal</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>
@@ -79,7 +86,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "26rem" }}>
                   <TopDeals item={item} />
@@ -91,7 +98,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Featued stores</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>
@@ -104,7 +114,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <FeaturedStore item={item} />
@@ -116,7 +126,10 @@ const FavouriteStores = () => {
         <section>
           <div className="mb-4">
             <p className="inline mr-4 text-xl font-normal ">Shop by category</p>
-            <Button className="border-apace-orange-light text-apace-orange-light">
+            <Button
+              onClick={() => router.push("/stores")}
+              className="border-apace-orange-light text-apace-orange-light"
+            >
               View All
             </Button>
           </div>
@@ -129,7 +142,7 @@ const FavouriteStores = () => {
             navigation
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: any) => (
+            {data1?.map((item: ITopProducts) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <ShopCategory item={item} />

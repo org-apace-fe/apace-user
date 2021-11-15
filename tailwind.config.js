@@ -2,7 +2,11 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+
     extend: {
+      fontFamily: {
+        body: ["Geometria"],
+      },
       backgroundImage: {
         "footer-texture": `url('/icons/footer@3x.png')`,
       },
@@ -11,7 +15,6 @@ module.exports = {
         "apace-orange-dark": "#ED6E24",
         "apace-gray": "#1E1E1E",
         "apace-black": "#121212",
-        
       },
     },
   },

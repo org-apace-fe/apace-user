@@ -1,9 +1,7 @@
 import { ApaceLogoIcon } from "../icons/logo";
-import { useRouter } from "next/router";
 import Link from "next/link"
 
 const AuthHeader = () => {
-  const router = useRouter();
 
   return (
     <>

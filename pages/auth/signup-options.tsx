@@ -3,6 +3,7 @@ import AuthLayout from "../../components/auth/layout";
 import Button from "../../components/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 const options = [
@@ -10,6 +11,7 @@ const options = [
     id: 1,
     url: `/icons/online-rental.png`,
     name: "Online retail",
+    type: "Online",
     description:
       "You have a website or ecommerce store online, selling goods and services",
   },
@@ -17,6 +19,7 @@ const options = [
     id: 2,
     url: `/icons/online-rental.png`,
     name: "In-store",
+    type: "Store",
     description:
       "You operate primarily brick-and-mortar and need to use Apace at the point of sale",
   },
@@ -24,30 +27,68 @@ const options = [
     id: 3,
     url: `/icons/online-rental.png`,
     name: "Gateway",
+    type: "Gateway",
     description:
       "You collect payments with your own system but need to integrate Apace to help your customers pay over time",
   },
 ];
 
 const SignUpOptions: NextPage = () => {
-  const [option1, setOption]: any = useState();
+  const [option1, setOption] = useState<number>(1);
 
+  const dispatch = useDispatch();
   const router = useRouter();
 
-  const onClick = (id: any) => {
+  const onClick = (id: number) => {
     setOption(id);
   };
 
   useEffect(() => {
-    setOption(1);
-  }, []);
+    // setOption(1);
+    console.log(option1);
+  }, [option1]);
 
   return (
     <div>
       <AuthLayout>
-        <h1 className="text-2xl font-semibold ">
-          How do you want to use apace?
-        </h1>
+      <div className="mb-12">
+            <h1 className="text-6xl font-black">
+           
+                Create an account
+              
+            </h1>
+          </div>
+        <div
+          className={`flex justify-center items-center mb-8 text-gray-400   `}
+        >
+          <div>
+            <span
+              className={`${
+                router.pathname === "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              1
+            </span>
+            Select an option
+          </div>
+          <div className=" border border-gray-600 px-5 mx-3"> </div>
+
+          <div>
+            <span
+              className={`${
+                router.pathname !== "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              2
+            </span>
+            More Information
+          </div>
+        </div>
+        <h1 className="text-2xl font-black ">How do you want to use apace?</h1>
 
         <div className=" lg:w-8/12 md:w-full mx-auto flex lg:flex-row md:flex-row flex-col  flex-wrap my-12">
           {options.map((option) => {
@@ -74,7 +115,7 @@ const SignUpOptions: NextPage = () => {
                 </div>
 
                 <div className="py-2">
-                  <h2 className="mt-1 mb-2  font-semibold"> {option.name} </h2>
+                  <h2 className="mt-1 mb-2  font-black"> {option.name} </h2>
                   <p className="text-sm">{option.description}</p>
                 </div>
               </div>
@@ -82,8 +123,16 @@ const SignUpOptions: NextPage = () => {
           })}
         </div>
         <Button
-          className="flex justify-center items-center font-semibold bg-apace-orange-light border-apace-orange-light text-black  "
-          onClick={() => router.push("/auth/sign-up")}
+          className="flex justify-center items-center  bg-apace-orange-light border-apace-orange-light text-black  "
+          onClick={() => {
+            const option = options.find((e) => e.id === option1);
+
+            dispatch({
+              type: "SET_BUSINESS_TYPE",
+              payload: option?.type,
+            });
+            router.push("/auth/sign-up");
+          }}
         >
           <img src="/icons/arrow-v.svg" className="mr-2" /> Continue
         </Button>
