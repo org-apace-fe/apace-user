@@ -120,7 +120,7 @@ export function SwarovskiIcon() {
   );
 }
 
-export function HidePassword({ width, height }: Size) {
+export function HidePassword({ width, height }: Partial< Size>) {
   return (
     <svg
       width="18"
@@ -139,7 +139,7 @@ export function HidePassword({ width, height }: Size) {
 
 
 
-export function ShowPassword({ width, height }: Size) {
+export function ShowPassword({ width, height }: Partial<Size>) {
   return (
     <svg
       width="18"
