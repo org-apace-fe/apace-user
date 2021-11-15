@@ -1,20 +1,20 @@
 import type { NextPage } from "next";
-import AuthLayout from "../../components/auth/layout";
-import Button from "../../components/button";
-import Form from "../../components/form";
-import Input from "../../components/input";
-import ViewPassword from "../../components/view-password";
+import AuthLayout from "../../../components/auth/layout";
+import Button from "../../../components/button";
+import Form from "../../../components/form";
+import Input from "../../../components/input";
+import ViewPassword from "../../../components/view-password";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signinAsBusiness } from "../../store/actions/user.action";
+import { signinAsShopper } from "../../../store/actions/user.action";
 
-const SignUpOptions: NextPage = () => {
+const SignIn: NextPage = () => {
   const [status, setStatus] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const initialState = {
-    email: "",
+    identifier: "",
     password: "",
   };
   const [user, setUser] = useState(initialState);
@@ -31,10 +31,10 @@ const SignUpOptions: NextPage = () => {
     e.preventDefault();
     console.log(user);
 
-    dispatch(signinAsBusiness(user, router));
+    dispatch(signinAsShopper(user, router));
   };
 
-  const { email, password } = user;
+  const { identifier, password } = user;
 
   return (
     <div>
@@ -48,8 +48,8 @@ const SignUpOptions: NextPage = () => {
               placeholder="Email address*"
               className="mt-2 mb-4"
               type="email"
-              name="email"
-              value={email}
+              name="identifier"
+              value={identifier}
               onChange={handleChange}
               required
             />
@@ -93,4 +93,4 @@ const SignUpOptions: NextPage = () => {
   );
 };
 
-export default SignUpOptions;
+export default SignIn;

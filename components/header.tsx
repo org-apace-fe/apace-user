@@ -57,7 +57,7 @@ const Header = () => {
       href: "#",
       current: false,
       subNav: [
-        { name: "As shopper", href: "/auth/sign-in", current: false },
+        { name: "As shopper", href: "/auth/shopper/sign-in", current: false },
         { name: "As business", href: "/auth/sign-in", current: false },
       ],
     },

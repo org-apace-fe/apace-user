@@ -60,15 +60,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ATabs({
-  indicatorColor,
-  // tabsArr,
-  tabStyle,
-  tabStyleSelected,
-  tabStyleNotSelected,
-  rootStyle,
-  tabParentStyle,
-}: TabsType) {
+export default function ATabs() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(0);
 
@@ -100,7 +92,7 @@ export default function ATabs({
 
   const useStyles = makeStyles({
     indicator: {
-      backgroundColor: indicatorColor,
+      // backgroundColor: indicatorColor,
       width: "62px",
       height: "4px",
       borderRadius: "80px",
@@ -142,7 +134,7 @@ export default function ATabs({
             borderBottom: "0.1rem solid gray",
             color: "#BDBDBD",
             paddingTop: "8px",
-            ...rootStyle,
+            // ...rootStyle,
           }}
         >
           <Tabs
@@ -161,7 +153,7 @@ export default function ATabs({
               display: "flex",
               justifyContent: "space-between",
               minHeight: "auto",
-              ...tabParentStyle,
+              // ...tabParentStyle,
             }}
           >
             <Tab label="All" {...a11yProps(0)} />
