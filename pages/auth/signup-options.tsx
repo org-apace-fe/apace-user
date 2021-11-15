@@ -51,6 +51,43 @@ const SignUpOptions: NextPage = () => {
   return (
     <div>
       <AuthLayout>
+      <div className="mb-12">
+            <h1 className="text-6xl font-black">
+           
+                Create an account
+              
+            </h1>
+          </div>
+        <div
+          className={`flex justify-center items-center mb-8 text-gray-400   `}
+        >
+          <div>
+            <span
+              className={`${
+                router.pathname === "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              1
+            </span>
+            Select an option
+          </div>
+          <div className=" border border-gray-600 px-5 mx-3"> </div>
+
+          <div>
+            <span
+              className={`${
+                router.pathname !== "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              2
+            </span>
+            More Information
+          </div>
+        </div>
         <h1 className="text-2xl font-black ">How do you want to use apace?</h1>
 
         <div className=" lg:w-8/12 md:w-full mx-auto flex lg:flex-row md:flex-row flex-col  flex-wrap my-12">

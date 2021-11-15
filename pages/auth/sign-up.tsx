@@ -3,7 +3,7 @@ import AuthLayout from "../../components/auth/layout";
 import Button from "../../components/button";
 import Form from "../../components/form";
 import Input from "../../components/input";
-import ViewPassword from "../../components/view-paaword";
+import ViewPassword from "../../components/view-password";
 import Link from "next/link";
 import { useState } from "react";
 import { registerAsBusiness } from "../../store/actions/user.action";
@@ -35,6 +35,39 @@ const SignUp: NextPage = () => {
   return (
     <div>
       <AuthLayout>
+        <div className="mb-12">
+          <h1 className="text-6xl font-black">Create an account</h1>
+        </div>
+        <div
+          className={`flex justify-center items-center mb-8 text-gray-400   `}
+        >
+          <div>
+            <span
+              className={`${
+                router.pathname === "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              1
+            </span>
+            Select an option
+          </div>
+          <div className=" border border-gray-600 px-5 mx-3"> </div>
+
+          <div>
+            <span
+              className={`${
+                router.pathname !== "/auth/signup-options"
+                  ? "bg-apace-orange-dark"
+                  : " bg-gray-400"
+              } py-1 px-3 rounded-full mr-2 text-center text-white`}
+            >
+              2
+            </span>
+            More Information
+          </div>
+        </div>
         <h1 className="text-2xl font-black "> More information</h1>
         <div className="lg:w-4/12 md:w-7/12 w-full">
           <Form className="w-full " onSubmit={onSubmit}>
