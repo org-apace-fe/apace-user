@@ -89,3 +89,26 @@ export const signinAsBusiness =
       dispatch(LoadingStop());
     }
   };
+
+
+  // Set logged in user
+export const setCurrentUser = (decoded:any) => {
+  return {
+    type: 'SET_CURRENT_USER',
+    payload: decoded,
+  };
+};
+
+// Log user out
+export const logoutUser = (router:any) => (dispatch:any) => {
+  // Remove token from local storage
+  localStorage.removeItem('token');
+  localStorage.removeItem('persist:root');
+  // Remove auth header for future requests
+  // setAuthToken(false);
+  // Set current user to empty object {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+  const token =
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  if (!token) router.push('/');
+};

@@ -1,6 +1,7 @@
 import Container from "./container";
 import Button from "./button";
 import { BigAIcon } from "./icons/logo";
+import router from "next/router";
 
 const WhateverYouSell = () => {
   return (
@@ -32,7 +33,10 @@ const WhateverYouSell = () => {
             </div>
 
             <div className="my-8 ">
-              <Button className=" bg-apace-orange-light border-apace-orange-light text-black mr-8">
+              <Button
+                onClick={() => router.push("/auth/signup-options")}
+                className=" bg-apace-orange-light border-apace-orange-light text-black mr-8"
+              >
                 Get started now
               </Button>
             </div>

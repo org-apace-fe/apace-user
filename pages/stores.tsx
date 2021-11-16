@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Container from "../components/container";
 import Layout from "../components/layout";
-import ApaceStoreTabs from "../components/tabs";
+import ApaceStoreTabs from "../components/store-tabs";
 
 const StoresPage: NextPage = () => {
   return (

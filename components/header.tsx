@@ -29,11 +29,11 @@ const Header = () => {
       current: false,
       subNav: [
         { name: "All Stores", href: "/stores", current: false },
-        { name: "Shop online", href: "/auth/sign-in", current: false },
-        { name: "Shop in-store", href: "/auth/sign-in", current: false },
-        { name: "Top deals", href: "/auth/sign-in", current: false },
-        { name: "Featured stores", href: "/auth/sign-in", current: false },
-        { name: "Categories", href: "/auth/sign-in", current: false },
+        { name: "Shop online", href: "/stores", current: false },
+        { name: "Shop in-store", href: "/stores", current: false },
+        { name: "Top deals", href: "/stores", current: false },
+        { name: "Featured stores", href: "/stores", current: false },
+        { name: "Categories", href: "/stores", current: false },
       ],
     },
     {
@@ -43,10 +43,10 @@ const Header = () => {
       subNav: [
         { name: "Why Apace", href: "/why", current: false },
         { name: "How it works", href: "/how", current: false },
-        { name: "Refer a friend", href: "/auth/sign-in", current: false },
-        { name: "Get the app", href: "/auth/sign-in", current: false },
-        { name: "About us", href: "/auth/sign-in", current: false },
-        { name: "Blog", href: "/auth/sign-in", current: false },
+        { name: "Refer a friend", href: "/refer", current: false },
+        { name: "Get the app", href: "/get-app", current: false },
+        { name: "About us", href: "/about", current: false },
+        { name: "Blog", href: "/blog", current: false },
       ],
     },
   ];

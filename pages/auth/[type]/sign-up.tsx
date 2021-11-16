@@ -89,7 +89,7 @@ const SignUp: NextPage = () => {
         <p className="py-6">Already have an account?</p>
 
         <div>
-          <Link href="/auth/sign-in">
+          <Link href="/auth/shopper/sign-in">
             <a className="flex">
               <img src="/icons/sign-in-arrow.svg" />
               <p className="ml-2"> Sign in </p>
