@@ -8,7 +8,7 @@ import ApaceApp from "../../components/apace-app";
 const Home: NextPage = () => {
   return (
     <div>
-      <Layout>Dashboard</Layout>
+      <Layout footer={false} >Dashboard</Layout>
     </div>
   );
 };

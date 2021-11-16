@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { IItems } from "../interfaces/items.enum";
+import router from "next/router";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -173,7 +174,10 @@ const HowBanner = () => {
             </div>
 
             <div className="my-8 ">
-              <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8">
+              <Button
+                onClick={() => router.push("/auth/signup-options")}
+                className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8"
+              >
                 Try it free
               </Button>
             </div>

@@ -7,6 +7,7 @@ import Button from "./button";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BigAIcon } from "./icons/logo";
+import { useRouter } from "next/router";
 
 // import Swiper styles
 import "swiper/css";
@@ -19,6 +20,7 @@ function classNames(...classes: string[]) {
 }
 
 const HowItWorks: NextPage = () => {
+  const router = useRouter();
   const [data, setData] = useState<number>();
 
   const row = [
@@ -111,7 +113,7 @@ const HowItWorks: NextPage = () => {
 
       <Container>
         <div className="relative flex lg:flex-row-reverse flex-col items-center my-16">
-          <div className="lg:w-1/2 w-full lg:ml-8 ml-0">
+          <div style={{ zIndex: 100 }} className="lg:w-1/2 w-full lg:ml-8 ml-0">
             <h4 className="text-8xl font-bold"> Have it now!</h4>
             <h4 className="text-8xl font-bold text-apace-orange-dark">
               pay later.
@@ -124,12 +126,17 @@ const HowItWorks: NextPage = () => {
               </p>
             </div>
 
-            <div className="my-8   ">
-              <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8 ">
+            <div className="my-8">
+              <Button className="w-36 bg-apace-orange-light cursor-pointer border-apace-orange-light text-black mr-8 ">
                 Try it free
               </Button>
 
-              <Button className="w-36 border-none">Learn more</Button>
+              <Button
+                onClick={() => router.push("/how")}
+                className="w-36 border-none cursor-pointer"
+              >
+                Learn more
+              </Button>
             </div>
           </div>
 
@@ -211,7 +218,7 @@ const HowItWorks: NextPage = () => {
                 Try it free
               </Button>
 
-              <Button className="w-36 border-none">Learn more</Button>
+              <Button   onClick={() => router.push("/how")} className="w-36 border-none">Learn more</Button>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import router from "next/router";
 import Button from "./button";
 import Container from "./container";
 
@@ -21,10 +22,15 @@ const WhyApace = () => {
             className="lg:mx-32 py-6"
           >
             <div className="flex justify-center items-center mx-2">
-              <h1 className="lg:text-7xl text-5xl font-black text-center">Why Apace?</h1>
+              <h1 className="lg:text-7xl text-5xl font-black text-center">
+                Why Apace?
+              </h1>
               <div className="ml-8">
-                <Button className="bg-apace-orange-light border-apace-orange-light text-black">
-                  #useApace
+                <Button
+                  onClick={() => router.push("/auth/signup-options")}
+                  className="bg-apace-orange-light border-apace-orange-light text-black"
+                >
+                  Learn more
                 </Button>
               </div>
             </div>

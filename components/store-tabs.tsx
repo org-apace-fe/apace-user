@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import { IStore, ITopProducts } from "../interfaces/items.enum";
-import { AllStore, FeaturedStore, TopDealstore } from "./strore";
+import { AllStore, FeaturedStore, TopDealstore } from "./strore/all-store";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import {

@@ -1,3 +1,4 @@
+import router from "next/router";
 import Button from "./button";
 import Container from "./container";
 
@@ -116,7 +117,10 @@ const KYC = () => {
               Let’s help you sell more
             </h1>
 
-            <Button className="my-8 px-8 bg-apace-orange-light border-apace-orange-light  text-black ">
+            <Button
+              onClick={() => router.push("/auth/signup-options")}
+              className="my-8 px-8 bg-apace-orange-light border-apace-orange-light  text-black "
+            >
               Get started
             </Button>
           </div>
