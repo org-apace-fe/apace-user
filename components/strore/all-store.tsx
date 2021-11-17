@@ -15,7 +15,7 @@ export function AllStore({ items, loading }: AllStoreProps) {
         {!loading
           ? items?.map((item: IStore) => (
               <>
-                <div key={item.store_name} className="lg:w-1/4 w-full p-2">
+                <div key={item.store_name} className="lg:w-1/5 w-full p-2">
                   <div className="w-full text-white">
                     <div
                       style={{
@@ -23,7 +23,7 @@ export function AllStore({ items, loading }: AllStoreProps) {
                         backgroundSize: "cover",
                         backgroundPosition: "top",
                       }}
-                      className="relative w-full h-80 rounded-lg  font-bold "
+                      className="relative w-full h-60 rounded-lg  font-bold "
                     >
                       <div className="w-full h-full bg-apace-black opacity-40"></div>
                       <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
@@ -59,7 +59,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
         {!loading
           ? items?.map((item: ITopDealStore) => (
               <>
-                <div key={item.store_name} className="lg:w-1/4 w-full p-2">
+                <div key={item.store_name} className="lg:w-1/5 w-full p-2">
                   <div className="w-full text-white">
                     <div
                       key={item.id}
@@ -68,7 +68,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
                         backgroundSize: "cover",
                         backgroundPosition: "top",
                       }}
-                      className="relative w-full h-80 rounded-lg   "
+                      className="relative w-full h-60 rounded-lg   "
                     >
                       <div className="w-full h-full bg-apace-black opacity-40"></div>
                       <div className="absolute top-0 right-0 p-2 z-30">
@@ -105,7 +105,7 @@ export function FeaturedStore({ items, loading }: TopDealStoreProps) {
       <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
         {!loading
           ? items?.map((item: ITopDealStore) => (
-              <div key={item.store_name} className="lg:w-1/4 w-full p-2">
+              <div key={item.store_name} className="lg:w-1/5 w-full p-2">
                 <div className="w-full text-white">
                   <div
                     style={{
@@ -113,7 +113,7 @@ export function FeaturedStore({ items, loading }: TopDealStoreProps) {
                       backgroundSize: "cover",
                       backgroundPosition: "top",
                     }}
-                    className="relative w-full h-80 rounded-lg  font-bold "
+                    className="relative w-full h-60 rounded-lg  font-bold "
                   >
                     <div className="w-full h-full bg-apace-black opacity-40"></div>
                     <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">

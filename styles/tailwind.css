@@ -18016,6 +18016,14 @@ video {
   background-image: url('/icons/footer@3x.png');
 }
 
+.bg-apace-gray-2 {
+  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+}
+
+.bg-apace-gray-3 {
+  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
+}
+
 .from-transparent {
   --tw-gradient-from: transparent;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -50364,6 +50372,14 @@ video {
     background-image: url('/icons/footer@3x.png');
   }
 
+  .sm\:bg-apace-gray-2 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+  }
+
+  .sm\:bg-apace-gray-3 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
+  }
+
   .sm\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -82302,6 +82318,14 @@ video {
 
   .md\:bg-footer-texture {
     background-image: url('/icons/footer@3x.png');
+  }
+
+  .md\:bg-apace-gray-2 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+  }
+
+  .md\:bg-apace-gray-3 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
   }
 
   .md\:from-transparent {
@@ -114244,6 +114268,14 @@ video {
     background-image: url('/icons/footer@3x.png');
   }
 
+  .lg\:bg-apace-gray-2 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+  }
+
+  .lg\:bg-apace-gray-3 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
+  }
+
   .lg\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -146184,6 +146216,14 @@ video {
     background-image: url('/icons/footer@3x.png');
   }
 
+  .xl\:bg-apace-gray-2 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+  }
+
+  .xl\:bg-apace-gray-3 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
+  }
+
   .xl\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -178122,6 +178162,14 @@ video {
 
   .\32xl\:bg-footer-texture {
     background-image: url('/icons/footer@3x.png');
+  }
+
+  .\32xl\:bg-apace-gray-2 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), #121212;
+  }
+
+  .\32xl\:bg-apace-gray-3 {
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)), #121212;
   }
 
   .\32xl\:from-transparent {
