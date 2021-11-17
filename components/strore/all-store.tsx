@@ -1,5 +1,5 @@
 import { IStore, ITopDealStore } from "../../interfaces/items.enum";
-import SkeletonLoader from "../skeleton";
+import {SkeletonLoader} from "../skeleton";
 
 type AllStoreProps = {
   items: IStore[];
@@ -8,7 +8,7 @@ type AllStoreProps = {
 
 export function AllStore({ items, loading }: AllStoreProps) {
   return (
-    <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
+    <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
         {!loading ? (
           items?.map((item: IStore) => (
@@ -39,8 +39,7 @@ export function AllStore({ items, loading }: AllStoreProps) {
           ))
         ) : (
           <>
-            <SkeletonLoader /> <SkeletonLoader /> <SkeletonLoader />
-            <SkeletonLoader /> <SkeletonLoader />
+            <SkeletonLoader />
           </>
         )}
       </div>
@@ -57,7 +56,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
   console.log(items);
 
   return (
-    <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
+    <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
@@ -98,8 +97,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
           ))
         ) : (
           <>
-            <SkeletonLoader /> <SkeletonLoader /> <SkeletonLoader />
-            <SkeletonLoader /> <SkeletonLoader />
+            <SkeletonLoader />
           </>
         )}
       </div>
@@ -109,7 +107,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
 
 export function FeaturedStore({ items, loading }: TopDealStoreProps) {
   return (
-    <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
+    <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
@@ -133,8 +131,7 @@ export function FeaturedStore({ items, loading }: TopDealStoreProps) {
           ))
         ) : (
           <>
-            <SkeletonLoader /> <SkeletonLoader /> <SkeletonLoader />
-            <SkeletonLoader /> <SkeletonLoader />
+            <SkeletonLoader />
           </>
         )}
       </div>
