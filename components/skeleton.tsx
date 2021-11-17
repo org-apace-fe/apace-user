@@ -3,13 +3,13 @@ import Skeleton from "@mui/material/Skeleton";
 
 const SkeletonLoader = () => {
   return (
-    <div className="lg:w-1/4 w-full p-2">
+    <div className="lg:w-1/5 w-full p-2">
       <div className="w-full text-white"></div>
       <Skeleton
         variant="rectangular"
         width="full"
-        height="20rem"
-        sx={{ bgcolor: "grey.900" }}
+        height="15rem"
+        sx={{ bgcolor: "grey.900", borderRadius: "0.5rem" }}
       />
       <Box sx={{ pt: 0.5 }}>
         <Skeleton width="full" sx={{ bgcolor: "grey.900" }} />
