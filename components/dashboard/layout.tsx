@@ -14,7 +14,7 @@ function DashbardLayout({ children }: MyComponentProps) {
   return (
     <>
       <div
-        className="relative w-full mx-auto"
+        className="relative w-full mx-auto "
         style={{ maxWidth: "1440px", zIndex: 100 }}
       >
         <ApaceHead />

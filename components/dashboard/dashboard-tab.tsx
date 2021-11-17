@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import ApaceStoreTabs from "../../components/store-tabs";
+import Overview from "./overview";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -127,7 +128,9 @@ export default function DashboardTabs() {
       <TabPanel value={value} index={0}>
         <ApaceStoreTabs />
       </TabPanel>
-      <TabPanel value={value} index={1}></TabPanel>
+      <TabPanel value={value} index={1}>
+        <Overview/>
+      </TabPanel>
       <TabPanel value={value} index={2}></TabPanel>
       <TabPanel value={value} index={3}></TabPanel>
       <TabPanel value={value} index={4}></TabPanel>
