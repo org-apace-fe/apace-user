@@ -8,14 +8,19 @@ import ApaceApp from "../../components/apace-app";
 import Container from "../../components/container";
 import DashboardLayout from "../../components/dashboard/layout";
 import ApaceStoreTabs from "../../components/store-tabs";
+import OverviewPayment from "../../components/dashboard/overview/payment";
+import OverviewPurchase from "../../components/dashboard/overview/purchase";
+import OverviewReferrals from "../../components/dashboard/overview/referrals";
 
-const Home: NextPage = () => {
+const Overview: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
           <Container>
-          <ApaceStoreTabs />
+            <OverviewPayment />
+            <OverviewPurchase />
+            <OverviewReferrals />
           </Container>
         </div>
       </DashboardLayout>
@@ -23,4 +28,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Overview;
