@@ -4,99 +4,27 @@ import { background } from "../../../utils/background";
 import Button from "../../button";
 import { PaymentAction } from "../actions";
 
-type Data = {
-  loan_amount: string;
-  loan_started: string;
-  date_completed: string;
-  payment_status: ReactNode;
-  actions: ReactNode;
+type DataColumn = {
+  data: any;
+  columns: any;
 };
-const Table = () => {
-  const data = React.useMemo<Data[]>(
-    () => [
-      {
-        loan_amount: "N72,000",
-        loan_started: "04 Oct 2021   ",
-        date_completed: "07/11/2020",
-        payment_status: <Button>In Progress </Button>,
-        actions: <PaymentAction />,
-      },
-      {
-        loan_amount: "N46,000",
-        loan_started: "04 Oct 2021 ",
-        date_completed: "07/11/2020",
-        payment_status: <Button>Pending </Button>,
-        actions: <PaymentAction />,
-      },
-      {
-        loan_amount: "N100,000",
-        loan_started: "04 Oct 2021 ",
-        date_completed: "07/10/2020",
-        payment_status: <Button>Completed</Button>,
-        actions: <PaymentAction />,
-      },
-      {
-        loan_amount: "N65,000",
-        loan_started: "04 Oct 2021 ",
-        date_completed: "07/09/2020",
-        payment_status: <Button>In Progress </Button>,
-        actions: <PaymentAction />,
-      },
-      {
-        loan_amount: "N2,9000",
-        loan_started: "04 Oct 2021 ",
-        date_completed: "07/07/2020",
-        payment_status: <Button>In Progress </Button>,
-        actions: <PaymentAction />,
-      },
-    ],
-    []
-  );
-
-  const columns = React.useMemo<Column<Data>[]>(
-    () => [
-      {
-        Header: "Loan amount",
-        accessor: "loan_amount",
-      },
-
-      {
-        Header: "Loan started",
-        accessor: "loan_started",
-      },
-      {
-        Header: "Date completed",
-        accessor: "date_completed",
-      },
-
-      {
-        Header: "Payment status",
-        accessor: "payment_status",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-      },
-    ],
-    []
-  );
-
+const Table = ({ data, columns }: DataColumn) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
   return (
     <>
       <table
-        className="w-full rounded-lg overflow-hidden  "
+        className="w-full rounded-lg overflow-hidden text-sm "
         style={{ background: background.apacegray3 }}
         {...getTableProps()}
       >
-        <thead style={{ background: background.apacegray4 }} className="h-12">
+        <thead style={{ background: background.apacegray4 }} className="h-12  ">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th
-                  className="font-normal text-sm text-left pl-4"
+                  className="font-normal text-lg text-left pl-4 py-2 border-b border-gray-700"
                   {...column.getHeaderProps()}
                 >
                   {column.render("Header")}

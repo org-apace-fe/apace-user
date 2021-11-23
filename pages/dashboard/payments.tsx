@@ -14,6 +14,9 @@ import { Menu, Transition } from "@headlessui/react";
 
 import Table from "../../components/dashboard/table";
 import { PaymentAction } from "../../components/dashboard/actions";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAllLoans, fetchAllLoansDue } from "../../store/actions/payment";
 
 const Dummy = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
@@ -37,6 +40,13 @@ const More = [
 ];
 
 const Payments: NextPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllLoans());
+    dispatch(fetchAllLoansDue());
+  }, []);
+
   return (
     <div>
       <DashboardLayout>
@@ -189,7 +199,7 @@ const Payments: NextPage = () => {
                   <div className="text-xl">Payment history</div>{" "}
                   <Button>View all</Button>
                 </div>
-                <Table />
+                {/* <Table /> */}
               </div>
             </div>
           </Container>
