@@ -81,30 +81,29 @@ export const verifyAsShopper =
     }
   };
 
-  export const resendOTP =
-  (data: any) => async (dispatch: any) => {
-    dispatch(LoadingStart());
-    try {
-      typeof window !== "undefined"
-        ? localStorage.setItem("email", data?.email)
-        : null;
-      const headersRequest = {
-        "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
-      };
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/resend-otp`,
-        data,
-        { headers: headersRequest }
-      );
+export const resendOTP = (data: any) => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    typeof window !== "undefined"
+      ? localStorage.setItem("email", data?.email)
+      : null;
+    const headersRequest = {
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/resend-otp`,
+      data,
+      { headers: headersRequest }
+    );
 
-      // dispatch(setAlert(res?.data));
-      // router.push("/dashboard");
-      dispatch(LoadingStop());
-    } catch (error) {
-      // dispatch(setAlert(error?.response?.data));
-      dispatch(LoadingStop());
-    }
-  };
+    // dispatch(setAlert(res?.data));
+    // router.push("/dashboard");
+    dispatch(LoadingStop());
+  } catch (error) {
+    // dispatch(setAlert(error?.response?.data));
+    dispatch(LoadingStop());
+  }
+};
 
 export const signinAsShopper =
   (user: any, router: any) => async (dispatch: any) => {
@@ -118,14 +117,126 @@ export const signinAsShopper =
         user,
         { headers: headersRequest }
       );
-      // const { token } = res?.data?.data;
-      // typeof window !== 'undefined' ? localStorage.setItem('token', token) : null;
+      const { access_token } = res?.data?.token;
+      console.log(access_token);
+
+      typeof window !== "undefined"
+        ? localStorage.setItem("token", access_token)
+        : null;
 
       router.push("/dashboard");
     } catch (error) {
       dispatch(LoadingStop());
     }
   };
+
+// Fetch User Profile
+export const fetchUserProfile = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/me`,
+      { headers: headersRequest }
+    );
+    dispatch(setCurrentUser(res?.data));
+    const response = res?.data;
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
+export const fetchAllReferrals = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/all`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_ALL_REFERRALS",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
+export const fetchReferralsStatistics = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/statistics`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_REFERRALS_STATISTICS",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
+export const fetchReferralsActivities = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/activities`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_REFERRALS_ACTIVITIES",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
 
 export const signinAsBusiness =
   (user: any, router: any) => async (dispatch: any) => {

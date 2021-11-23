@@ -1,0 +1,58 @@
+import axios from "axios";
+import { LoadingStart, LoadingStop } from "./loading.action";
+
+export const fetchAllLoans = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/all`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_ALL_LOANS",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
+export const fetchAllLoansDue = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/due`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_ALL_LOANS_DUE",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
