@@ -24,10 +24,6 @@ function AuthLayout({ children }: MyComponentProps) {
         </div>
 
         <main className="w-full relative mx-auto min-h-screen flex flex-col py-12 items-center z-50 px-9">
-
-
-   
-
           {children}
         </main>
       </div>

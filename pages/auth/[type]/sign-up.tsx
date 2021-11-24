@@ -5,15 +5,14 @@ import Form from "../../../components/form";
 import Input from "../../../components/input";
 import ViewPassword from "../../../components/view-password";
 import Link from "next/link";
-import { useState } from "react";
-import { registerAsBusiness } from "../../../store/actions/user.action";
+import { useEffect, useState } from "react";
+import { registerAsShopper } from "../../../store/actions/user.action";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 const SignUp: NextPage = () => {
-  const [status, setStatus] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const initialState = { email_address: "", password: "", country: "" };
+  const [type, setType] = useState("");
+  const initialState = { identifier: "", password: "", confirmPassword: "" };
   const [user, setUser] = useState(initialState);
 
   //dispatch
@@ -23,44 +22,90 @@ const SignUp: NextPage = () => {
   const handleChange = (e: any) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const businessType = useSelector((state: any) => state.auth.businessType);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const businessUser = { ...user, ...{ type: businessType } };
-    dispatch(registerAsBusiness(businessUser, router));
+
+    const shopperUser = { identifier, password };
+    const data = {
+      identifier,
+      type,
+    };
+    dispatch({
+      type: "SET_IDENTIFIER",
+      payload: data,
+    });
+    dispatch(registerAsShopper(shopperUser, router, type));
   };
 
-  const { email_address, password, country } = user;
+  const { identifier, password, confirmPassword } = user;
+
+  useEffect(() => {
+    setType("email");
+  }, []);
+
   return (
     <div>
       <AuthLayout>
         <div className="mb-12">
           <h1 className="text-6xl font-black">Create an account</h1>
         </div>
-        <h1 className="text-2xl font-black "> More information</h1>
+
         <div className="lg:w-4/12 md:w-7/12 w-full">
           <Form className="w-full " onSubmit={onSubmit}>
             <Input
-              placeholder={`${status ? "Email address*" : "Phone number*"}`}
+              placeholder={`${
+                type !== "mobile" ? "Email address*" : "Phone number*"
+              }`}
               className="mt-2 mb-4"
-              type={status ? "email" : "text"}
-              name="p"
-              value={email_address}
+              type={type !== "mobile" ? "email" : "text"}
+              name="identifier"
+              value={identifier}
               onChange={handleChange}
               required
             />
+            <div className="relative mb-2">
+              <div className="absolute top-3 right-4">
+                <ViewPassword />
+              </div>
+              <Input
+                placeholder="Password*"
+                className="mb-4 w-full"
+                name="password"
+                value={password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="relative mb-2">
+              <div className="absolute top-3 right-4">
+                <ViewPassword />
+              </div>
+              <Input
+                placeholder="Confirm password*"
+                className="mb-4 w-full"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <small>
-              A verification code will be sent to this
-              {status ? "email address" : "phone number"}
+              A verification code will be sent to this{" "}
+              {type !== "mobile" ? "email address" : "phone number"}
             </small>
 
             <div className="flex items-center mx-auto mt-8 underline cursor-pointer  ">
-              <p onClick={() => setStatus(!status)} className="mr-2">
-                {!status
-                  ? "Use email address instead"
-                  : "Use phone number instead"}
-              </p>
+              {type !== "mobile" ? (
+                <p onClick={() => setType("mobile")} className="mr-2">
+                  Use phone number instead
+                </p>
+              ) : (
+                <p onClick={() => setType("email")} className="mr-2">
+                  Use email address instead
+                </p>
+              )}
+
               <img src="/icons/warning-icon.svg" />
             </div>
 
@@ -89,7 +134,7 @@ const SignUp: NextPage = () => {
         <p className="py-6">Already have an account?</p>
 
         <div>
-          <Link href="/auth/sign-in">
+          <Link href="/auth/shopper/sign-in">
             <a className="flex">
               <img src="/icons/sign-in-arrow.svg" />
               <p className="ml-2"> Sign in </p>

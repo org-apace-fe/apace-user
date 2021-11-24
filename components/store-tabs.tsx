@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import { IStore, ITopProducts } from "../interfaces/items.enum";
-import { AllStore, FeaturedStore, TopDealstore } from "./strore";
+import { AllStore, FeaturedStore, TopDealstore } from "./strore/all-store";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -165,7 +165,7 @@ export default function ATabs() {
         </div>
       </Box>
       <TabPanel value={value} index={0}>
-        <p className="text-xl font-black">All </p>
+        <p className="text-xl font-black font-body">All </p>
         <AllStore items={allStores} loading={loading} />
         <PaginationComponent
           page={page}
@@ -175,7 +175,7 @@ export default function ATabs() {
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <p className="text-xl font-black">Online </p>
+        <p className="text-xl font-black font-body">Online </p>
         <AllStore items={allOnlineStores} loading={loading} />
         <PaginationComponent
           page={page}
@@ -185,7 +185,7 @@ export default function ATabs() {
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <p className="text-xl font-black">In-store </p>
+        <p className="text-xl font-black font-body">In-store </p>
         <AllStore items={allInstoreStores} loading={loading} />
         <PaginationComponent
           page={page}
@@ -195,7 +195,7 @@ export default function ATabs() {
         />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <p className="text-xl font-black">Top deals </p>
+        <p className="text-xl font-black font-body">Top deals </p>
         <TopDealstore items={allTopDealsStores} loading={loading} />
         <PaginationComponent
           page={page}
@@ -205,7 +205,7 @@ export default function ATabs() {
         />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <p className="text-xl font-black">Featured </p>
+        <p className="text-xl font-black font-body">Featured </p>
         <FeaturedStore items={allFeaturedStores} loading={loading} />
         <PaginationComponent
           page={page}

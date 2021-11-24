@@ -5,28 +5,67 @@ import Form from "../../components/form";
 import Input from "../../components/input";
 import ViewPassword from "../../components/view-password";
 import Link from "next/link";
+import { resendOTP, verifyAsShopper } from "../../store/actions/user.action";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
-const SignUpOptions: NextPage = () => {
+const Verification: NextPage = () => {
+  const apaceIdentifier = useSelector((state: any) => state.auth.identifier);
+  const [otp, setOtp] = useState("");
+
+  //dispatch
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleChange = (e: any) => {
+    setOtp(e.target.value);
+  };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(otp);
+
+    dispatch(
+      verifyAsShopper(
+        { identifier: apaceIdentifier.identifier, otp },
+        router,
+        apaceIdentifier.type
+      )
+    );
+  };
+
   return (
     <div>
       <AuthLayout>
-      <div className="mb-12">
-            <h1 className="text-6xl font-black">
-            Verification
-            </h1>
-          </div>
+        <div className="mb-12">
+          <h1 className="text-6xl font-black">Verification</h1>
+        </div>
         <div className="lg:w-4/12 md:w-7/12 w-full">
-          <Form className="w-full ">
+          <Form className="w-full " onSubmit={onSubmit}>
             <Input
               placeholder="Verification Code*"
               className="mt-2 mb-4"
               type="text"
-              name="verificationCode"
+              name="otp"
+              onChange={handleChange}
+              value={otp}
               required
             />
-
-            <p className="py-6 text-center underline">Resend code</p>
-
+            <p
+              onClick={() => {
+                dispatch(
+                  resendOTP({
+                    identifier: apaceIdentifier.identifier,
+                    type: apaceIdentifier.type,
+                    purpose: "resend otp",
+                  })
+                );
+              }}
+              className="py-6 text-center underline"
+            >
+              Resend code
+            </p>
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
               <Button
                 className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
@@ -39,10 +78,12 @@ const SignUpOptions: NextPage = () => {
           </Form>
         </div>
 
-        <p className="py-6 underline">Re-enter details</p>
+        <Link href="/auth/shopper/sign-up">
+          <a className="py-6 underline">Re-enter details</a>
+        </Link>
       </AuthLayout>
     </div>
   );
 };
 
-export default SignUpOptions;
+export default Verification;

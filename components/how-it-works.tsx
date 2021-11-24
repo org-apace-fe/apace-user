@@ -1,3 +1,4 @@
+import router from "next/router";
 import { useEffect, useState } from "react";
 import Button from "./button";
 
@@ -155,7 +156,7 @@ const HIW = () => {
           </div>
 
           <div className="my-8 ">
-            <Button className=" bg-apace-orange-light border-apace-orange-light text-black  mr-8">
+            <Button     onClick={() => router.push("/auth/shopper/sign-up")} className=" bg-apace-orange-light border-apace-orange-light text-black  mr-8">
               See how it works for shoppers
             </Button>
           </div>

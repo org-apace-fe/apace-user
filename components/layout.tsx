@@ -5,9 +5,10 @@ import { ReactNode } from "react";
 
 type MyComponentProps = {
   children: ReactNode;
+  footer: boolean;
 };
 
-function Layout({ children }: MyComponentProps) {
+function Layout({ children, footer = true }: Partial<MyComponentProps>) {
   return (
     <>
       <div
@@ -17,7 +18,7 @@ function Layout({ children }: MyComponentProps) {
         <ApaceHead />
         <Header />
         <main className="w-full  mx-auto min-h-screen ">{children}</main>
-        <Footer />
+        {footer ? <Footer /> : null}
       </div>
     </>
   );
