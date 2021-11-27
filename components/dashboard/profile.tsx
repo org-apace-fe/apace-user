@@ -1,16 +1,32 @@
 import { background } from "../../utils/background";
+import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
+  const profile = useSelector((state: any) => state.auth);
+
+  const personalInfo = profile?.user?.data?.peronal_info;
+
+  console.log("vv", personalInfo);
+
   return (
-    <div className=" rounded-lg overflow-hidden" style={{ background : background.apacegray3 }} >
+    <div
+      className=" rounded-lg overflow-hidden"
+      style={{ background: background.apacegray3 }}
+    >
       <div className="flex p-4">
-        <div className="w-14 h-14 mr-4">
-          <img src="/icons/user-image.png" className="w-full" />
+        <div className="w-14 h-14 mr-4 rounded-full overflow-hidden">
+          <img
+            src={personalInfo.avatar}
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="text-sm">
-          <p className="font-black">Sarah Ajene</p>
-          <p>+0899766545646</p>
-          <p>sarah@ajene@user.com</p>
+          <p className="font-black">
+            {" "}
+            {personalInfo.first_name} {personalInfo.last_name}{" "}
+          </p>
+          <p> {personalInfo.mobile_number} </p>
+          <p> {personalInfo.email_address} </p>
         </div>
       </div>
 

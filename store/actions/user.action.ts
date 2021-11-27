@@ -56,6 +56,33 @@ export const registerAsShopper =
     }
   };
 
+export const fetchAllCountries = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      _auth: `watimagboauthkey`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/shipping/countries`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_ALL_COUNTRIES",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
 export const verifyAsShopper =
   (data: any, router: any, type: any) => async (dispatch: any) => {
     dispatch(LoadingStart());
