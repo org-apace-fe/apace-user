@@ -3,6 +3,8 @@ import { BigAIcon } from "../icons/logo";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import DashboardHeader from "./header";
+import Loader from "../loader";
+import Toast from "../toast";
 
 type MyComponentProps = {
   children: ReactNode;
@@ -19,6 +21,8 @@ function DashbardLayout({ children }: MyComponentProps) {
       >
         <ApaceHead />
         <DashboardHeader />
+        <Loader />
+        <Toast />
         <main className="w-full  mx-auto min-h-screen ">{children}</main>
       </div>
     </>

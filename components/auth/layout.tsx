@@ -3,6 +3,8 @@ import { BigAIcon } from "../icons/logo";
 import AuthHeader from "./header";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
+import Loader from "../loader";
+import Toast from "../toast";
 
 type MyComponentProps = {
   children: ReactNode;
@@ -19,6 +21,8 @@ function AuthLayout({ children }: MyComponentProps) {
       >
         <ApaceHead />
         <AuthHeader />
+        <Loader />
+        <Toast />
         <div className="absolute " style={{ bottom: "-15em", right: "-15em" }}>
           <BigAIcon />
         </div>

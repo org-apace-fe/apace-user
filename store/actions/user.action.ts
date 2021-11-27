@@ -1,12 +1,7 @@
 import axios from "axios";
 
-// import { clearAlert, setAlert } from './alert.actions';
-import {
-  LoadingStart,
-  LoadingStop,
-  subLoadingStart,
-  subLoadingStop,
-} from "./loading.action";
+import { LoadingStart, LoadingStop } from "./loader/loaderActions";
+import { openToastAndSetContent } from "./toast/toastActions";
 
 export const registerAsBusiness =
   (newUser: any, router: any) => async (dispatch: any) => {
@@ -21,13 +16,25 @@ export const registerAsBusiness =
       );
 
       console.log(res);
-
-      // dispatch(setAlert(res?.data));
-      // router.push("/dashboard");
       dispatch(LoadingStop());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Signed up successfully",
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
     } catch (error) {
-      // dispatch(setAlert(error?.response?.data));
       dispatch(LoadingStop());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Sign up failed",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
     }
   };
 
@@ -47,11 +54,17 @@ export const registerAsShopper =
         { headers: headersRequest }
       );
 
-      // dispatch(setAlert(res?.data));
       router.push("/auth/verification");
       dispatch(LoadingStop());
     } catch (error) {
-      // dispatch(setAlert(error?.response?.data));
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Signed up failed",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
       dispatch(LoadingStop());
     }
   };
@@ -99,7 +112,14 @@ export const verifyAsShopper =
         { headers: headersRequest }
       );
 
-      // dispatch(setAlert(res?.data));
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Verified successfully",
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
       router.push("/dashboard");
       dispatch(LoadingStop());
     } catch (error) {
@@ -123,11 +143,25 @@ export const resendOTP = (data: any) => async (dispatch: any) => {
       { headers: headersRequest }
     );
 
-    // dispatch(setAlert(res?.data));
-    // router.push("/dashboard");
+    dispatch(
+      openToastAndSetContent({
+        toastContent: "OTP sent successfully",
+        toastStyles: {
+          backgroundColor: "green",
+        },
+      })
+    );
     dispatch(LoadingStop());
   } catch (error) {
     // dispatch(setAlert(error?.response?.data));
+    dispatch(
+      openToastAndSetContent({
+        toastContent: "OTP error",
+        toastStyles: {
+          backgroundColor: "red",
+        },
+      })
+    );
     dispatch(LoadingStop());
   }
 };
@@ -151,8 +185,25 @@ export const signinAsShopper =
         ? localStorage.setItem("token", access_token)
         : null;
 
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Signed in successfully",
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
+
       router.push("/dashboard");
     } catch (error) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Signin up failed",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
       dispatch(LoadingStop());
     }
   };
@@ -178,6 +229,14 @@ export const fetchUserProfile = () => async (dispatch: any) => {
     if (response) dispatch(LoadingStop());
   } catch (error) {
     dispatch(LoadingStop());
+    dispatch(
+      openToastAndSetContent({
+        toastContent: "failed",
+        toastStyles: {
+          backgroundColor: "red",
+        },
+      })
+    );
   }
 };
 

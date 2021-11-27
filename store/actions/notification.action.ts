@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoadingStart, LoadingStop } from "./loading.action";
+import { LoadingStart, LoadingStop } from "./loader/loaderActions";
 
 export const fetchAllNotifications = () => async (dispatch: any) => {
   dispatch(LoadingStart());

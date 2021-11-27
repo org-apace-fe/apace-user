@@ -1,12 +1,7 @@
 import axios from "axios";
 // import setAuthToken from '../../utils/utils';
 // import { clearAlert, setAlert } from './alert.actions';
-import {
-  LoadingStart,
-  LoadingStop,
-  subLoadingStart,
-  subLoadingStop,
-} from "./loading.action";
+import { LoadingStart, LoadingStop } from "./loader/loaderActions";
 
 export const getAllStores = () => async (dispatch: any) => {
   dispatch(LoadingStart());
