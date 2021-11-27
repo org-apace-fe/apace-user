@@ -2,30 +2,34 @@ import { Menu, Transition } from "@headlessui/react";
 import { background } from "../../utils/background";
 import Link from "next/link";
 
-const More = [
-  {
-    name: "View detail",
-    href: "/dashboard",
-  },
-  {
-    name: "Go to purchase",
-    href: "/dashboard",
-  },
-  {
-    name: "Crash loan",
-    href: "/dashboard",
-  },
-  {
-    name: "Visit store",
-    href: "/dashboard",
-  },
-];
+type PaymentActionProps = {
+  id: number;
+  type: string;
+};
 
-export const PaymentAction = () => {
+export const Action = ({ id, type }: Partial<PaymentActionProps>) => {
+  const More = [
+    {
+      name: "View detail",
+      href: `${type}/${id}`,
+    },
+    {
+      name: "Go to purchase",
+      href: "/dashboard",
+    },
+    {
+      name: "Crash loan",
+      href: "/dashboard",
+    },
+    {
+      name: "Visit store",
+      href: "/dashboard",
+    },
+  ];
   return (
-    <Menu as="div" >
+    <Menu as="div">
       <div>
-        <Menu.Button >
+        <Menu.Button>
           <img src="/icons/more.svg" />
         </Menu.Button>
       </div>

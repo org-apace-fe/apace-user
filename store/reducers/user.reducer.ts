@@ -9,6 +9,7 @@ const initialState = {
   businessType: null,
   identifier: {},
   isAuthenticated: false,
+  countries: {},
 };
 
 export const userReducer = (state = initialState, action: any) => {
@@ -18,6 +19,11 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: { ...action.payload },
+      };
+    case "SET_ALL_COUNTRIES":
+      return {
+        ...state,
+        countries: { ...action.payload },
       };
     case "SET_ALL_REFERRALS":
       return {
