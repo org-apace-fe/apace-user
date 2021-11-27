@@ -2,7 +2,7 @@ import { Column, useTable } from "react-table";
 import React, { ReactNode } from "react";
 import { background } from "../../../utils/background";
 import Button from "../../button";
-import { PaymentAction } from "../actions";
+import { Action } from "../actions";
 
 type DataColumn = {
   data: any;
