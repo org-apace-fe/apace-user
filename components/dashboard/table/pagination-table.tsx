@@ -2,13 +2,13 @@ import { Column, useTable } from "react-table";
 import React, { ReactNode } from "react";
 import { background } from "../../../utils/background";
 import Button from "../../button";
-import { Action } from "../actions";
+import { PaymentAction } from "../actions";
 
 type DataColumn = {
   data: any;
   columns: any;
 };
-const Table = ({ data, columns }: DataColumn) => {
+const PaginationTable = ({ data, columns }: DataColumn) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
@@ -57,4 +57,4 @@ const Table = ({ data, columns }: DataColumn) => {
   );
 };
 
-export default Table;
+export default PaginationTable;

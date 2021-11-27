@@ -12,10 +12,13 @@ export function DashboardTopDealstore({ items, loading }: TopDealStoreProps) {
   return (
     <>
       {!loading ? (
-        items?.map((item: ITopDealStore) => (
+        items?.slice(0, 4).map((item: ITopDealStore) => (
           <>
-            <div className="lg:w-1/2 w-full px-2 lg:mb-0 mb-16">
-              <div key={item.store_name} className=" w-full ">
+            <div
+              key={item.store_name}
+              className="lg:w-1/2 w-full px-2 lg:mb-0 pb-5"
+            >
+              <div className=" w-full ">
                 <div className="w-full text-white">
                   <div
                     key={item.id}

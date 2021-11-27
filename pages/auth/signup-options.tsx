@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { fetchAllCountries } from "../../store/actions/user.action";
 
 const options = [
   {
@@ -44,20 +45,18 @@ const SignUpOptions: NextPage = () => {
   };
 
   useEffect(() => {
-    // setOption(1);
+    dispatch(fetchAllCountries());
+  }, []);
+  useEffect(() => {
     console.log(option1);
   }, [option1]);
 
   return (
     <div>
       <AuthLayout>
-      <div className="mb-12">
-            <h1 className="text-6xl font-black">
-           
-                Create an account
-              
-            </h1>
-          </div>
+        <div className="mb-12">
+          <h1 className="text-6xl font-black">Create an account</h1>
+        </div>
         <div
           className={`flex justify-center items-center mb-8 text-gray-400   `}
         >

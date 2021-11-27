@@ -1,74 +1,63 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllNotifications } from "../../store/actions/notification.action";
 import { background } from "../../utils/background";
+import isEmpty from "is-empty";
 
 const Notification = () => {
+  const dispatch = useDispatch();
+
+  const notif = useSelector((state: any) => state.notification);
+
+  const allNotifications = notif.allNotifications.data;
+
+  dispatch(fetchAllNotifications());
+
   return (
     <div
       className=" rounded-lg overflow-hidden"
       style={{
-        background:
-          background.apacegray3,
+        background: background.apacegray3,
       }}
     >
       <div
         className="flex justify-between py-4 px-4"
         style={{
-          background:
-            background.apacegray2,
+          background: background.apacegray2,
         }}
       >
         <span>Notifications</span>
         <div className="text-apace-orange-light">Mark as read</div>
       </div>
-      <div className="flex flex-col justify-center items-center py-4">
-        <img src="/icons/success.svg" />
-        <div> You are all good</div>
-      </div>
-      <div className="p-4 ">
-        <div className="relative ">
-          <div className="flex justify-between mb-4">
-            <div>
-              <div className="flex">
-                <img src="/icons/unread.svg" />
-                <p className="text-sm ml-2">Purchase success</p>
+      {!isEmpty(allNotifications) ? (
+        <div className="p-4 ">
+          <div className="relative ">
+            {allNotifications.map((notif: any) => (
+              <div className="flex justify-between mb-4">
+                <div>
+                  <div className="flex">
+                    <img src={`/icons/${notif.read ? "unread" : "read"}.svg`} />
+                    <p className="text-sm ml-2"> {notif.subject} </p>
+                  </div>
+                  <p className="text-xs">{notif.message}</p>
+                </div>
+                <p className="text-sm"> {notif.date_created} </p>
               </div>
-              <p className="text-xs">
-                A customer bought an item from ‘Gadget Haven’ worth NGN 57,000.
-              </p>
-            </div>
-            <p className="text-sm">22hrs</p>
-          </div>
-          <div className="flex justify-between mb-4">
-            <div>
-              <div className="flex">
-                <img src="/icons/unread.svg" />
-                <p className="text-sm ml-2">Purchase success</p>
-              </div>
-              <p className="text-xs">
-                A customer bought an item from ‘Gadget Haven’ worth NGN 57,000.
-              </p>
-            </div>
-            <p className="text-sm">22hrs</p>
-          </div>
-          <div className="flex justify-between mb-4">
-            <div>
-              <div className="flex">
-                <img src="/icons/read.svg" />
-                <p className="text-sm ml-2">Purchase success</p>
-              </div>
-              <p className="text-xs">
-                A customer bought an item from ‘Gadget Haven’ worth NGN 57,000.
-              </p>
-            </div>
-            <p className="text-sm">22hrs</p>
+            ))}
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center py-4">
+          <img src="/icons/success.svg" />
+          <div> You are all good</div>
+        </div>
+      )}
+
       <div
         className=" flex flex-col justify-center items-center py-4"
         style={{
-          background:
-            background.apacegray2,
+          background: background.apacegray2,
         }}
       >
         <Link href="/dashboard">

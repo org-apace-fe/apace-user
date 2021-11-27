@@ -1,5 +1,5 @@
 import { IStore, ITopDealStore } from "../../interfaces/items.enum";
-import {SkeletonLoader} from "../skeleton";
+import { SkeletonLoader } from "../skeleton";
 
 type AllStoreProps = {
   items: IStore[];
@@ -9,7 +9,7 @@ type AllStoreProps = {
 export function AllStore({ items, loading }: AllStoreProps) {
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
-      <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
+      <div className="flex flex-1 lg:flex-row flex-col   items-start  flex-wrap">
         {!loading ? (
           items?.map((item: IStore) => (
             <>
@@ -57,7 +57,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
 
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
-      <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
+      <div className="flex flex-1 lg:flex-row flex-col  items-start  flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <>
@@ -108,7 +108,7 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
 export function FeaturedStore({ items, loading }: TopDealStoreProps) {
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
-      <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
+      <div className="flex flex-1 lg:flex-row flex-col items-start  flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <div key={item.store_name} className="lg:w-1/5 w-full p-2">

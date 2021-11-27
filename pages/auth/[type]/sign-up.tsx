@@ -14,7 +14,7 @@ const SignUp: NextPage = () => {
   const [type, setType] = useState("");
   const initialState = { identifier: "", password: "", confirmPassword: "" };
   const [user, setUser] = useState(initialState);
-
+  const [status, setStatus] = useState(false);
   //dispatch
   const dispatch = useDispatch();
   const router = useRouter();
@@ -66,24 +66,32 @@ const SignUp: NextPage = () => {
             />
             <div className="relative mb-2">
               <div className="absolute top-3 right-4">
-                <ViewPassword />
+                <ViewPassword
+                  onClick={() => setStatus(!status)}
+                  status={status}
+                />
               </div>
               <Input
                 placeholder="Password*"
                 className="mb-4 w-full"
                 name="password"
                 value={password}
+                type={status ? "text" : "password"}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="relative mb-2">
               <div className="absolute top-3 right-4">
-                <ViewPassword />
+                <ViewPassword
+                  onClick={() => setStatus(!status)}
+                  status={status}
+                />
               </div>
               <Input
                 placeholder="Confirm password*"
                 className="mb-4 w-full"
+                type={status ? "text" : "password"}
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={handleChange}

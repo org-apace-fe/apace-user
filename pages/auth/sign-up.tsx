@@ -9,6 +9,7 @@ import { useState } from "react";
 import { registerAsBusiness } from "../../store/actions/user.action";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import Select from "react-select";
 
 const SignUp: NextPage = () => {
   const [status, setStatus] = useState(false);
@@ -23,12 +24,44 @@ const SignUp: NextPage = () => {
   const handleChange = (e: any) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+  const selectChange = (country: any) => {
+    setUser({ ...user, country: country?.value });
+  };
+
   const businessType = useSelector((state: any) => state.auth.businessType);
+  const listCountry = useSelector((state: any) => state.auth.countries);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
     const businessUser = { ...user, ...{ type: businessType } };
+    console.log(businessUser);
+
     dispatch(registerAsBusiness(businessUser, router));
+  };
+
+  const customStyles = {
+    control: (base: any, state: any) => ({
+      ...base,
+      background: "transparent",
+      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+      borderColor: "rgba(75, 85, 99, var(--tw-border-opacity))",
+      boxShadow: state.isFocused ? null : null,
+      placeholder: "#fff",
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      color: "#000",
+      backgroundColor: "#fff",
+    }),
+    menu: (base: any) => ({
+      ...base,
+      borderRadius: 10,
+      marginTop: 0,
+    }),
+    menuList: (base: any) => ({
+      ...base,
+      padding: 0,
+    }),
   };
 
   const { email_address, password, country } = user;
@@ -80,25 +113,30 @@ const SignUp: NextPage = () => {
               onChange={handleChange}
               required
             />
-            <Input
-              placeholder="Country*"
+
+            <Select
+              onChange={selectChange}
+              styles={customStyles}
               className="mt-2 mb-4"
-              type="text"
+              placeholder="Select a country ..."
               name="country"
-              value={country}
-              onChange={handleChange}
-              required
+              options={listCountry?.data?.map((countries: any) => {
+                return { label: countries?.name, value: countries?.short_name };
+              })}
             />
 
             <div className="relative mb-2">
               <div className="absolute top-3 right-4">
-                <ViewPassword />
+                <ViewPassword
+                  onClick={() => setStatus(!status)}
+                  status={status}
+                />
               </div>
               <Input
                 placeholder="Password*"
                 className="mb-4 w-full"
                 name="password"
-                type="password"
+                type={status ? "text" : "password"}
                 value={password}
                 onChange={handleChange}
                 required

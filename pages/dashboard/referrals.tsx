@@ -259,13 +259,17 @@ const Referrals: NextPage = () => {
               <div>
                 <div className="flex ">
                   <div className="w-5/12 mr-4 ">
-                    <Table data={dataReferral} columns={columnsReferral} />
+                    {dataReferral ? (
+                      <Table data={dataReferral} columns={columnsReferral} />
+                    ) : null}
                   </div>
                   <div className="w-7/10 flex-1 ">
-                    <Table
-                      data={dataReferralActivities}
-                      columns={columnsReferralActivities}
-                    />
+                    {dataReferralActivities ? (
+                      <Table
+                        data={dataReferralActivities}
+                        columns={columnsReferralActivities}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </div>
