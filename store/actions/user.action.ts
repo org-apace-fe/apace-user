@@ -15,7 +15,6 @@ export const registerAsBusiness =
         newUser
       );
 
-      console.log(res);
       dispatch(LoadingStop());
       dispatch(
         openToastAndSetContent({
@@ -25,6 +24,7 @@ export const registerAsBusiness =
           },
         })
       );
+      router.push("https://apace-store-admin.herokuapp.com/user/login");
     } catch (error) {
       dispatch(LoadingStop());
       dispatch(
@@ -120,10 +120,17 @@ export const verifyAsShopper =
           },
         })
       );
-      router.push("/dashboard");
+      router.push("/auth/shopper/sign-in");
       dispatch(LoadingStop());
     } catch (error) {
-      // dispatch(setAlert(error?.response?.data));
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Verified failed",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
       dispatch(LoadingStop());
     }
   };
@@ -153,7 +160,6 @@ export const resendOTP = (data: any) => async (dispatch: any) => {
     );
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(
       openToastAndSetContent({
         toastContent: "OTP error",

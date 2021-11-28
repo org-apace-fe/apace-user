@@ -1,5 +1,6 @@
 import { IStore, ITopDealStore } from "../../interfaces/items.enum";
 import { SkeletonLoader } from "../skeleton";
+import Link from "next/link";
 
 type AllStoreProps = {
   items: IStore[];
@@ -13,28 +14,32 @@ export function AllStore({ items, loading }: AllStoreProps) {
         {!loading ? (
           items?.map((item: IStore) => (
             <>
-              <div key={item.store_name} className="lg:w-1/5 w-full p-2">
-                <div className="w-full text-white">
-                  <div
-                    style={{
-                      backgroundImage: `url(${item.store_logo})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "top",
-                    }}
-                    className="relative w-full h-60 rounded-lg  font-bold "
-                  >
-                    <div className="w-full h-full bg-apace-black opacity-40"></div>
-                    <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
-                      <img
-                        className=" object-cover "
-                        src={item.feature_image}
-                        alt="Picture of the author"
-                      />
+              <Link
+                href={`https://apace-store.herokuapp.com/${item.store_name}`}
+              >
+                <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+                  <div className="w-full text-white">
+                    <div
+                      style={{
+                        backgroundImage: `url(${item.store_logo})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "top",
+                      }}
+                      className="relative w-full h-60 rounded-lg  font-bold "
+                    >
+                      <div className="w-full h-full bg-apace-black opacity-40"></div>
+                      <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
+                        <img
+                          className=" object-cover "
+                          src={item.feature_image}
+                          alt="Picture of the author"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="my-1"> {item.store_name} </p>
-              </div>
+                  <p className="my-1"> {item.store_name} </p>
+                </a>
+              </Link>
             </>
           ))
         ) : (
@@ -61,38 +66,42 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <>
-              <div key={item.store_name} className="lg:w-1/5 w-full p-2">
-                <div className="w-full text-white">
-                  <div
-                    key={item.id}
-                    style={{
-                      backgroundImage: `url(${item.store_logo})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "top",
-                    }}
-                    className="relative w-full h-60 rounded-lg   "
-                  >
-                    <div className="w-full h-full bg-apace-black opacity-40"></div>
-                    <div className="absolute top-0 right-0 p-2 z-30">
-                      <p className="uppercase text-sm  "> Up to </p>
-                      <p className="text-4xl font-bold">
-                        {item.deal_percentage * 100}%
-                      </p>
-                      <span className="text-sm uppercase "> off </span>
+              <Link
+                href={`https://apace-store.herokuapp.com/${item.store_name}`}
+              >
+                <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+                  <div className="w-full text-white">
+                    <div
+                      key={item.id}
+                      style={{
+                        backgroundImage: `url(${item.store_logo})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "top",
+                      }}
+                      className="relative w-full h-60 rounded-lg   "
+                    >
+                      <div className="w-full h-full bg-apace-black opacity-40"></div>
+                      <div className="absolute top-0 right-0 p-2 z-30">
+                        <p className="uppercase text-sm  "> Up to </p>
+                        <p className="text-4xl font-bold">
+                          {item.deal_percentage * 100}%
+                        </p>
+                        <span className="text-sm uppercase "> off </span>
+                      </div>
+                      <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden z-30 ">
+                        <img
+                          src={item.feature_image}
+                          alt="Picture of the author"
+                        />
+                      </div>
                     </div>
-                    <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden z-30 ">
-                      <img
-                        src={item.feature_image}
-                        alt="Picture of the author"
-                      />
+                    <div className="mt-2">
+                      <p>{item.store_name} </p>
+                      <p className=" font-black"> {item.deal_name} </p>
                     </div>
                   </div>
-                  <div className="mt-2">
-                    <p>{item.store_name} </p>
-                    <p className=" font-black"> {item.deal_name} </p>
-                  </div>
-                </div>
-              </div>
+                </a>
+              </Link>
             </>
           ))
         ) : (
@@ -111,23 +120,28 @@ export function FeaturedStore({ items, loading }: TopDealStoreProps) {
       <div className="flex flex-1 lg:flex-row flex-col items-start  flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
-            <div key={item.store_name} className="lg:w-1/5 w-full p-2">
-              <div className="w-full text-white">
-                <div
-                  style={{
-                    backgroundImage: `url(${item.store_logo})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "top",
-                  }}
-                  className="relative w-full h-60 rounded-lg  font-bold "
-                >
-                  <div className="w-full h-full bg-apace-black opacity-40"></div>
-                  <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
-                    <img src={item.feature_image} alt="Picture of the author" />
+            <Link href={`https://apace-store.herokuapp.com/${item.store_name}`}>
+              <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+                <div className="w-full text-white">
+                  <div
+                    style={{
+                      backgroundImage: `url(${item.store_logo})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "top",
+                    }}
+                    className="relative w-full h-60 rounded-lg  font-bold "
+                  >
+                    <div className="w-full h-full bg-apace-black opacity-40"></div>
+                    <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
+                      <img
+                        src={item.feature_image}
+                        alt="Picture of the author"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </a>
+            </Link>
           ))
         ) : (
           <>
