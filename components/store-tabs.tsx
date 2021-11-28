@@ -3,8 +3,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-import { IStore, ITopProducts } from "../interfaces/items.enum";
 import { AllStore, FeaturedStore, TopDealstore } from "./strore/all-store";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,10 +62,6 @@ export default function ATabs() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(0);
 
-  // const [allStore, setAllStore] = useState<IStore[]>();
-  // const [dealsStore, setDealsStore]: any = useState();
-  // const [inStore, setInStore]: any = useState<IStore[]>();
-
   const stores = useSelector((state: any) => state.stores);
   const loading = useSelector((state: any) => state.loading);
 
@@ -92,7 +86,6 @@ export default function ATabs() {
 
   const useStyles = makeStyles({
     indicator: {
-      // backgroundColor: indicatorColor,
       width: "62px",
       height: "4px",
       borderRadius: "80px",
