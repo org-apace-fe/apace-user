@@ -4,14 +4,13 @@ import Link from "next/link";
 
 type PaymentActionProps = {
   id: number;
-  type: string;
 };
 
-export const Action = ({ id, type }: Partial<PaymentActionProps>) => {
+export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
   const More = [
     {
       name: "View detail",
-      href: `${type}/${id}`,
+      href: `/dashboard/payments/${id}`,
     },
     {
       name: "Go to purchase",
@@ -59,26 +58,29 @@ export const Action = ({ id, type }: Partial<PaymentActionProps>) => {
   );
 };
 
-const TableMore = [
-  {
-    name: "View detail",
-    href: "/dashboard",
-  },
-  {
-    name: "Go to purchase",
-    href: "/dashboard",
-  },
-  {
-    name: "Crash loan",
-    href: "/dashboard",
-  },
-  {
-    name: "Visit store",
-    href: "/dashboard",
-  },
-];
+type PurchaseActionProps = {
+  id: number;
+};
 
-export const TableAction = () => {
+export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
+  const PurchaseMore = [
+    {
+      name: "View detail",
+      href: `/dashboard/purchases/${id}`,
+    },
+    {
+      name: "Ask for a refund",
+      href: "/dashboard",
+    },
+    {
+      name: "Make a complaint",
+      href: "/dashboard",
+    },
+    {
+      name: "Report Purchase",
+      href: "/dashboard",
+    },
+  ];
   return (
     <Menu as="div" className="">
       <div>
@@ -95,7 +97,7 @@ export const TableAction = () => {
           <Menu.Item>
             {({ active }) => (
               <div className="flex flex-col">
-                {TableMore.map((more) => (
+                {PurchaseMore.map((more) => (
                   <Link href={more.href}>
                     <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
                       <img src="/icons/payout.svg" />

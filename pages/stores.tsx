@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Container from "../components/container";
 import Layout from "../components/layout";
 import ApaceStoreTabs from "../components/store-tabs";
+import withoutAuth from "../route/without-auth";
 
 const StoresPage: NextPage = () => {
   return (
@@ -18,4 +19,4 @@ const StoresPage: NextPage = () => {
   );
 };
 
-export default StoresPage;
+export default withoutAuth(StoresPage);

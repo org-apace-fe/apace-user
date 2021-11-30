@@ -5,16 +5,15 @@ import Form from "../../components/form";
 import Input from "../../components/input";
 import ViewPassword from "../../components/view-password";
 import Link from "next/link";
+import withoutAuth from "../../route/without-auth";
 
 const SignUpOptions: NextPage = () => {
   return (
     <div>
       <AuthLayout>
-      <div className="mb-12">
-            <h1 className="text-6xl font-black">
-            Enter new password
-            </h1>
-          </div>
+        <div className="mb-12">
+          <h1 className="text-6xl font-black">Enter new password</h1>
+        </div>
         <div className="lg:w-4/12 md:w-7/12 w-full">
           <Form className="w-full ">
             <div className="relative mb-2">
@@ -55,4 +54,4 @@ const SignUpOptions: NextPage = () => {
   );
 };
 
-export default SignUpOptions;
+export default withoutAuth(SignUpOptions);

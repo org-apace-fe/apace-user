@@ -10,9 +10,12 @@ const OverviewPurchase = () => {
   const dispatch = useDispatch();
 
   const stores = useSelector((state: any) => state.stores);
+  const allTopDealsStores = stores.topDealsStores?.items;
+
   const loading = useSelector((state: any) => state.loading);
 
-  const allTopDealsStores = stores.topDealsStores?.items;
+  const purchase = useSelector((state: any) => state.purchase);
+  const stats = purchase?.allPurchaseStatistics?.data;
 
   useEffect(() => {
     dispatch(getAllTopDealsStores());
@@ -35,12 +38,9 @@ const OverviewPurchase = () => {
                 <img src="/icons/revenue.svg" />
                 <div className="ml-4">
                   <p className="text-sm">Total amount spent</p>
-                  <p className="text-lg ">
-                    N 160,840.00
-                  </p>
+                  <p className="text-lg ">N {stats?.total_all_time_spent}</p>
                 </div>
               </div>
-           
             </div>
           </div>
           <div className=" lg:w-1/2 w-full h-40 mb-6 pl-4">
@@ -52,7 +52,7 @@ const OverviewPurchase = () => {
                 <img src="/icons/cart.svg" />
                 <div className="ml-2">
                   <p className="text-sm">Total items purchased</p>
-                  <p className="text-lg"> 30 </p>
+                  <p className="text-lg"> {stats?.total_purchases} </p>
                 </div>
               </div>
             </div>
@@ -66,21 +66,17 @@ const OverviewPurchase = () => {
                 <img src="/icons/category.svg" />
                 <div className="ml-4">
                   <p className="text-sm">Most purchased category</p>
-                  <p className="text-lg ">
-                    Electronics
-                  </p>
+                  <p className="text-lg ">Electronics</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
         {/* Payments */}
       </div>
       <div className="lg:w-5/12 w-full">
         <div className="flex justify-between items-center">
           <div className="text-xl ml-2 my-5">Recently visited</div>{" "}
-         
         </div>
         <div className="flex flex-wrap">
           <DashboardTopDealstore items={allTopDealsStores} loading={loading} />

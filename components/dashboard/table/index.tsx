@@ -2,7 +2,6 @@ import { Column, useTable } from "react-table";
 import React, { ReactNode } from "react";
 import { background } from "../../../utils/background";
 import Button from "../../button";
-import { Action } from "../actions";
 
 type DataColumn = {
   data: any;
@@ -20,31 +19,31 @@ const Table = ({ data, columns }: DataColumn) => {
         {...getTableProps()}
       >
         <thead style={{ background: background.apacegray4 }} className="h-12  ">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+          {headerGroups?.map((headerGroup) => (
+            <tr {...headerGroup?.getHeaderGroupProps()}>
+              {headerGroup?.headers?.map((column) => (
                 <th
                   className="font-normal text-lg text-left pl-4 py-2 border-b border-gray-700"
-                  {...column.getHeaderProps()}
+                  {...column?.getHeaderProps()}
                 >
-                  {column.render("Header")}
+                  {column?.render("Header")}
                 </th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody className="relative " {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {rows?.map((row) => {
             prepareRow(row);
             return (
               <tr
-                {...row.getRowProps()}
+                {...row?.getRowProps()}
                 className="h-14  border-b border-gray-800  "
               >
-                {row.cells.map((cell) => {
+                {row?.cells?.map((cell) => {
                   return (
-                    <td className="  pl-4 " {...cell.getCellProps()}>
-                      {cell.render("Cell")}
+                    <td className="  pl-4 " {...cell?.getCellProps()}>
+                      {cell?.render("Cell")}
                     </td>
                   );
                 })}

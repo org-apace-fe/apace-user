@@ -9,10 +9,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signinAsBusiness } from "../../store/actions/user.action";
+import withoutAuth from "../../route/without-auth";
 
 const SignUpOptions: NextPage = () => {
   const [status, setStatus] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+
   const initialState = {
     email: "",
     password: "",
@@ -97,4 +98,4 @@ const SignUpOptions: NextPage = () => {
   );
 };
 
-export default SignUpOptions;
+export default withoutAuth(SignUpOptions);

@@ -4,6 +4,7 @@ import Banner from "../components/banner";
 import FavouriteStores from "../components/favourite-stores";
 import Invite from "../components/invite";
 import ApaceApp from "../components/apace-app";
+import withoutAuth from "../route/without-auth";
 
 const Home: NextPage = () => {
   return (
@@ -18,4 +19,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default withoutAuth(Home);

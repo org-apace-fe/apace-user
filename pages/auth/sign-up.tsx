@@ -5,25 +5,30 @@ import Form from "../../components/form";
 import Input from "../../components/input";
 import ViewPassword from "../../components/view-password";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { registerAsBusiness } from "../../store/actions/user.action";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { openToastAndSetContent } from "../../store/actions/toast/toastActions";
+import withoutAuth from "../../route/without-auth";
 
 const SignUp: NextPage = () => {
   const [status, setStatus] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
   const initialState = { email_address: "", password: "", country: "" };
   const [user, setUser] = useState(initialState);
+  const [passwordStatus, setPasswordStatus] = useState(false);
 
-  //dispatch
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleChange = (e: any) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  const ultimateRegex =
+    "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[d]){1,})(?=(.*[W]){1,})(?!.*s).{8,}$";
+
   const selectChange = (country: any) => {
     setUser({ ...user, country: country?.value });
   };
@@ -33,10 +38,20 @@ const SignUp: NextPage = () => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const businessUser = { ...user, ...{ type: businessType } };
-    console.log(businessUser);
 
-    dispatch(registerAsBusiness(businessUser, router));
+    if (!password.match(ultimateRegex)) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Password must meet requirements",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    } else {
+      const businessUser = { ...user, ...{ type: businessType } };
+      dispatch(registerAsBusiness(businessUser, router));
+    }
   };
 
   const customStyles = {
@@ -65,6 +80,14 @@ const SignUp: NextPage = () => {
   };
 
   const { email_address, password, country } = user;
+
+  useEffect(() => {
+    const checkPassword = new RegExp(ultimateRegex).test(password);
+    if (checkPassword) {
+      setPasswordStatus(true);
+    } else setPasswordStatus(false);
+  }, [password]);
+
   return (
     <div>
       <AuthLayout>
@@ -143,6 +166,18 @@ const SignUp: NextPage = () => {
               />
             </div>
 
+            <div className={` ${password.length < 1 ? "hidden" : ""} `}>
+              {passwordStatus ? (
+                <small className="text-green-600">
+                  Password matches requirements
+                </small>
+              ) : (
+                <small className="text-red-600">
+                  Password does not matches requirements
+                </small>
+              )}
+            </div>
+
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
               <Button
                 className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
@@ -170,4 +205,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default withoutAuth(SignUp);
