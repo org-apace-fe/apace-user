@@ -5,6 +5,7 @@ import CallToAction from "../components/call-to-action";
 import HowBanner from "../components/howBanner";
 import WhyApace from "../components/why-apace";
 import Demo from "../components/demo";
+import withoutAuth from "../route/without-auth";
 
 const HowPage: NextPage = () => {
   return (
@@ -20,4 +21,4 @@ const HowPage: NextPage = () => {
   );
 };
 
-export default HowPage;
+export default withoutAuth(HowPage);

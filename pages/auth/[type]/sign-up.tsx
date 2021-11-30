@@ -9,12 +9,15 @@ import { useEffect, useState } from "react";
 import { registerAsShopper } from "../../../store/actions/user.action";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import { openToastAndSetContent } from "../../../store/actions/toast/toastActions";
+import withoutAuth from "../../../route/without-auth";
 
 const SignUp: NextPage = () => {
   const [type, setType] = useState("");
   const initialState = { identifier: "", password: "", confirmPassword: "" };
   const [user, setUser] = useState(initialState);
   const [status, setStatus] = useState(false);
+  const [passwordStatus, setPasswordStatus] = useState(false);
   //dispatch
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,19 +26,42 @@ const SignUp: NextPage = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const ultimateRegex =
+    "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[d]){1,})(?=(.*[W]){1,})(?!.*s).{8,}$";
+
   const onSubmit = (e: any) => {
     e.preventDefault();
 
-    const shopperUser = { identifier, password };
-    const data = {
-      identifier,
-      type,
-    };
-    dispatch({
-      type: "SET_IDENTIFIER",
-      payload: data,
-    });
-    dispatch(registerAsShopper(shopperUser, router, type));
+    if (!password.match(ultimateRegex)) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Password must meet requirements",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    } else if (!password.match(confirmPassword)) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Passwords do not match",
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    } else {
+      const shopperUser = { identifier, password };
+      const data = {
+        identifier,
+        type,
+      };
+      dispatch({
+        type: "SET_IDENTIFIER",
+        payload: data,
+      });
+      dispatch(registerAsShopper(shopperUser, router, type));
+    }
   };
 
   const { identifier, password, confirmPassword } = user;
@@ -43,6 +69,14 @@ const SignUp: NextPage = () => {
   useEffect(() => {
     setType("email");
   }, []);
+
+  useEffect(() => {
+    const checkPassword = new RegExp(ultimateRegex).test(password);
+    console.log(checkPassword);
+    if (checkPassword) {
+      setPasswordStatus(true);
+    } else setPasswordStatus(false);
+  }, [password]);
 
   return (
     <div>
@@ -73,7 +107,7 @@ const SignUp: NextPage = () => {
               </div>
               <Input
                 placeholder="Password*"
-                className="mb-4 w-full"
+                className="mb-0 w-full"
                 name="password"
                 value={password}
                 type={status ? "text" : "password"}
@@ -81,7 +115,20 @@ const SignUp: NextPage = () => {
                 required
               />
             </div>
-            <div className="relative mb-2">
+
+            <div className={` ${password.length < 1 ? "hidden" : ""} `}>
+              {passwordStatus ? (
+                <small className="text-green-600 ">
+                  Password matches requirements
+                </small>
+              ) : (
+                <small className="text-red-600">
+                  Password does not matches requirements
+                </small>
+              )}
+            </div>
+
+            <div className="relative mb-2 mt-4">
               <div className="absolute top-3 right-4">
                 <ViewPassword
                   onClick={() => setStatus(!status)}
@@ -99,7 +146,7 @@ const SignUp: NextPage = () => {
               />
             </div>
             <small>
-              A verification code will be sent to this{" "}
+              A verification code will be sent to this
               {type !== "mobile" ? "email address" : "phone number"}
             </small>
 
@@ -154,4 +201,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default withoutAuth(SignUp);

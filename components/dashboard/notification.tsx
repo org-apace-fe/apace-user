@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllNotifications } from "../../store/actions/notification.action";
 import { background } from "../../utils/background";
 import isEmpty from "is-empty";
+import moment from "moment";
 
 const Notification = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,9 @@ const Notification = () => {
 
   const allNotifications = notif.allNotifications.data;
 
-  dispatch(fetchAllNotifications());
+  useEffect(() => {
+    dispatch(fetchAllNotifications());
+  }, []);
 
   return (
     <div
@@ -33,16 +36,21 @@ const Notification = () => {
       {!isEmpty(allNotifications) ? (
         <div className="p-4 ">
           <div className="relative ">
-            {allNotifications.map((notif: any) => (
+            {allNotifications?.map((notif: any) => (
               <div className="flex justify-between mb-4">
                 <div>
                   <div className="flex">
-                    <img src={`/icons/${notif.read ? "unread" : "read"}.svg`} />
-                    <p className="text-sm ml-2"> {notif.subject} </p>
+                    <img
+                      src={`/icons/${notif?.read ? "unread" : "read"}.svg`}
+                    />
+                    <p className="text-sm ml-2"> {notif?.subject} </p>
                   </div>
-                  <p className="text-xs">{notif.message}</p>
+                  <p className="text-xs">{notif?.message}</p>
                 </div>
-                <p className="text-sm"> {notif.date_created} </p>
+                <p className="text-sm">
+                  {" "}
+                  {moment(notif?.date_created).fromNow()}{" "}
+                </p>
               </div>
             ))}
           </div>
@@ -60,7 +68,7 @@ const Notification = () => {
           background: background.apacegray2,
         }}
       >
-        <Link href="/dashboard">
+        <Link href="/dashboard/notifications">
           <a> See all</a>
         </Link>
       </div>

@@ -4,6 +4,7 @@ const initialState = {
   allPurchases: {},
   allPurchaseCharts: {},
   allPurchaseStatistics: {},
+  oneOrder: {},
 };
 
 export const purchaseReducer = (state = initialState, action: any) => {
@@ -14,16 +15,22 @@ export const purchaseReducer = (state = initialState, action: any) => {
         allPurchases: { ...action.payload },
       };
 
+    case "SET_ONE_ORDER":
+      return {
+        ...state,
+        oneOrder: action.payload,
+      };
+
     case "SET_ALL_PURCHASES_STATISTICS":
       return {
         ...state,
-        allLoansStatistics: { ...action.payload },
+        allPurchaseStatistics: { ...action.payload },
       };
 
     case "SET_ALL_PURCHASE_CHARTS":
       return {
         ...state,
-        allLoansStatistics: { ...action.payload },
+        allPurchaseCharts: { ...action.payload },
       };
 
     default:
