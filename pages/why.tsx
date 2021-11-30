@@ -5,6 +5,7 @@ import Solution from "../components/solution";
 import Ongoing from "../components/ongoing";
 import SeeHow from "../components/see-how";
 import CallToAction from "../components/call-to-action";
+import withoutAuth from "../route/without-auth";
 
 const WhyPage: NextPage = () => {
   return (
@@ -12,12 +13,12 @@ const WhyPage: NextPage = () => {
       <Layout>
         <WhyBanner />
         <Solution />
-        <Ongoing pictureUrl = "/icons/ongoing.png"  background =  "#F7D57B" />
-        <CallToAction/>
+        <Ongoing pictureUrl="/icons/ongoing.png" background="#F7D57B" />
+        <CallToAction />
         <SeeHow />
       </Layout>
     </div>
   );
 };
 
-export default WhyPage;
+export default withoutAuth(WhyPage);

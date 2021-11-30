@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchAllCountries } from "../../store/actions/user.action";
+import withoutAuth from "../../route/without-auth";
 
 const options = [
   {
@@ -151,4 +152,4 @@ const SignUpOptions: NextPage = () => {
   );
 };
 
-export default SignUpOptions;
+export default withoutAuth(SignUpOptions);

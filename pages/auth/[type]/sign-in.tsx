@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signinAsShopper } from "../../../store/actions/user.action";
+import withoutAuth from "../../../route/without-auth";
 
 const SignIn: NextPage = () => {
   const [status, setStatus] = useState(false);
@@ -97,4 +98,4 @@ const SignIn: NextPage = () => {
   );
 };
 
-export default SignIn;
+export default withoutAuth(SignIn);

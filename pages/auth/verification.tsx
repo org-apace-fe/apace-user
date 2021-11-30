@@ -9,6 +9,7 @@ import { resendOTP, verifyAsShopper } from "../../store/actions/user.action";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import withoutAuth from "../../route/without-auth";
 
 const Verification: NextPage = () => {
   const apaceIdentifier = useSelector((state: any) => state.auth.identifier);
@@ -86,4 +87,4 @@ const Verification: NextPage = () => {
   );
 };
 
-export default Verification;
+export default withoutAuth(Verification);
