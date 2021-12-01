@@ -1,9 +1,11 @@
 import { background } from "../../utils/background";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { logoutUser } from "../../store/actions/user.action";
+import { fetchUserProfile, logoutUser } from "../../store/actions/user.action";
 import router from "next/router";
 import Avatar from "react-avatar";
+import { numberWithCommas } from "../../utils/formatNumber";
+import { useEffect } from "react";
 
 const Profile = () => {
   const profile = useSelector((state: any) => state.auth);
@@ -11,7 +13,17 @@ const Profile = () => {
   const personalInfo = profile?.user?.data?.peronal_info;
   const loanLimit = profile?.user?.data?.loan_limit;
 
+  const customerTiers = profile?.user?.data?.customer_tiers;
+
+  const activeTiers = customerTiers?.find((tier: any) => {
+    return tier.is_active === true;
+  });
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, []);
 
   return (
     <div
@@ -50,8 +62,14 @@ const Profile = () => {
           <img src="/icons/verified.svg" className="w-full" />
         </div>
         <div className="text-sm">
-          <p className="font-black">Tier 1 : N {loanLimit?.limit} </p>
-          <p className="text-apace-orange-light">Increased limit</p>
+          <p className="font-black">
+            {" "}
+            {activeTiers?.tier_name} : &#8358;{" "}
+            {numberWithCommas(loanLimit?.limit)}{" "}
+          </p>
+          <p className="text-apace-orange-light">
+            Increase limit (Coming soon){" "}
+          </p>
         </div>
       </div>
 

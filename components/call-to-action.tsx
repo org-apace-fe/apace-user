@@ -10,7 +10,7 @@ const CallToAction = () => {
           </h4>
 
           <div className=" pt-16 pb-8 w-full  ">
-            <div className="lg:grid   grid-cols-6 gap-5 flex-col ">
+            <div className="lg:grid grid-cols-6 gap-5 flex-col ">
               <div className="col-span-2 h-80 rounded-xl relative overflow-hidden bg-apace-black opacity-95 lg:mb-0 mb-6 ">
                 <div className="absolute top-0 left-0 w-full h-full  ">
                   <img

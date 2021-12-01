@@ -1,21 +1,13 @@
 import type { NextPage } from "next";
-import React, { ReactNode } from "react";
-
-import Link from "next/link";
-
+import React, { ReactNode, useState } from "react";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
-import { background } from "../../../utils/background";
-import { Menu, Transition } from "@headlessui/react";
-
+import { background, ColorButton } from "../../../utils/background";
 import Table from "../../../components/dashboard/table";
 import { PurchaseAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Column } from "react-table";
-import moment from "moment";
 import {
   fetchAllPurchases,
   fetchAllPurchaseStatistics,
@@ -26,38 +18,22 @@ import Loader from "../../../components/loader";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
 import { fetchMiscelaneousStatistics } from "../../../store/actions/user.action";
+import axios from "axios";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
 
-const More = [
-  {
-    name: "View detail",
-    href: "/dashboard",
-  },
-  {
-    name: "Go to purchase",
-    href: "/dashboard",
-  },
-  {
-    name: "Crash loan",
-    href: "/dashboard",
-  },
-  {
-    name: "Visit store",
-    href: "/dashboard",
-  },
-];
-
-const Payments: NextPage = () => {
+const Purchase: NextPage = () => {
   const dispatch = useDispatch();
 
-  const purchase = useSelector((state: any) => state.purchase);
+  const [purchases, setPurchases] = useState<any>();
+  const [tableRow, setTableRow] = useState<any[]>();
 
-  const allPurchases = purchase?.allPurchases?.data;
-
-  const stats = purchase?.allPurchaseStatistics?.data;
-  const chart = purchase?.allPurchaseCharts?.data;
+  const stats = purchases?.allPurchaseStatistics?.data;
+  const chart = purchases?.allPurchaseCharts?.data;
 
   const miscellaneousStats = useSelector((state: any) => state.auth);
-
   const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
 
   const loader = useSelector((state: any) => state.loader);
@@ -73,28 +49,30 @@ const Payments: NextPage = () => {
     actions: ReactNode;
   };
 
-  const dataPurchase = React.useMemo<DataPurchase[]>(
-    () =>
-      allPurchases?.items.splice(0, 5).map((a: any) => {
-        return {
-          total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
-          store: (
-            <div className="flex items-center">
-              <img
-                className="w-10 h-10 mr-2 object-cover"
-                src={a?.store_logo}
-              />{" "}
-              {a?.store}
-            </div>
-          ),
-          category: `${a?.category}`,
-          deal: `up to ${a?.deal || 0}% off`,
-          order_status: <Button> {a?.order_status} </Button>,
-          actions: <PurchaseAction id={a?.id} />,
-        };
-      }),
-    [allPurchases]
-  );
+  const dataPurchase = () => {
+    const tempArr: any[] = [];
+    purchases?.items.slice(0, 5).forEach((a: any) => {
+      tempArr.push({
+        total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
+        store: (
+          <div className="flex items-center">
+            <img className="w-10 h-10 mr-2 object-cover" src={a?.store_logo} />{" "}
+            {a?.store}
+          </div>
+        ),
+        category: `${a?.category}`,
+        deal: `up to ${a?.deal || 0}% off`,
+        order_status: (
+          <Button className={ColorButton(a?.order_status)}>
+            {" "}
+            {a?.order_status}{" "}
+          </Button>
+        ),
+        actions: <PurchaseAction id={a?.id} />,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsPurchase = [
     {
@@ -125,12 +103,39 @@ const Payments: NextPage = () => {
     },
   ];
 
+  const callAllPurchases = () => {
+    dispatch(LoadingStart());
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/all`,
+        { headers: headersRequest }
+      )
+      .then((res) => {
+        setPurchases(res?.data?.data);
+        dispatch(LoadingStop());
+      })
+      .catch((err) => {
+        dispatch(LoadingStop());
+      });
+  };
+
   useEffect(() => {
-    dispatch(fetchAllPurchases());
-    dispatch(fetchPurchaseCharts());
-    dispatch(fetchAllPurchaseStatistics());
-    dispatch(fetchMiscelaneousStatistics());
+    callAllPurchases();
+    // dispatch(fetchPurchaseCharts());
+    // dispatch(fetchAllPurchaseStatistics());
+    // dispatch(fetchMiscelaneousStatistics());
   }, []);
+
+  useEffect(() => {
+    setTableRow(dataPurchase());
+  }, [purchases]);
 
   return (
     <div>
@@ -206,7 +211,7 @@ const Payments: NextPage = () => {
                   </div>
 
                   <Table
-                    data={dataPurchase ? dataPurchase : []}
+                    data={tableRow ? tableRow : []}
                     columns={columnsPurchase ? columnsPurchase : []}
                   />
                 </div>
@@ -221,4 +226,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default Purchase;
