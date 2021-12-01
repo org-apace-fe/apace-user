@@ -1,7 +1,9 @@
+import { NextPage } from "next";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
+import withAuth from "../../../route/with-auth";
 
-const Settings = () => {
+const Settings: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
@@ -13,4 +15,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default withAuth(Settings);

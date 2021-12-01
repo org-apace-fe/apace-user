@@ -48,8 +48,7 @@ const Notification = () => {
                   <p className="text-xs">{notif?.message}</p>
                 </div>
                 <p className="text-sm">
-                  {" "}
-                  {moment(notif?.date_created).fromNow()}{" "}
+                  {moment(notif?.date_created).fromNow()}
                 </p>
               </div>
             ))}

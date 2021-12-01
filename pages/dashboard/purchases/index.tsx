@@ -23,6 +23,9 @@ import {
 } from "../../../store/actions/purchase.action";
 import router from "next/router";
 import Loader from "../../../components/loader";
+import withAuth from "../../../route/with-auth";
+import { numberWithCommas } from "../../../utils/formatNumber";
+import { fetchMiscelaneousStatistics } from "../../../store/actions/user.action";
 
 const More = [
   {
@@ -53,11 +56,15 @@ const Payments: NextPage = () => {
   const stats = purchase?.allPurchaseStatistics?.data;
   const chart = purchase?.allPurchaseCharts?.data;
 
+  const miscellaneousStats = useSelector((state: any) => state.auth);
+
+  const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
+
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
 
   type DataPurchase = {
-    total_amount: number;
+    total_amount: ReactNode;
     store: ReactNode;
     store_logo: string;
     category: string;
@@ -70,7 +77,7 @@ const Payments: NextPage = () => {
     () =>
       allPurchases?.items.splice(0, 5).map((a: any) => {
         return {
-          total_amount: `N ${a?.total_amount} `,
+          total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
           store: (
             <div className="flex items-center">
               <img
@@ -86,45 +93,43 @@ const Payments: NextPage = () => {
           actions: <PurchaseAction id={a?.id} />,
         };
       }),
-    []
+    [allPurchases]
   );
 
-  const columnsPurchase = React.useMemo<Column<DataPurchase>[]>(
-    () => [
-      {
-        Header: "Amount",
-        accessor: "total_amount",
-      },
+  const columnsPurchase = [
+    {
+      Header: "Amount",
+      accessor: "total_amount",
+    },
 
-      {
-        Header: "Store",
-        accessor: "store",
-      },
-      {
-        Header: "Category",
-        accessor: "category",
-      },
+    {
+      Header: "Store",
+      accessor: "store",
+    },
+    {
+      Header: "Category",
+      accessor: "category",
+    },
 
-      {
-        Header: "Deal",
-        accessor: "deal",
-      },
-      {
-        Header: "Payment status",
-        accessor: "order_status",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Deal",
+      accessor: "deal",
+    },
+    {
+      Header: "Payment status",
+      accessor: "order_status",
+    },
+    {
+      Header: "Actions",
+      accessor: "actions",
+    },
+  ];
 
   useEffect(() => {
     dispatch(fetchAllPurchases());
     dispatch(fetchPurchaseCharts());
     dispatch(fetchAllPurchaseStatistics());
+    dispatch(fetchMiscelaneousStatistics());
   }, []);
 
   return (
@@ -151,7 +156,10 @@ const Payments: NextPage = () => {
                           <div className="ml-4  ">
                             <p className="text-sm">Total all-time spend</p>
                             <p className="text-lg text-apace-orange-light">
-                              N {stats?.total_all_time_spent}
+                              &#8358;{" "}
+                              {numberWithCommas(
+                                miscellaneous?.total_amount_spent
+                              )}
                             </p>
                           </div>
                         </div>
@@ -167,7 +175,10 @@ const Payments: NextPage = () => {
                           <div className="ml-4  ">
                             <p className="text-sm">Current lending limit</p>
                             <p className="text-lg text-apace-orange-light">
-                              N 5000
+                              &#8358;{" "}
+                              {numberWithCommas(
+                                miscellaneous?.current_credit_limit
+                              )}
                             </p>
                           </div>
                         </div>
@@ -180,29 +191,7 @@ const Payments: NextPage = () => {
                   </div>
                   {/* Payments */}
                 </div>
-                <div className="lg:w-7/12 w-full">
-                  <div className="flex lg:flex-row flex-col flex-wrap">
-                    <div className=" lg:w-1/2 w-full h-32  mb-6 ">
-                      <div
-                        className="relative  h-full rounded-lg p-4"
-                        style={{ background: background.apacegray6 }}
-                      >
-                        <div className="flex">
-                          <img src="/icons/lending-limit.svg" />
-                          <div className="ml-2">
-                            <p className="text-sm">Current credit limit</p>
-                            <p className="text-lg"> N 676,844.45</p>
-                          </div>
-                        </div>
-                        <Link href="/">
-                          <div className="absolute bottom-4 right-4 flex">
-                            <img src="/icons/arrow-forward.svg" />
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div className="lg:w-7/12 w-full">Chart</div>
               </div>
 
               <div className="mt-8 text-lg">
@@ -232,4 +221,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default Payments;
+export default withAuth(Payments);

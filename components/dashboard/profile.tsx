@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { logoutUser } from "../../store/actions/user.action";
 import router from "next/router";
+import Avatar from "react-avatar";
 
 const Profile = () => {
   const profile = useSelector((state: any) => state.auth);
 
   const personalInfo = profile?.user?.data?.peronal_info;
+  const loanLimit = profile?.user?.data?.loan_limit;
 
   const dispatch = useDispatch();
 
@@ -17,12 +19,22 @@ const Profile = () => {
       style={{ background: background.apacegray3 }}
     >
       <div className="flex p-4">
-        <div className="w-14 h-14 mr-4 rounded-full overflow-hidden">
-          <img
-            src={personalInfo?.avatar}
-            className="w-full h-full object-cover"
+        {!personalInfo?.avatar ? (
+          <Avatar
+            className="sb-avatar rounded-full mr-4"
+            size="3.5rem"
+            color="#ED6E24"
+            name={`${personalInfo?.first_name} ${personalInfo?.last_name} `}
           />
-        </div>
+        ) : (
+          <div className="w-14 h-14 mr-4 rounded-full overflow-hidden">
+            <img
+              src={personalInfo?.avatar}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
         <div className="text-sm">
           <p className="font-black">
             {" "}
@@ -38,7 +50,7 @@ const Profile = () => {
           <img src="/icons/verified.svg" className="w-full" />
         </div>
         <div className="text-sm">
-          <p className="font-black">Tier 1 : N20,000.00</p>
+          <p className="font-black">Tier 1 : N {loanLimit?.limit} </p>
           <p className="text-apace-orange-light">Increased limit</p>
         </div>
       </div>

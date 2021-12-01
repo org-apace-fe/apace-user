@@ -27,7 +27,7 @@ const WhyApace = () => {
               </h1>
               <div className="ml-8">
                 <Button
-                  onClick={() => router.push("/auth/signup-options")}
+                  onClick={() => router.push("/auth/shopper/sign-up")}
                   className="bg-apace-orange-light border-apace-orange-light text-black"
                 >
                   Learn more

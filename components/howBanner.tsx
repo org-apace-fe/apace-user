@@ -175,7 +175,7 @@ const HowBanner = () => {
 
             <div className="my-8 ">
               <Button
-                onClick={() => router.push("/auth/signup-options")}
+                onClick={() => router.push("/auth/shopper/sign-up")}
                 className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8"
               >
                 Try it free

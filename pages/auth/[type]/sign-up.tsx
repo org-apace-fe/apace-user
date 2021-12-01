@@ -26,8 +26,7 @@ const SignUp: NextPage = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const ultimateRegex =
-    "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[d]){1,})(?=(.*[W]){1,})(?!.*s).{8,}$";
+  const ultimateRegex = `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).{8,}`;
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -123,7 +122,8 @@ const SignUp: NextPage = () => {
                 </small>
               ) : (
                 <small className="text-red-600">
-                  Password does not matches requirements
+                  Password must be at least 8 characters, contain at least a
+                  small letter,capital letter, a number and a special character.
                 </small>
               )}
             </div>
