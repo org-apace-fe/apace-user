@@ -97,6 +97,29 @@ export const getAllFeaturedStores = () => async (dispatch: any) => {
   }
 };
 
+export const getAllCategories = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const headersRequest = {
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/view/categories/all`,
+      { headers: headersRequest }
+    );
+
+    dispatch({
+      type: "SET_ALL_CATEGORIES",
+      payload: res?.data,
+    });
+
+    dispatch(LoadingStop());
+  } catch (error) {
+    // dispatch(setAlert(error?.response?.data));
+    dispatch(LoadingStop());
+  }
+};
+
 export const waitList = (email: any) => async (dispatch: any) => {
   dispatch(LoadingStart());
   try {

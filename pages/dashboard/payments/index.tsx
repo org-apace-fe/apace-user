@@ -1,14 +1,10 @@
 import type { NextPage } from "next";
 import React, { ReactNode } from "react";
-
 import Link from "next/link";
-
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
-import { background } from "../../../utils/background";
-import { Menu, Transition } from "@headlessui/react";
-
+import { background, ColorButton } from "../../../utils/background";
 import Table from "../../../components/dashboard/table";
 import { PaymentAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
@@ -18,7 +14,6 @@ import {
   fetchAllLoansDue,
   fetchAllLoansStatistics,
 } from "../../../store/actions/payment.action";
-import { Column } from "react-table";
 import moment from "moment";
 import router from "next/router";
 import Loader from "../../../components/loader";
@@ -61,7 +56,9 @@ const Payments: NextPage = () => {
           date_completed: `${
             a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
           }`,
-          status: <Button> {a?.status} </Button>,
+          status: (
+            <Button className={ColorButton(a?.status)}> {a?.status} </Button>
+          ),
           actions: <PaymentAction id={a?.id} />,
         };
       }),

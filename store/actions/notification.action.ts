@@ -12,7 +12,7 @@ export const fetchAllNotifications = () => async (dispatch: any) => {
     };
 
     const res = await axios.get(
-      `https://apace-api-staging.azurewebsites.net/api/v1/customer/notification/all`,
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/notification/all`,
       { headers: headersRequest }
     );
 
