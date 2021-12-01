@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchUserProfile } from "../../store/actions/user.action";
 import { useEffect } from "react";
 import { fetchAllNotifications } from "../../store/actions/notification.action";
+import withAuth from "../../route/with-auth";
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
@@ -28,4 +29,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);

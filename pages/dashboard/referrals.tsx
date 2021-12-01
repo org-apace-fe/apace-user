@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { Column } from "react-table";
 import PaginationTable from "../../components/dashboard/table/pagination-table";
 import Loader from "../../components/loader";
+import withAuth from "../../route/with-auth";
 
 const Referrals: NextPage = () => {
   const referrals = useSelector((state: any) => state.auth);
@@ -52,28 +53,25 @@ const Referrals: NextPage = () => {
           total_point: `${a?.total_point} points`,
         };
       }),
-    []
+    [allReferrals]
   );
 
-  const columnsReferral = React.useMemo<Column<DataReferral>[]>(
-    () => [
-      {
-        Header: "Your referrals",
-        columns: [
-          {
-            Header: "Name",
-            accessor: "customer_name",
-          },
+  const columnsReferral = [
+    {
+      Header: "Your referrals",
+      columns: [
+        {
+          Header: "Name",
+          accessor: "customer_name",
+        },
 
-          {
-            Header: "Referral earnings",
-            accessor: "total_point",
-          },
-        ],
-      },
-    ],
-    []
-  );
+        {
+          Header: "Referral earnings",
+          accessor: "total_point",
+        },
+      ],
+    },
+  ];
 
   type DataReferralActivities = {
     customer_id: number;
@@ -87,45 +85,40 @@ const Referrals: NextPage = () => {
     () =>
       referralActivities?.items.map((a: any) => {
         return {
-          item_name: `${a.item_name} `,
-          point_used: `${a.point_used} points `,
-          discount: `${a.discount}% off`,
-          point_balance: `${a.point_balance} points `,
+          item_name: `${a?.item_name} `,
+          point_used: `${a?.point_used} points `,
+          discount: `${a?.discount}% off`,
+          point_balance: `${a?.point_balance} points `,
         };
       }),
-    []
+    [referralActivities]
   );
 
-  const columnsReferralActivities = React.useMemo<
-    Column<DataReferralActivities>[]
-  >(
-    () => [
-      {
-        Header: "Referral activity",
-        columns: [
-          {
-            Header: "Items",
-            accessor: "item_name",
-          },
+  const columnsReferralActivities = [
+    {
+      Header: "Referral activity",
+      columns: [
+        {
+          Header: "Items",
+          accessor: "item_name",
+        },
 
-          {
-            Header: "Point used",
-            accessor: "point_used",
-          },
-          {
-            Header: "Discount",
-            accessor: "discount",
-          },
+        {
+          Header: "Point used",
+          accessor: "point_used",
+        },
+        {
+          Header: "Discount",
+          accessor: "discount",
+        },
 
-          {
-            Header: "Point balance",
-            accessor: "point_balance",
-          },
-        ],
-      },
-    ],
-    []
-  );
+        {
+          Header: "Point balance",
+          accessor: "point_balance",
+        },
+      ],
+    },
+  ];
 
   console.log(dataReferralActivities, dataReferral);
 
@@ -304,4 +297,4 @@ const Referrals: NextPage = () => {
   );
 };
 
-export default Referrals;
+export default withAuth(Referrals);

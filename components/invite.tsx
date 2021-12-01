@@ -1,9 +1,9 @@
 import Button from "./button";
 import Container from "./container";
-import {useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 function Invite() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <div className="bg-apace-black py-8">
@@ -32,10 +32,18 @@ function Invite() {
                   </p>
                 </div>
                 <div className="my-8 ">
-                  <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8">
+                  <Button
+                    onClick={() => router.push("/auth/shopper/sign-up")}
+                    className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8"
+                  >
                     Try it free
                   </Button>
-                  <Button   onClick={() => router.push("/how")} className="w-36 border-none">Learn more</Button>
+                  <Button
+                    onClick={() => router.push("/how")}
+                    className="w-36 border-none"
+                  >
+                    Learn more
+                  </Button>
                 </div>
               </div>
             </div>

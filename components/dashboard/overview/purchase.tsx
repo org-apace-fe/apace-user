@@ -5,17 +5,15 @@ import { background } from "../../../utils/background";
 import Button from "../../button";
 import { DashboardTopDealstore } from "../dashboard-top-deals";
 import Link from "next/link";
+import { numberWithCommas } from "../../../utils/formatNumber";
 
-const OverviewPurchase = () => {
+const OverviewPurchase = ({ miscellaneous }: any) => {
   const dispatch = useDispatch();
 
   const stores = useSelector((state: any) => state.stores);
   const allTopDealsStores = stores.topDealsStores?.items;
 
   const loading = useSelector((state: any) => state.loading);
-
-  const purchase = useSelector((state: any) => state.purchase);
-  const stats = purchase?.allPurchaseStatistics?.data;
 
   useEffect(() => {
     dispatch(getAllTopDealsStores());
@@ -29,7 +27,7 @@ const OverviewPurchase = () => {
         </div>
         {/* Payments */}
         <div className="flex flex-wrap">
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pr-2">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pr-2 pr-0">
             <div
               className="relative  h-full rounded-lg p-4 "
               style={{ background: background.apacegray4 }}
@@ -38,12 +36,15 @@ const OverviewPurchase = () => {
                 <img src="/icons/revenue.svg" />
                 <div className="ml-4">
                   <p className="text-sm">Total amount spent</p>
-                  <p className="text-lg ">N {stats?.total_all_time_spent}</p>
+                  <p className="text-lg ">
+                    &#8358;{" "}
+                    {numberWithCommas(miscellaneous?.total_amount_spent)}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pl-4">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pl-2 pl-0 ">
             <div
               className="relative  h-full rounded-lg p-4"
               style={{ background: background.apacegray4 }}
@@ -52,12 +53,15 @@ const OverviewPurchase = () => {
                 <img src="/icons/cart.svg" />
                 <div className="ml-2">
                   <p className="text-sm">Total items purchased</p>
-                  <p className="text-lg"> {stats?.total_purchases} </p>
+                  <p className="text-lg">
+                    {" "}
+                    {miscellaneous?.total_items_purchased}{" "}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pr-2">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pr-2 pr-0 ">
             <div
               className="relative  h-full rounded-lg p-4 "
               style={{ background: background.apacegray4 }}
@@ -66,7 +70,10 @@ const OverviewPurchase = () => {
                 <img src="/icons/category.svg" />
                 <div className="ml-4">
                   <p className="text-sm">Most purchased category</p>
-                  <p className="text-lg ">Electronics</p>
+                  <p className="text-lg ">
+                    {" "}
+                    {miscellaneous?.most_purchased_category}{" "}
+                  </p>
                 </div>
               </div>
             </div>

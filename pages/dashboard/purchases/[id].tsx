@@ -14,6 +14,8 @@ import Button from "../../../components/button";
 import { Column } from "react-table";
 import Table from "../../../components/dashboard/table";
 import { fetchSingleOrder } from "../../../store/actions/purchase.action";
+import withAuth from "../../../route/with-auth";
+import { numberWithCommas } from "../../../utils/formatNumber";
 
 const PurchaseDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -52,28 +54,25 @@ const PurchaseDetail: NextPage = () => {
           ),
         };
       }),
-    []
+    [orderComplaints]
   );
 
-  const columnsComplaints = React.useMemo<Column<Data>[]>(
-    () => [
-      {
-        Header: "Date",
-        accessor: "date",
-      },
+  const columnsComplaints = [
+    {
+      Header: "Date",
+      accessor: "date",
+    },
 
-      {
-        Header: "Message",
-        accessor: "message",
-      },
+    {
+      Header: "Message",
+      accessor: "message",
+    },
 
-      {
-        Header: "Status",
-        accessor: "status",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Status",
+      accessor: "status",
+    },
+  ];
 
   const dataRequestRefund = React.useMemo<Data[]>(
     () =>
@@ -90,28 +89,25 @@ const PurchaseDetail: NextPage = () => {
           ),
         };
       }),
-    []
+    [orderRefundRequest]
   );
 
-  const columnsRequestRefund = React.useMemo<Column<Data>[]>(
-    () => [
-      {
-        Header: "Date",
-        accessor: "date",
-      },
+  const columnsRequestRefund = [
+    {
+      Header: "Date",
+      accessor: "date",
+    },
 
-      {
-        Header: "Message",
-        accessor: "message",
-      },
+    {
+      Header: "Message",
+      accessor: "message",
+    },
 
-      {
-        Header: "Status",
-        accessor: "status",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Status",
+      accessor: "status",
+    },
+  ];
 
   return (
     <div>
@@ -119,8 +115,8 @@ const PurchaseDetail: NextPage = () => {
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
           <div className="border-b border-gray-600 pb-6 mb-6 flex items-center justify-between px-28">
             <div>
-              {moment(orderDetail?.date_created).format("ll")} - N
-              {orderDetail?.total_amount}
+              {moment(orderDetail?.date_created).format("ll")} - &#8358;
+              {numberWithCommas(orderDetail?.total_amount || 0)}
               <span className="rounded-full bg-apace-orange-dark py-1 px-2 text-black text-xs ml-3">
                 {orderDetail?.order_status}
               </span>
@@ -230,4 +226,4 @@ const PurchaseDetail: NextPage = () => {
   );
 };
 
-export default PurchaseDetail;
+export default withAuth(PurchaseDetail);

@@ -27,12 +27,12 @@ export default function ContentNotAvailable() {
     {
       id: 2,
       discount: "5%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner1.4447d8a7.png",
     },
     {
       id: 3,
       discount: "50%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner2.f3d1b0b0.png",
     },
   ];
 
@@ -59,7 +59,11 @@ export default function ContentNotAvailable() {
                 className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8 flex items-center"
                 onClick={() => router.back()}
               >
-        <div className="mr-2" >  <ArrowBack/>  </div>    Back home
+                <div className="mr-2">
+                  {" "}
+                  <ArrowBack />{" "}
+                </div>{" "}
+                Back home
               </Button>
             </div>
           </div>

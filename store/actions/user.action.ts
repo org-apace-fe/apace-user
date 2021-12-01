@@ -347,6 +347,34 @@ export const signinAsBusiness =
     }
   };
 
+export const fetchMiscelaneousStatistics = () => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    const headersRequest = {
+      Authorization: `Bearer ${token}`,
+      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+    };
+
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/miscellaneous/statistics/general`,
+      { headers: headersRequest }
+    );
+
+    const response = res?.data;
+
+    dispatch({
+      type: "SET_MiSCELLANEOUS_STATISTICS",
+      payload: res?.data,
+    });
+
+    if (response) dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(LoadingStop());
+  }
+};
+
 // Set logged in user
 export const setCurrentUser = (decoded: any) => {
   return {

@@ -30,7 +30,7 @@ export default function Toast() {
             open={toastOpened}
             onClose={() => dispatch(closeToast())}
             message={toastContent}
-            autoHideDuration={10000}
+            autoHideDuration={3000}
           />
         </Slide>
       ) : null}

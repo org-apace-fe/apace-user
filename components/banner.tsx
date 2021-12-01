@@ -66,12 +66,12 @@ const HowItWorks: NextPage = () => {
     {
       id: 2,
       discount: "5%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner1.4447d8a7.png",
     },
     {
       id: 3,
       discount: "50%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner2.f3d1b0b0.png",
     },
   ];
 
@@ -127,7 +127,10 @@ const HowItWorks: NextPage = () => {
             </div>
 
             <div className="my-8">
-              <Button className="w-36 bg-apace-orange-light cursor-pointer border-apace-orange-light text-black mr-8 ">
+              <Button
+                onClick={() => router.push("/auth/shopper/sign-up")}
+                className="w-36 bg-apace-orange-light cursor-pointer border-apace-orange-light text-black mr-8 "
+              >
                 Try it free
               </Button>
 
@@ -214,11 +217,19 @@ const HowItWorks: NextPage = () => {
             </div>
 
             <div className="my-8 ">
-              <Button className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8">
+              <Button
+                onClick={() => router.push("/auth/shopper/sign-up")}
+                className="w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8"
+              >
                 Try it free
               </Button>
 
-              <Button   onClick={() => router.push("/how")} className="w-36 border-none">Learn more</Button>
+              <Button
+                onClick={() => router.push("/how")}
+                className="w-36 border-none"
+              >
+                Learn more
+              </Button>
             </div>
           </div>
         </div>

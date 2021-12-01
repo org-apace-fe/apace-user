@@ -17,7 +17,11 @@ export function AllStore({ items, loading }: AllStoreProps) {
               <Link
                 href={`https://apace-store.herokuapp.com/${item.store_name}`}
               >
-                <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+                <a
+                  target="_blank"
+                  key={item.store_name}
+                  className="lg:w-1/5 w-full p-2"
+                >
                   <div className="w-full text-white">
                     <div
                       style={{
@@ -69,7 +73,11 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
               <Link
                 href={`https://apace-store.herokuapp.com/${item.store_name}`}
               >
-                <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+                <a
+                  target="_blank"
+                  key={item.store_name}
+                  className="lg:w-1/5 w-full p-2"
+                >
                   <div className="w-full text-white">
                     <div
                       key={item.id}
@@ -121,7 +129,11 @@ export function FeaturedStore({ items, loading }: TopDealStoreProps) {
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <Link href={`https://apace-store.herokuapp.com/${item.store_name}`}>
-              <a key={item.store_name} className="lg:w-1/5 w-full p-2">
+              <a
+                target="_blank"
+                key={item.store_name}
+                className="lg:w-1/5 w-full p-2"
+              >
                 <div className="w-full text-white">
                   <div
                     style={{

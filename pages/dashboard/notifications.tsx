@@ -6,8 +6,10 @@ import Container from "../../components/container";
 import DashboardLayout from "../../components/dashboard/layout";
 import { fetchAllNotifications } from "../../store/actions/notification.action";
 import Link from "next/link";
+import withAuth from "../../route/with-auth";
+import { NextPage } from "next";
 
-const Notifications = () => {
+const Notifications: NextPage = () => {
   const dispatch = useDispatch();
 
   const notif = useSelector((state: any) => state.notification);
@@ -89,4 +91,4 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+export default withAuth(Notifications);

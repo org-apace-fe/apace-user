@@ -22,6 +22,9 @@ import { Column } from "react-table";
 import moment from "moment";
 import router from "next/router";
 import Loader from "../../../components/loader";
+import withAuth from "../../../route/with-auth";
+import { numberWithCommas } from "../../../utils/formatNumber";
+import { fetchMiscelaneousStatistics } from "../../../store/actions/user.action";
 
 const Payments: NextPage = () => {
   const dispatch = useDispatch();
@@ -34,11 +37,15 @@ const Payments: NextPage = () => {
 
   const stats = payment?.allLoansStatistics?.data;
 
+  const miscellaneousStats = useSelector((state: any) => state.auth);
+
+  const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
+
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
 
   type DataPayment = {
-    amount: number;
+    amount: ReactNode;
     date_created: string;
     date_completed: string;
     status: ReactNode;
@@ -49,7 +56,7 @@ const Payments: NextPage = () => {
     () =>
       allLoans?.items?.splice(0, 5).map((a: any) => {
         return {
-          amount: `${a?.amount} `,
+          amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
           date_created: `${moment(a?.date_created).format("ll")}`,
           date_completed: `${
             a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
@@ -58,41 +65,39 @@ const Payments: NextPage = () => {
           actions: <PaymentAction id={a?.id} />,
         };
       }),
-    []
+    [allLoans]
   );
 
-  const columnsPayment = React.useMemo<Column<DataPayment>[]>(
-    () => [
-      {
-        Header: "Loan amount",
-        accessor: "amount",
-      },
+  const columnsPayment = [
+    {
+      Header: "Loan amount",
+      accessor: "amount",
+    },
 
-      {
-        Header: "Loan started",
-        accessor: "date_created",
-      },
-      {
-        Header: "Date completed",
-        accessor: "date_completed",
-      },
+    {
+      Header: "Loan started",
+      accessor: "date_created",
+    },
+    {
+      Header: "Date completed",
+      accessor: "date_completed",
+    },
 
-      {
-        Header: "Payment status",
-        accessor: "status",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Payment status",
+      accessor: "status",
+    },
+    {
+      Header: "Actions",
+      accessor: "actions",
+    },
+  ];
 
   useEffect(() => {
     dispatch(fetchAllLoans());
     dispatch(fetchAllLoansDue());
     dispatch(fetchAllLoansStatistics());
+    dispatch(fetchMiscelaneousStatistics());
   }, []);
 
   return (
@@ -126,7 +131,7 @@ const Payments: NextPage = () => {
                                 <div className="ml-4  ">
                                   <p className="text-sm">Amount due</p>
                                   <p className="text-lg text-apace-orange-light">
-                                    N {loan?.principal_amount}
+                                    N {numberWithCommas(loan?.principal_amount)}
                                   </p>
                                 </div>
                               </div>
@@ -134,7 +139,7 @@ const Payments: NextPage = () => {
                               <div className="flex flex-wrap items-center mt-6">
                                 <div className="lg:w-1/2 w-full mb-5">
                                   <p className="text-sm">Loan amount</p>
-                                  <p>N {loan?.amount}</p>
+                                  <p>N {numberWithCommas(loan?.amount)}</p>
                                 </div>
                                 <div className="lg:w-1/2 w-full mb-5">
                                   <p className="text-sm">Interest (%)</p>
@@ -167,7 +172,10 @@ const Payments: NextPage = () => {
                               <div className="ml-4">
                                 <p className="text-sm">Total due</p>
                                 <p className="text-lg text-apace-orange-light">
-                                  N {stats?.total_loan_due}
+                                  &#8358;{" "}
+                                  {numberWithCommas(
+                                    miscellaneous?.total_loans_due
+                                  )}
                                 </p>
                               </div>
                             </div>
@@ -184,7 +192,13 @@ const Payments: NextPage = () => {
                                 <p className="text-sm">
                                   Total current loan amount
                                 </p>
-                                <p className="text-lg"> N 160,840.00 </p>
+                                <p className="text-lg">
+                                  {" "}
+                                  &#8358;{" "}
+                                  {numberWithCommas(
+                                    miscellaneous?.total_current_loan
+                                  )}{" "}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -199,7 +213,8 @@ const Payments: NextPage = () => {
                               <div className="ml-4">
                                 <p className="text-sm">Total all time loans</p>
                                 <p className="text-lg text-apace-orange-light">
-                                  N {stats?.total_all_time_loan}
+                                  &#8358;{" "}
+                                  {numberWithCommas(stats?.total_all_time_loan)}
                                 </p>
                               </div>
                             </div>
@@ -218,7 +233,10 @@ const Payments: NextPage = () => {
                                 </p>
                                 <p className="text-lg">
                                   {" "}
-                                  N {stats?.total_payment_made}{" "}
+                                  &#8358;{" "}
+                                  {numberWithCommas(
+                                    miscellaneous?.total_payment_made
+                                  )}{" "}
                                 </p>
                               </div>
                             </div>
@@ -233,7 +251,13 @@ const Payments: NextPage = () => {
                               <img src="/icons/lending-limit.svg" />
                               <div className="ml-2">
                                 <p className="text-sm">Current credit limit</p>
-                                <p className="text-lg"> N 676,844.45</p>
+                                <p className="text-lg">
+                                  {" "}
+                                  &#8358;{" "}
+                                  {numberWithCommas(
+                                    miscellaneous?.current_credit_limit
+                                  )}{" "}
+                                </p>
                               </div>
                             </div>
                             <Link href="/">
@@ -275,4 +299,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default Payments;
+export default withAuth(Payments);

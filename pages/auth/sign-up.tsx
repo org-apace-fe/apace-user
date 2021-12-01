@@ -26,8 +26,7 @@ const SignUp: NextPage = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const ultimateRegex =
-    "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[d]){1,})(?=(.*[W]){1,})(?!.*s).{8,}$";
+  const ultimateRegex = `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).{8,}`;
 
   const selectChange = (country: any) => {
     setUser({ ...user, country: country?.value });
@@ -157,7 +156,7 @@ const SignUp: NextPage = () => {
               </div>
               <Input
                 placeholder="Password*"
-                className="mb-4 w-full"
+                className="mb-1 w-full"
                 name="password"
                 type={status ? "text" : "password"}
                 value={password}
@@ -173,7 +172,8 @@ const SignUp: NextPage = () => {
                 </small>
               ) : (
                 <small className="text-red-600">
-                  Password does not matches requirements
+                  Password must be at least 8 characters, contain at least a
+                  small letter,capital letter, a number and a special character.
                 </small>
               )}
             </div>
