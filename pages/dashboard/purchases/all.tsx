@@ -1,18 +1,12 @@
 import type { NextPage } from "next";
 import React, { ReactNode } from "react";
-
-import Link from "next/link";
-
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
-import { background } from "../../../utils/background";
-import { Menu, Transition } from "@headlessui/react";
+import { background, ColorButton } from "../../../utils/background";
 import { PurchaseAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Column } from "react-table";
 import moment from "moment";
 import {
   fetchAllPurchases,
@@ -22,25 +16,6 @@ import {
 import PaginationTable from "../../../components/dashboard/table/pagination-table";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
-
-const More = [
-  {
-    name: "View detail",
-    href: "/dashboard",
-  },
-  {
-    name: "Go to purchase",
-    href: "/dashboard",
-  },
-  {
-    name: "Crash loan",
-    href: "/dashboard",
-  },
-  {
-    name: "Visit store",
-    href: "/dashboard",
-  },
-];
 
 const Payments: NextPage = () => {
   const dispatch = useDispatch();
@@ -84,7 +59,12 @@ const Payments: NextPage = () => {
           ),
           category: `${a?.category}`,
           deal: `up to ${a?.deal || 0}% off`,
-          order_status: <Button> {a?.order_status} </Button>,
+          order_status: (
+            <Button className={ColorButton(a?.order_status)}>
+              {" "}
+              {a?.order_status}{" "}
+            </Button>
+          ),
           actions: <PurchaseAction id={a?.id} />,
         };
       }),

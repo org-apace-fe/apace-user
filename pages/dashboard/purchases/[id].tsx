@@ -1,21 +1,16 @@
 import type { NextPage } from "next";
-
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import React, { ReactNode, useEffect } from "react";
-import { fetchSingleLoan } from "../../../store/actions/payment.action";
 import router from "next/router";
 import { background } from "../../../utils/background";
 import moment from "moment";
-import Button from "../../../components/button";
-import { Column } from "react-table";
 import Table from "../../../components/dashboard/table";
 import { fetchSingleOrder } from "../../../store/actions/purchase.action";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
+import isEmpty from "is-empty";
 
 const PurchaseDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -27,7 +22,7 @@ const PurchaseDetail: NextPage = () => {
   const orderComplaints = order?.oneOrder?.data?.complaints;
   const orderRefundRequest = order?.oneOrder?.data?.refund_requests;
 
-  console.log(orderDetail);
+  const purchaseOrder = order?.oneOrder?.data?.order;
 
   useEffect(() => {
     dispatch(fetchSingleOrder(orderId));
@@ -139,19 +134,19 @@ const PurchaseDetail: NextPage = () => {
           <Container>
             <div className="flex lg:flex-row  flex-col flex-wrap">
               <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
-                <div
-                  className="relative  h-full rounded-lg p-4"
-                  style={{ background: background.apacegray6 }}
-                >
-                  <div className="flex">
-                    <img src="/icons/payout.svg" />
-                    <div className="ml-2">
-                      <p className="text-sm">Loan amount</p>
-                      <p className="text-lg">
-                        {orderDetail?.amount || 0} Points
-                      </p>
-                    </div>
+                <div className="h-full rounded-lg relative overflow-hidden bg-apace-black opacity-95 p-4">
+                  <div className="absolute top-0 left-0 w-full h-full  ">
+                    <img
+                      src={purchaseOrder?.store_logo}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
+                  <p
+                    className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
+                    style={{ zIndex: 100 }}
+                  >
+                    {purchaseOrder?.store}
+                  </p>
                 </div>
               </div>
               <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
@@ -179,9 +174,7 @@ const PurchaseDetail: NextPage = () => {
                     <img src="/icons/payout.svg" />
                     <div className="ml-2">
                       <p className="text-sm">Referral points used</p>
-                      <p className="text-lg">
-                        {moment(orderDetail?.due_date).format("ll") || 0}
-                      </p>
+                      <p className="text-lg">0</p>
                     </div>
                   </div>
                 </div>
@@ -195,9 +188,7 @@ const PurchaseDetail: NextPage = () => {
                     <img src="/icons/payout.svg" />
                     <div className="ml-2">
                       <p className="text-sm">Category</p>
-                      <p className="text-lg">
-                        {orderDetail?.amount || 0} Points
-                      </p>
+                      <p className="text-lg">{orderDetail?.category || 0}</p>
                     </div>
                   </div>
                 </div>
@@ -206,18 +197,36 @@ const PurchaseDetail: NextPage = () => {
 
             <div className="mb-8">
               <p className="text-xl mb-4">Complaints </p>
-              <Table
-                data={dataComplaints ? dataComplaints : []}
-                columns={columnsComplaints ? columnsComplaints : []}
-              />
+              {!isEmpty(dataComplaints) ? (
+                <Table
+                  data={dataComplaints ? dataComplaints : []}
+                  columns={columnsComplaints ? columnsComplaints : []}
+                />
+              ) : (
+                <div
+                  className="flex justify-center h-56 rounded-lg items-center "
+                  style={{ background: background.apacegray3 }}
+                >
+                  No complaints have been issued
+                </div>
+              )}
             </div>
 
             <div>
               <p className="text-xl mb-4">Refund request </p>
-              <Table
-                data={dataRequestRefund ? dataRequestRefund : []}
-                columns={columnsRequestRefund ? columnsRequestRefund : []}
-              />
+              {!isEmpty(dataRequestRefund) ? (
+                <Table
+                  data={dataRequestRefund ? dataRequestRefund : []}
+                  columns={columnsRequestRefund ? columnsRequestRefund : []}
+                />
+              ) : (
+                <div
+                  className="flex justify-center h-56 rounded-lg items-center "
+                  style={{ background: background.apacegray3 }}
+                >
+                  No refund requests have been placed
+                </div>
+              )}
             </div>
           </Container>
         </div>

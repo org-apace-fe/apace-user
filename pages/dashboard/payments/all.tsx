@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
-import { background } from "../../../utils/background";
+import { background, ColorButton } from "../../../utils/background";
 import Table from "../../../components/dashboard/table";
 import PaginationTable from "../../../components/dashboard/table/pagination-table";
 import { PaymentAction } from "../../../components/dashboard/actions";
@@ -48,7 +48,9 @@ const Payments: NextPage = () => {
           date_completed: `${
             a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
           }`,
-          status: <Button> {a?.status} </Button>,
+          status: (
+            <Button className={ColorButton(a?.status)}> {a?.status} </Button>
+          ),
           actions: <PaymentAction id={a?.id} />,
         };
       }),

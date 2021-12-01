@@ -6,6 +6,7 @@ const initialState = {
   inStoreStores: {},
   topDealsStores: {},
   featuredStores: {},
+  allCategories: {},
 };
 
 export const apaceStoreReducer = (state = initialState, action: any) => {
@@ -38,6 +39,12 @@ export const apaceStoreReducer = (state = initialState, action: any) => {
       return {
         ...state,
         featuredStores: { ...action.payload },
+      };
+
+    case "SET_ALL_CATEGORIES":
+      return {
+        ...state,
+        allCategories: { ...action.payload },
       };
 
     default:

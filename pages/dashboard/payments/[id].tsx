@@ -1,17 +1,13 @@
 import type { NextPage } from "next";
-
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import React, { ReactNode, useEffect } from "react";
 import { fetchSingleLoan } from "../../../store/actions/payment.action";
 import router from "next/router";
 import { background } from "../../../utils/background";
 import moment from "moment";
 import Button from "../../../components/button";
-import { Column } from "react-table";
 import Table from "../../../components/dashboard/table";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
@@ -23,8 +19,8 @@ const PaymentDetail: NextPage = () => {
   const loan = useSelector((state: any) => state.payment);
 
   const loanDetail = loan?.oneLoan?.data?.loan_detail;
+  const order = loan?.oneLoan?.data?.order;
   const loanRepayments = loan?.oneLoan?.data?.loan_repayments;
-  console.log(loanDetail);
 
   useEffect(() => {
     dispatch(fetchSingleLoan(loanId));
@@ -157,19 +153,19 @@ const PaymentDetail: NextPage = () => {
                 </div>
               </div>
               <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
-                <div
-                  className="relative  h-full rounded-lg p-4"
-                  style={{ background: background.apacegray6 }}
-                >
-                  <div className="flex">
-                    <img src="/icons/payout.svg" />
-                    <div className="ml-2">
-                      <p className="text-sm">Loan amount</p>
-                      <p className="text-lg">
-                        &#8358;{numberWithCommas(loanDetail?.amount) || 0}
-                      </p>
-                    </div>
+                <div className="h-full rounded-lg relative overflow-hidden bg-apace-black opacity-95 p-4">
+                  <div className="absolute top-0 left-0 w-full h-full  ">
+                    <img
+                      src={order?.store_logo}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
+                  <p
+                    className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
+                    style={{ zIndex: 100 }}
+                  >
+                    {order?.store}
+                  </p>
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ import Axios from "axios";
 import { ITopDealStore, ITopProducts } from "../interfaces/items.enum";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllCategories,
   getAllFeaturedStores,
   getAllTopDealsStores,
 } from "../store/actions/apaceStore.action";
@@ -50,6 +51,7 @@ const FavouriteStores = () => {
     getProduct();
     dispatch(getAllFeaturedStores());
     dispatch(getAllTopDealsStores());
+    dispatch(getAllCategories());
   }, []);
 
   const breakPoints = {
