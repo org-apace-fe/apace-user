@@ -20,6 +20,8 @@ import {
   fetchPurchaseCharts,
 } from "../../../store/actions/purchase.action";
 import PaginationTable from "../../../components/dashboard/table/pagination-table";
+import withAuth from "../../../route/with-auth";
+import { numberWithCommas } from "../../../utils/formatNumber";
 
 const More = [
   {
@@ -55,7 +57,7 @@ const Payments: NextPage = () => {
   type DataPurchase = {
     s_n: number;
     date_created: string;
-    total_amount: number;
+    total_amount: ReactNode;
     store: ReactNode;
     store_logo: string;
     category: string;
@@ -70,7 +72,7 @@ const Payments: NextPage = () => {
         return {
           s_n: index + 1,
           date_created: `${moment(a?.date_created).format("ll")}`,
-          total_amount: `N ${a?.total_amount} `,
+          total_amount: <p> &#8358; {numberWithCommas(a?.total_amount)} </p>,
           store: (
             <div className="flex items-center">
               <img
@@ -86,48 +88,45 @@ const Payments: NextPage = () => {
           actions: <PurchaseAction id={a?.id} />,
         };
       }),
-    []
+    [allPurchases]
   );
 
-  const columnsPurchase = React.useMemo<Column<DataPurchase>[]>(
-    () => [
-      {
-        Header: "S/N",
-        accessor: "s_n",
-      },
-      {
-        Header: "Date",
-        accessor: "date_created",
-      },
-      {
-        Header: "Amount",
-        accessor: "total_amount",
-      },
+  const columnsPurchase = [
+    {
+      Header: "S/N",
+      accessor: "s_n",
+    },
+    {
+      Header: "Date",
+      accessor: "date_created",
+    },
+    {
+      Header: "Amount",
+      accessor: "total_amount",
+    },
 
-      {
-        Header: "Store",
-        accessor: "store",
-      },
-      {
-        Header: "Category",
-        accessor: "category",
-      },
+    {
+      Header: "Store",
+      accessor: "store",
+    },
+    {
+      Header: "Category",
+      accessor: "category",
+    },
 
-      {
-        Header: "Deal",
-        accessor: "deal",
-      },
-      {
-        Header: "Payment status",
-        accessor: "order_status",
-      },
-      {
-        Header: "Actions",
-        accessor: "actions",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Deal",
+      accessor: "deal",
+    },
+    {
+      Header: "Payment status",
+      accessor: "order_status",
+    },
+    {
+      Header: "Actions",
+      accessor: "actions",
+    },
+  ];
 
   useEffect(() => {
     dispatch(fetchAllPurchases());
@@ -154,7 +153,8 @@ const Payments: NextPage = () => {
                           <div className="ml-2">
                             <p className="text-sm">Total amount on purchases</p>
                             <p className="text-lg">
-                              N {stats?.total_all_time_spent}
+                              &#8358;{" "}
+                              {numberWithCommas(stats?.total_all_time_spent)}
                             </p>
                           </div>
                         </div>
@@ -220,4 +220,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default Payments;
+export default withAuth(Payments);

@@ -13,6 +13,8 @@ import moment from "moment";
 import Button from "../../../components/button";
 import { Column } from "react-table";
 import Table from "../../../components/dashboard/table";
+import withAuth from "../../../route/with-auth";
+import { numberWithCommas } from "../../../utils/formatNumber";
 
 const PaymentDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ const PaymentDetail: NextPage = () => {
     () =>
       loanRepayments?.splice(0, 5).map((a: any) => {
         return {
-          amount: `${a?.amount} `,
+          amount: `N ${numberWithCommas(a?.amount)} `,
           interest: `${a?.interest}`,
           due_date: `${
             a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
@@ -51,36 +53,33 @@ const PaymentDetail: NextPage = () => {
           status: <Button> {a?.status} </Button>,
         };
       }),
-    []
+    [loanRepayments]
   );
 
-  const columnsPayment = React.useMemo<Column<DataPayment>[]>(
-    () => [
-      {
-        Header: "Loan amount",
-        accessor: "amount",
-      },
+  const columnsPayment = [
+    {
+      Header: "Loan amount",
+      accessor: "amount",
+    },
 
-      {
-        Header: "Loan started",
-        accessor: "interest",
-      },
-      {
-        Header: "Due date",
-        accessor: "due_date",
-      },
-      {
-        Header: "Date completed",
-        accessor: "date_completed",
-      },
+    {
+      Header: "Loan started",
+      accessor: "interest",
+    },
+    {
+      Header: "Due date",
+      accessor: "due_date",
+    },
+    {
+      Header: "Date completed",
+      accessor: "date_completed",
+    },
 
-      {
-        Header: "Payment status",
-        accessor: "status",
-      },
-    ],
-    []
-  );
+    {
+      Header: "Payment status",
+      accessor: "status",
+    },
+  ];
 
   return (
     <div>
@@ -89,8 +88,8 @@ const PaymentDetail: NextPage = () => {
           <div className="border-b border-gray-600 pb-6 mb-6 flex items-center justify-between px-28">
             <div>
               {" "}
-              Loan #{loanDetail?.loan_reference} - N{" "}
-              {loanDetail?.wallet_balance}{" "}
+              Loan #{loanDetail?.loan_reference} - &#8358;{" "}
+              {numberWithCommas(loanDetail?.wallet_balance || 0)}{" "}
             </div>
             <div className="flex">
               <div className="flex mr-4 ">
@@ -119,7 +118,7 @@ const PaymentDetail: NextPage = () => {
                     <div className="ml-2">
                       <p className="text-sm">Loan amount</p>
                       <p className="text-lg">
-                        {loanDetail?.amount || 0} Points
+                        &#8358; {numberWithCommas(loanDetail?.amount) || 0}
                       </p>
                     </div>
                   </div>
@@ -167,7 +166,7 @@ const PaymentDetail: NextPage = () => {
                     <div className="ml-2">
                       <p className="text-sm">Loan amount</p>
                       <p className="text-lg">
-                        {loanDetail?.amount || 0} Points
+                        &#8358;{numberWithCommas(loanDetail?.amount) || 0}
                       </p>
                     </div>
                   </div>
@@ -201,4 +200,4 @@ const PaymentDetail: NextPage = () => {
   );
 };
 
-export default PaymentDetail;
+export default withAuth(PaymentDetail);

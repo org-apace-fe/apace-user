@@ -14,6 +14,7 @@ import Profile from "./profile";
 import { background } from "../../utils/background";
 import Pills from "./pills";
 import { useSelector } from "react-redux";
+import Avatar from "react-avatar";
 
 const DashboardHeader = () => {
   const profile = useSelector((state: any) => state.auth);
@@ -86,12 +87,21 @@ const DashboardHeader = () => {
                   </Menu>
                   <Menu as="div" className="relative inline-block text-left">
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
-                      <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
-                        <img
-                          src={personalInfo?.avatar}
-                          className="w-full h-full object-cover"
+                      {!personalInfo?.avatar ? (
+                        <Avatar
+                          className="sb-avatar rounded-full mr-4"
+                          size="3.5rem"
+                          color="#ED6E24"
+                          name={`${personalInfo?.first_name} ${personalInfo?.last_name} `}
                         />
-                      </div>
+                      ) : (
+                        <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
+                          <img
+                            src={personalInfo?.avatar}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                     </Menu.Button>
                     <Menu.Items
                       style={{ zIndex: 100 }}
@@ -104,7 +114,7 @@ const DashboardHeader = () => {
               </div>
               {/* tab */}
               <div>
-                <div className="flex items-center  text-base   lg:flex mt-4 ">
+                <div className="flex items-center  text-base  lg:flex mt-4 flex-wrap ">
                   <Pills href="/dashboard"> Stores </Pills>
                   <Pills href="/dashboard/overview"> Overview </Pills>
                   <Pills href="/dashboard/payments"> Payments </Pills>

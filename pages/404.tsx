@@ -27,12 +27,12 @@ export default function Custom404() {
     {
       id: 2,
       discount: "5%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner1.4447d8a7.png",
     },
     {
       id: 3,
       discount: "50%",
-      photo: "/icons/headphones@3x.png",
+      photo: "https://useapace.com/static/media/banner2.f3d1b0b0.png",
     },
   ];
 

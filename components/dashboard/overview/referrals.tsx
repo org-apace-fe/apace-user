@@ -8,16 +8,13 @@ import Link from "next/link";
 import { fetchReferralsStatistics } from "../../../store/actions/user.action";
 import router from "next/router";
 
-const OverviewReferrals = () => {
+const OverviewReferrals = ({ miscellaneous }: any) => {
   const dispatch = useDispatch();
 
   const stores = useSelector((state: any) => state.stores);
   const loading = useSelector((state: any) => state.loading);
-
   const allTopDealsStores = stores.topDealsStores?.items;
-
   const referrals = useSelector((state: any) => state.auth);
-
   const referralStatistics = referrals?.referralStatistics?.data;
 
   useEffect(() => {
@@ -35,7 +32,7 @@ const OverviewReferrals = () => {
         </div>
         {/* Payments */}
         <div className="flex flex-wrap">
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pr-2">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pr-2 pr-0">
             <div
               className="relative  h-full rounded-lg p-4 "
               style={{ background: background.apacegray4 }}
@@ -46,13 +43,13 @@ const OverviewReferrals = () => {
                   <p className="text-sm">Current points earned</p>
                   <p className="text-lg ">
                     {" "}
-                    {referralStatistics?.current_available_point || 0} Points
+                    {miscellaneous?.current_points_earned || 0} Points
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pl-4">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pl-2 pl-0 ">
             <div
               className="relative  h-full rounded-lg p-4"
               style={{ background: background.apacegray4 }}
@@ -63,13 +60,13 @@ const OverviewReferrals = () => {
                   <p className="text-sm">All time points</p>
                   <p className="text-lg">
                     {" "}
-                    {referralStatistics?.all_time_earned_point || 0} points{" "}
+                    {referralStatistics?.all_time_points || 0} points{" "}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pr-2">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pr-2 pr-0">
             <div
               className="relative  h-full rounded-lg p-4 "
               style={{ background: background.apacegray4 }}
@@ -80,14 +77,14 @@ const OverviewReferrals = () => {
                   <p className="text-sm"># of users referred</p>
                   <p className="text-lg ">
                     {" "}
-                    {referralStatistics?.number_of_customer_referred || 0}{" "}
+                    {referralStatistics?.number_of_referred_customers || 0}{" "}
                     shoppers
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className=" lg:w-1/2 w-full h-40 mb-6 pl-4">
+          <div className=" lg:w-1/2 w-full h-40 mb-6 lg:pl-2 pl-0">
             <div
               className="relative  h-full rounded-lg p-4"
               style={{ background: background.apacegray4 }}
@@ -98,7 +95,7 @@ const OverviewReferrals = () => {
                   <p className="text-sm">Points used</p>
                   <p className="text-lg">
                     {" "}
-                    {referralStatistics?.point_used || 0} points
+                    {referralStatistics?.points_used || 0} points
                   </p>
                 </div>
               </div>

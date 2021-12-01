@@ -18,10 +18,23 @@ import {
   TopDeals,
 } from "./favourite-stores-items";
 import Axios from "axios";
-import { ITopProducts } from "../interfaces/items.enum";
+import { ITopDealStore, ITopProducts } from "../interfaces/items.enum";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllFeaturedStores,
+  getAllTopDealsStores,
+} from "../store/actions/apaceStore.action";
 
 const FavouriteStores = () => {
   const router = useRouter();
+
+  const dispatch = useDispatch();
+
+  const stores = useSelector((state: any) => state.stores);
+  const loading = useSelector((state: any) => state.loading);
+
+  const allFeaturedStores = stores.featuredStores?.items;
+  const allTopDealsStores = stores.topDealsStores?.items;
 
   const [data1, setData1] = useState<ITopProducts[]>();
   const getProduct = async () => {
@@ -35,6 +48,8 @@ const FavouriteStores = () => {
 
   useEffect(() => {
     getProduct();
+    dispatch(getAllFeaturedStores());
+    dispatch(getAllTopDealsStores());
   }, []);
 
   const breakPoints = {
@@ -86,7 +101,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: ITopProducts) => (
+            {allTopDealsStores?.map((item: ITopDealStore) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "26rem" }}>
                   <TopDeals item={item} />
@@ -114,7 +129,7 @@ const FavouriteStores = () => {
             breakpoints={breakPoints}
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: ITopProducts) => (
+            {allFeaturedStores?.map((item: ITopDealStore) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <FeaturedStore item={item} />

@@ -1,7 +1,6 @@
 import axios from "axios";
-// import setAuthToken from '../../utils/utils';
-// import { clearAlert, setAlert } from './alert.actions';
 import { LoadingStart, LoadingStop } from "./loader/loaderActions";
+import { openToastAndSetContent } from "./toast/toastActions";
 
 export const getAllStores = () => async (dispatch: any) => {
   dispatch(LoadingStart());
@@ -94,6 +93,40 @@ export const getAllFeaturedStores = () => async (dispatch: any) => {
     dispatch(LoadingStop());
   } catch (error) {
     // dispatch(setAlert(error?.response?.data));
+    dispatch(LoadingStop());
+  }
+};
+
+export const waitList = (email: any) => async (dispatch: any) => {
+  dispatch(LoadingStart());
+  try {
+    const headersRequest = {
+      _auth: `watimagboauthkey`,
+    };
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/waitlist/add`,
+      email,
+      { headers: headersRequest }
+    );
+
+    dispatch(
+      openToastAndSetContent({
+        toastContent: "Confirmed- you are on the list",
+        toastStyles: {
+          backgroundColor: "green",
+        },
+      })
+    );
+    dispatch(LoadingStop());
+  } catch (error) {
+    dispatch(
+      openToastAndSetContent({
+        toastContent: "Failed",
+        toastStyles: {
+          backgroundColor: "red",
+        },
+      })
+    );
     dispatch(LoadingStop());
   }
 };

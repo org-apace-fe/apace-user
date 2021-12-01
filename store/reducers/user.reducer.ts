@@ -6,6 +6,7 @@ const initialState = {
   referrals: {},
   referralActivities: {},
   referralStatistics: {},
+  miscellaneousStatistics: {},
   businessType: null,
   identifier: {},
   isAuthenticated: false,
@@ -49,6 +50,11 @@ export const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         identifier: { ...action.payload },
+      };
+    case "SET_MiSCELLANEOUS_STATISTICS":
+      return {
+        ...state,
+        miscellaneousStatistics: { ...action.payload },
       };
     default:
       return state;
