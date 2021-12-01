@@ -18,6 +18,7 @@ const SignUp: NextPage = () => {
   const [user, setUser] = useState(initialState);
   const [status, setStatus] = useState(false);
   const [passwordStatus, setPasswordStatus] = useState(false);
+  const [confirmPasswordStatus, setconfirmPasswordStatus] = useState(false);
   //dispatch
   const dispatch = useDispatch();
   const router = useRouter();
@@ -29,6 +30,7 @@ const SignUp: NextPage = () => {
   const ultimateRegex = `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).{8,}`;
 
   const onSubmit = (e: any) => {
+    console.log(password, confirmPassword);
     e.preventDefault();
 
     if (!password.match(ultimateRegex)) {
@@ -40,7 +42,7 @@ const SignUp: NextPage = () => {
           },
         })
       );
-    } else if (!password.match(confirmPassword)) {
+    } else if (password !== confirmPassword) {
       dispatch(
         openToastAndSetContent({
           toastContent: "Passwords do not match",
@@ -131,14 +133,16 @@ const SignUp: NextPage = () => {
             <div className="relative mb-2 mt-4">
               <div className="absolute top-3 right-4">
                 <ViewPassword
-                  onClick={() => setStatus(!status)}
-                  status={status}
+                  onClick={() =>
+                    setconfirmPasswordStatus(!confirmPasswordStatus)
+                  }
+                  status={confirmPasswordStatus}
                 />
               </div>
               <Input
                 placeholder="Confirm password*"
                 className="mb-4 w-full"
-                type={status ? "text" : "password"}
+                type={confirmPasswordStatus ? "text" : "password"}
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={handleChange}
@@ -146,7 +150,7 @@ const SignUp: NextPage = () => {
               />
             </div>
             <small>
-              A verification code will be sent to this
+              A verification code will be sent to this{" "}
               {type !== "mobile" ? "email address" : "phone number"}
             </small>
 
@@ -176,7 +180,7 @@ const SignUp: NextPage = () => {
             <div>
               <p className="text-center">
                 By using Apace, you agree to our
-                <Link href="/">
+                <Link href="/auth/shopper/sign-up">
                   <a className="underline text-apace-orange-dark">
                     Terms & conditions
                   </a>

@@ -1,5 +1,5 @@
 import Container from "./container";
-import {  BigAIconDark } from "./icons/logo";
+import { BigAIconDark } from "./icons/logo";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -31,19 +31,31 @@ function Footer() {
           <div className="2xl:w-3/6 mx-auto flex flex-wrap lg:flex-row flex-col items-center justify-between py-8  px-8  lg:px-24 ">
             <div className="flex flex-col lg:items-start items-center ">
               <div className="flex mt-4 lg:mt-0 mb-3 ">
-                <div>
+                <a href="https://www.instagram.com/useapace" target="_blank">
                   <InstagramIcon />
-                </div>
-                <div className="ml-8">
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/useapace"
+                  target="_blank"
+                  className="ml-8"
+                >
                   <LinkednIcon />
-                </div>
-                <div className="ml-8">
+                </a>
+                <a
+                  href="https://www.facebook.com/useApace"
+                  target="_blank"
+                  className="ml-8"
+                >
                   <FacebookIcon />
-                </div>
+                </a>
 
-                <div className="ml-8">
+                <a
+                  href="https://twitter.com/useApace"
+                  target="_blank"
+                  className="ml-8"
+                >
                   <TwitterIcon />
-                </div>
+                </a>
               </div>
               <div> &copy; 2021 Apace Inc. All right reserved.</div>
             </div>

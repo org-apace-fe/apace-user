@@ -231,16 +231,27 @@ const Referrals: NextPage = () => {
                           </div>
                           <div className="flex flex-col justify-center items-center m-1">
                             <div className="flex  mt-4 lg:mt-0 mb-2 ">
-                              <div>
+                              <a
+                                href="https://www.instagram.com/useapace"
+                                target="_blank"
+                              >
                                 <InstagramIcon />
-                              </div>
-                              <div className="ml-8">
+                              </a>
+                              <a
+                                href="https://www.linkedin.com/company/useapace"
+                                target="_blank"
+                                className="ml-8"
+                              >
                                 <LinkednIcon />
-                              </div>
+                              </a>
 
-                              <div className="ml-8">
+                              <a
+                                href="https://twitter.com/useApace"
+                                target="_blank"
+                                className="ml-8"
+                              >
                                 <TwitterIcon />
-                              </div>
+                              </a>
                             </div>
                           </div>
 

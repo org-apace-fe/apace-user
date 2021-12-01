@@ -25,11 +25,11 @@ export const registerAsBusiness =
         })
       );
       router.push("https://apace-store-admin.herokuapp.com/user/login");
-    } catch (error) {
+    } catch (error: any) {
       dispatch(LoadingStop());
       dispatch(
         openToastAndSetContent({
-          toastContent: "Sign up failed",
+          toastContent: error?.response?.data?.message,
           toastStyles: {
             backgroundColor: "red",
           },
@@ -56,10 +56,12 @@ export const registerAsShopper =
 
       router.push("/auth/verification");
       dispatch(LoadingStop());
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error?.response?.data?.message);
+
       dispatch(
         openToastAndSetContent({
-          toastContent: "Signed up failed",
+          toastContent: error?.response?.data?.message,
           toastStyles: {
             backgroundColor: "red",
           },
@@ -159,10 +161,10 @@ export const resendOTP = (data: any) => async (dispatch: any) => {
       })
     );
     dispatch(LoadingStop());
-  } catch (error) {
+  } catch (error: any) {
     dispatch(
       openToastAndSetContent({
-        toastContent: "OTP error",
+        toastContent: error?.response?.data?.message,
         toastStyles: {
           backgroundColor: "red",
         },
@@ -201,10 +203,10 @@ export const signinAsShopper =
       );
 
       router.push("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       dispatch(
         openToastAndSetContent({
-          toastContent: "Signin up failed",
+          toastContent: error?.response?.data?.message,
           toastStyles: {
             backgroundColor: "red",
           },
@@ -233,11 +235,11 @@ export const fetchUserProfile = () => async (dispatch: any) => {
     const response = res?.data;
 
     if (response) dispatch(LoadingStop());
-  } catch (error) {
+  } catch (error: any) {
     dispatch(LoadingStop());
     dispatch(
       openToastAndSetContent({
-        toastContent: "failed",
+        toastContent: error?.response?.data?.message,
         toastStyles: {
           backgroundColor: "red",
         },
