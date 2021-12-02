@@ -1,33 +1,36 @@
 import type { NextPage } from "next";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
 import { background, ColorButton } from "../../../utils/background";
 import { PurchaseAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import moment from "moment";
-import {
-  fetchAllPurchases,
-  fetchAllPurchaseStatistics,
-  fetchPurchaseCharts,
-} from "../../../store/actions/purchase.action";
 import PaginationTable from "../../../components/dashboard/table/pagination-table";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
-const Payments: NextPage = () => {
+const PurchaseAll: NextPage = () => {
   const dispatch = useDispatch();
 
-  const purchase = useSelector((state: any) => state.purchase);
+  const [purchases, setPurchases] = useState<any>();
+  const [purchaseStatistics, setPurchaseStatistics] = useState<any>();
+  const [tableRow, setTableRow] = useState<any[]>();
 
-  const allPurchases = purchase?.allPurchases?.data;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-  const page = allPurchases?.page;
-
-  const stats = purchase?.allPurchaseStatistics?.data;
-  const chart = purchase?.allPurchaseCharts?.data;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
   type DataPurchase = {
     s_n: number;
@@ -41,35 +44,31 @@ const Payments: NextPage = () => {
     actions: ReactNode;
   };
 
-  const dataPurchase = React.useMemo<DataPurchase[]>(
-    () =>
-      allPurchases?.items.map((a: any, index: any) => {
-        return {
-          s_n: index + 1,
-          date_created: `${moment(a?.date_created).format("ll")}`,
-          total_amount: <p> &#8358; {numberWithCommas(a?.total_amount)} </p>,
-          store: (
-            <div className="flex items-center">
-              <img
-                className="w-10 h-10 mr-2 object-cover"
-                src={a?.store_logo}
-              />
-              {a?.store}
-            </div>
-          ),
-          category: `${a?.category}`,
-          deal: `up to ${a?.deal || 0}% off`,
-          order_status: (
-            <Button className={ColorButton(a?.order_status)}>
-              {" "}
-              {a?.order_status}{" "}
-            </Button>
-          ),
-          actions: <PurchaseAction id={a?.id} />,
-        };
-      }),
-    [allPurchases]
-  );
+  const dataPurchase = () => {
+    const tempArr: any[] = [];
+    purchases?.items.forEach((a: any, index: any) => {
+      tempArr.push({
+        s_n: index + 1,
+        date_created: `${moment(a?.date_created).format("ll")}`,
+        total_amount: <p> &#8358; {numberWithCommas(a?.total_amount)} </p>,
+        store: (
+          <div className="flex items-center">
+            <img className="w-10 h-10 mr-2 object-cover" src={a?.store_logo} />
+            {a?.store}
+          </div>
+        ),
+        category: `${a?.category}`,
+        deal: `up to ${a?.deal || 0}% off`,
+        order_status: (
+          <Button className={ColorButton(a?.order_status)}>
+            {a?.order_status}
+          </Button>
+        ),
+        actions: <PurchaseAction id={a?.id} />,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsPurchase = [
     {
@@ -108,11 +107,44 @@ const Payments: NextPage = () => {
     },
   ];
 
+  const fetchAllPurchases = () => {
+    dispatch(LoadingStart());
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/all`,
+        { headers: headersRequest }
+      )
+      .then((res) => {
+        setPurchases(res?.data?.data);
+        dispatch(LoadingStop());
+      })
+      .catch((err) => {
+        dispatch(LoadingStop());
+      });
+  };
+
+  const fetchAllPurchaseStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/statistics`,
+        { headers: headersRequest }
+      );
+      setPurchaseStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchAllPurchases());
-    dispatch(fetchPurchaseCharts());
-    dispatch(fetchAllPurchaseStatistics());
+    fetchAllPurchases();
+    fetchAllPurchaseStatistics();
   }, []);
+
+  useEffect(() => {
+    setTableRow(dataPurchase());
+  }, [purchases]);
 
   return (
     <div>
@@ -133,8 +165,10 @@ const Payments: NextPage = () => {
                           <div className="ml-2">
                             <p className="text-sm">Total amount on purchases</p>
                             <p className="text-lg">
-                              &#8358;{" "}
-                              {numberWithCommas(stats?.total_all_time_spent)}
+                              &#8358;
+                              {numberWithCommas(
+                                purchaseStatistics?.total_all_time_spent
+                              )}
                             </p>
                           </div>
                         </div>
@@ -154,7 +188,7 @@ const Payments: NextPage = () => {
                               Total stores purchased from
                             </p>
                             <p className="text-lg">
-                              {stats?.total_store_purchase_from}
+                              {purchaseStatistics?.total_store_purchase_from}
                             </p>
                           </div>
                         </div>
@@ -171,7 +205,9 @@ const Payments: NextPage = () => {
                           <img src="/icons/lending-limit.svg" />
                           <div className="ml-2">
                             <p className="text-sm">Total purchases</p>
-                            <p className="text-lg"> {stats.total_purchases} </p>
+                            <p className="text-lg">
+                              {purchaseStatistics?.total_purchases}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -187,9 +223,9 @@ const Payments: NextPage = () => {
                   <div className="text-xl">Purchase history</div>
                 </div>
                 <PaginationTable
-                  data={dataPurchase ? dataPurchase : []}
+                  data={tableRow ? tableRow : []}
                   columns={columnsPurchase ? columnsPurchase : []}
-                  tablePage={page && page}
+                  tablePage={purchases?.page && purchases?.page}
                 />
               </div>
             </div>
@@ -200,4 +236,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default withAuth(PurchaseAll);

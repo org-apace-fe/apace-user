@@ -1,35 +1,38 @@
 import type { NextPage } from "next";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
 import Button from "../../../components/button";
 import { background, ColorButton } from "../../../utils/background";
-import Table from "../../../components/dashboard/table";
 import PaginationTable from "../../../components/dashboard/table/pagination-table";
 import { PaymentAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllLoans,
-  fetchAllLoansDue,
-  fetchAllLoansStatistics,
-} from "../../../store/actions/payment.action";
-import { Column } from "react-table";
 import moment from "moment";
-import router from "next/router";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
-const Payments: NextPage = () => {
+const PaymentsAll: NextPage = () => {
   const dispatch = useDispatch();
 
-  const payment = useSelector((state: any) => state.payment);
+  const [loans, setLoans] = useState<any>();
+  const [loansStatistics, setLoansStatistics] = useState<any>();
+  const [tableRow, setTableRow] = useState<any[]>();
 
-  const allLoans = payment?.allLoans?.data;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
-  const page = allLoans?.page;
-
-  const stats = payment?.allLoansStatistics?.data;
+  const loader = useSelector((state: any) => state.loader);
+  const loaderOpened = loader.LoaderOpened;
 
   type DataPayment = {
     amount: ReactNode;
@@ -39,23 +42,23 @@ const Payments: NextPage = () => {
     actions: ReactNode;
   };
 
-  const dataPayment = React.useMemo<DataPayment[]>(
-    () =>
-      allLoans?.items?.map((a: any) => {
-        return {
-          amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
-          date_created: `${moment(a?.date_created).format("ll")}`,
-          date_completed: `${
-            a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
-          }`,
-          status: (
-            <Button className={ColorButton(a?.status)}> {a?.status} </Button>
-          ),
-          actions: <PaymentAction id={a?.id} />,
-        };
-      }),
-    [allLoans]
-  );
+  const dataPayment = () => {
+    const tempArr: any[] = [];
+    loans?.items.forEach((a: any) => {
+      tempArr.push({
+        amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
+        date_created: `${moment(a?.date_created).format("ll")}`,
+        date_completed: `${
+          a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
+        }`,
+        status: (
+          <Button className={ColorButton(a?.status)}> {a?.status} </Button>
+        ),
+        actions: <PaymentAction id={a?.id} />,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsPayment = [
     {
@@ -82,11 +85,44 @@ const Payments: NextPage = () => {
     },
   ];
 
+  const fetchAllLoans = () => {
+    dispatch(LoadingStart());
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/all`,
+        { headers: headersRequest }
+      )
+      .then((res) => {
+        setLoans(res?.data?.data);
+        dispatch(LoadingStop());
+      })
+      .catch((err) => {
+        dispatch(LoadingStop());
+      });
+  };
+
+  const fetchAllLoansStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/statistics`,
+        { headers: headersRequest }
+      );
+      setLoansStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchAllLoans());
-    dispatch(fetchAllLoansDue());
-    dispatch(fetchAllLoansStatistics());
+    fetchAllLoans();
+    fetchAllLoansStatistics();
   }, []);
+
+  useEffect(() => {
+    setTableRow(dataPayment());
+  }, [loans]);
 
   return (
     <div>
@@ -107,7 +143,8 @@ const Payments: NextPage = () => {
                         <div className="ml-4">
                           <p className="text-sm">Total due</p>
                           <p className="text-lg text-apace-orange-light">
-                            &#8358; {numberWithCommas(stats?.total_loan_due)}
+                            &#8358;{" "}
+                            {numberWithCommas(loansStatistics?.total_loan_due)}
                           </p>
                         </div>
                       </div>
@@ -125,7 +162,9 @@ const Payments: NextPage = () => {
                           <p className="text-sm">Total all time loans</p>
                           <p className="text-lg text-apace-orange-light">
                             &#8358;{" "}
-                            {numberWithCommas(stats?.total_all_time_loan)}
+                            {numberWithCommas(
+                              loansStatistics?.total_all_time_loan
+                            )}
                           </p>
                         </div>
                       </div>
@@ -143,7 +182,9 @@ const Payments: NextPage = () => {
                           <p className="text-lg">
                             {" "}
                             &#8358;{" "}
-                            {numberWithCommas(stats?.total_payment_made)}{" "}
+                            {numberWithCommas(
+                              loansStatistics?.total_payment_made
+                            )}{" "}
                           </p>
                         </div>
                       </div>
@@ -158,11 +199,11 @@ const Payments: NextPage = () => {
                 <div className="flex justify-between items-center mb-4">
                   <div className="text-xl">Payment history</div>{" "}
                 </div>
-                {allLoans?.items ? (
+                {loans?.items ? (
                   <PaginationTable
-                    data={dataPayment ? dataPayment : []}
+                    data={tableRow ? tableRow : []}
                     columns={columnsPayment ? columnsPayment : []}
-                    tablePage={page && page}
+                    tablePage={loans?.page && loans?.page}
                   />
                 ) : null}
               </div>
@@ -174,4 +215,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default withAuth(PaymentsAll);

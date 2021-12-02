@@ -33,3 +33,9 @@ export interface ITopDealStore {
   store_logo: string;
   feature_image: string;
 }
+
+export interface ICategory {
+  id: number;
+  name: string;
+  image: string;
+}
