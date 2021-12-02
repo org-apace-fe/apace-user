@@ -1,4 +1,4 @@
-import { IStore, ITopDealStore } from "../../interfaces/items.enum";
+import { ICategory, ITopDealStore } from "../../interfaces/items.enum";
 import { SkeletonLoader2 } from "../skeleton";
 
 type TopDealStoreProps = {
@@ -58,36 +58,39 @@ export function DashboardTopDealstore({ items, loading }: TopDealStoreProps) {
   );
 }
 
-export function DashboardFeaturedStore({ items, loading }: TopDealStoreProps) {
+type TopCategoryProps = {
+  items: ICategory[];
+  loading: boolean;
+};
+
+export function DashboardTopCategories({ items, loading }: TopCategoryProps) {
   return (
-    <div className="relative w-full bg-apace-black text-white min-h-screen py-8">
-      <div className="flex flex-1 lg:flex-row flex-col  items-center flex-wrap">
-        {!loading ? (
-          items?.map((item: ITopDealStore) => (
-            <div key={item.store_name} className="lg:w-1/5 w-full p-2">
-              <div className="w-full text-white">
-                <div
-                  style={{
-                    backgroundImage: `url(${item.store_logo})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "top",
-                  }}
-                  className="relative w-full h-60 rounded-lg  font-bold "
-                >
-                  <div className="w-full h-full bg-apace-black opacity-40"></div>
-                  <div className="absolute bottom-3 left-2 w-16 h-14 rounded-md overflow-hidden  z-30 ">
-                    <img src={item.feature_image} alt="Picture of the author" />
-                  </div>
+    <>
+      {!loading ? (
+        items?.slice(0, 4).map((item: ICategory) => (
+          <div key={item.id} className="lg:w-1/2 w-full px-2 lg:mb-0 pb-5">
+            <div className="w-full text-white">
+              <div
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                }}
+                className="relative w-full lg:h-40 h-80 rounded-lg  font-bold "
+              >
+                <div className="w-full h-full bg-apace-black opacity-40"></div>
+                <div className="absolute bottom-2 left-2   rounded-md overflow-hidden z-30 ">
+                  <p className="text-xl font-medium"> {item.name} </p>
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          <>
-            <SkeletonLoader2 />
-          </>
-        )}
-      </div>
-    </div>
+          </div>
+        ))
+      ) : (
+        <>
+          <SkeletonLoader2 />
+        </>
+      )}
+    </>
   );
 }

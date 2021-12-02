@@ -8,16 +8,10 @@ import Table from "../../../components/dashboard/table";
 import { PurchaseAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllPurchases,
-  fetchAllPurchaseStatistics,
-  fetchPurchaseCharts,
-} from "../../../store/actions/purchase.action";
 import router from "next/router";
 import Loader from "../../../components/loader";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
-import { fetchMiscelaneousStatistics } from "../../../store/actions/user.action";
 import axios from "axios";
 import {
   LoadingStart,
@@ -28,13 +22,16 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch();
 
   const [purchases, setPurchases] = useState<any>();
+  const [miscellaneousStatistics, setMiscellaneousStatistics] = useState<any>();
+  const [purchaseChart, setPurchaseChart] = useState<any>();
   const [tableRow, setTableRow] = useState<any[]>();
 
-  const stats = purchases?.allPurchaseStatistics?.data;
-  const chart = purchases?.allPurchaseCharts?.data;
-
-  const miscellaneousStats = useSelector((state: any) => state.auth);
-  const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
@@ -45,7 +42,7 @@ const Purchase: NextPage = () => {
     store_logo: string;
     category: string;
     deal: string;
-    order_status: string;
+    order_status: ReactNode;
     actions: ReactNode;
   };
 
@@ -103,15 +100,8 @@ const Purchase: NextPage = () => {
     },
   ];
 
-  const callAllPurchases = () => {
+  const fetchAllPurchases = () => {
     dispatch(LoadingStart());
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    const headersRequest = {
-      Authorization: `Bearer ${token}`,
-      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
-    };
-
     axios
       .get(
         `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/all`,
@@ -126,11 +116,38 @@ const Purchase: NextPage = () => {
       });
   };
 
+  const fetchMiscellaneousStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/miscellaneous/statistics/general`,
+        { headers: headersRequest }
+      );
+      setMiscellaneousStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
+  const fetchPurchaseChart = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/charts`,
+        { headers: headersRequest }
+      );
+      setPurchaseChart(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
   useEffect(() => {
-    callAllPurchases();
-    // dispatch(fetchPurchaseCharts());
-    // dispatch(fetchAllPurchaseStatistics());
-    // dispatch(fetchMiscelaneousStatistics());
+    fetchAllPurchases();
+    fetchMiscellaneousStatistics();
+    fetchPurchaseChart();
   }, []);
 
   useEffect(() => {
@@ -140,7 +157,7 @@ const Purchase: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        {!loaderOpened && dataPurchase ? (
+        {tableRow ? (
           <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
             <Container>
               <div className="flex lg:flex-row flex-col ">
@@ -163,7 +180,7 @@ const Purchase: NextPage = () => {
                             <p className="text-lg text-apace-orange-light">
                               &#8358;{" "}
                               {numberWithCommas(
-                                miscellaneous?.total_amount_spent
+                                miscellaneousStatistics?.total_amount_spent
                               )}
                             </p>
                           </div>
@@ -182,7 +199,7 @@ const Purchase: NextPage = () => {
                             <p className="text-lg text-apace-orange-light">
                               &#8358;{" "}
                               {numberWithCommas(
-                                miscellaneous?.current_credit_limit
+                                miscellaneousStatistics?.current_credit_limit
                               )}
                             </p>
                           </div>
@@ -226,4 +243,4 @@ const Purchase: NextPage = () => {
   );
 };
 
-export default Purchase;
+export default withAuth(Purchase);

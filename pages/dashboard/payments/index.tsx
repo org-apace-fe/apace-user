@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import Link from "next/link";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
@@ -9,32 +9,32 @@ import Table from "../../../components/dashboard/table";
 import { PaymentAction } from "../../../components/dashboard/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllLoans,
-  fetchAllLoansDue,
-  fetchAllLoansStatistics,
-} from "../../../store/actions/payment.action";
 import moment from "moment";
 import router from "next/router";
 import Loader from "../../../components/loader";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
-import { fetchMiscelaneousStatistics } from "../../../store/actions/user.action";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const Payments: NextPage = () => {
   const dispatch = useDispatch();
 
-  const payment = useSelector((state: any) => state.payment);
+  const [loans, setLoans] = useState<any>();
+  const [loansDue, setLoansDue] = useState<any>();
+  const [loansStatistics, setLoansStatistics] = useState<any>();
+  const [miscellaneousStatistics, setMiscellaneousStatistics] = useState<any>();
+  const [tableRow, setTableRow] = useState<any[]>();
 
-  const allLoans = payment?.allLoans?.data;
-
-  const allLoansDue = payment?.allLoansDue?.data;
-
-  const stats = payment?.allLoansStatistics?.data;
-
-  const miscellaneousStats = useSelector((state: any) => state.auth);
-
-  const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
@@ -47,23 +47,23 @@ const Payments: NextPage = () => {
     actions: ReactNode;
   };
 
-  const dataPayment = React.useMemo<DataPayment[]>(
-    () =>
-      allLoans?.items?.splice(0, 5).map((a: any) => {
-        return {
-          amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
-          date_created: `${moment(a?.date_created).format("ll")}`,
-          date_completed: `${
-            a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
-          }`,
-          status: (
-            <Button className={ColorButton(a?.status)}> {a?.status} </Button>
-          ),
-          actions: <PaymentAction id={a?.id} />,
-        };
-      }),
-    [allLoans]
-  );
+  const dataPayment = () => {
+    const tempArr: any[] = [];
+    loans?.items.slice(0, 5).forEach((a: any) => {
+      tempArr.push({
+        amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
+        date_created: `${moment(a?.date_created).format("ll")}`,
+        date_completed: `${
+          a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
+        }`,
+        status: (
+          <Button className={ColorButton(a?.status)}> {a?.status} </Button>
+        ),
+        actions: <PaymentAction id={a?.id} />,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsPayment = [
     {
@@ -90,18 +90,79 @@ const Payments: NextPage = () => {
     },
   ];
 
+  const fetchAllLoans = () => {
+    dispatch(LoadingStart());
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/all`,
+        { headers: headersRequest }
+      )
+      .then((res) => {
+        setLoans(res?.data?.data);
+        dispatch(LoadingStop());
+      })
+      .catch((err) => {
+        dispatch(LoadingStop());
+      });
+  };
+
+  const fetchMiscellaneousStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/miscellaneous/statistics/general`,
+        { headers: headersRequest }
+      );
+      setMiscellaneousStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
+  const fetchAllLoansDue = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/due`,
+        { headers: headersRequest }
+      );
+      setLoansDue(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
+  const fetchAllLoansStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/statistics`,
+        { headers: headersRequest }
+      );
+      setLoansStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchAllLoans());
-    dispatch(fetchAllLoansDue());
-    dispatch(fetchAllLoansStatistics());
-    dispatch(fetchMiscelaneousStatistics());
+    fetchAllLoans();
+    fetchMiscellaneousStatistics();
+    fetchAllLoansDue();
+    fetchAllLoansStatistics();
   }, []);
 
+  useEffect(() => {
+    setTableRow(dataPayment());
+  }, [loans]);
   return (
     <>
       <div>
         <DashboardLayout>
-          {!loaderOpened && dataPayment ? (
+          {tableRow ? (
             <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
               <Container>
                 <div
@@ -113,7 +174,7 @@ const Payments: NextPage = () => {
                     <div className="lg:w-6/12 w-full mr-4">
                       {/* Payments */}
                       <div className="flex lg:flex-row flex-col flex-wrap">
-                        {allLoansDue?.items?.map((loan: any) => (
+                        {loansDue?.items?.map((loan: any) => (
                           <div className="relative lg:w-1/2 w-full lg:h-64 h-auto mb-6 pr-3">
                             <div
                               className="relative  h-full rounded-lg p-4 "
@@ -171,7 +232,7 @@ const Payments: NextPage = () => {
                                 <p className="text-lg text-apace-orange-light">
                                   &#8358;{" "}
                                   {numberWithCommas(
-                                    miscellaneous?.total_loans_due
+                                    miscellaneousStatistics?.total_loans_due
                                   )}
                                 </p>
                               </div>
@@ -193,7 +254,7 @@ const Payments: NextPage = () => {
                                   {" "}
                                   &#8358;{" "}
                                   {numberWithCommas(
-                                    miscellaneous?.total_current_loan
+                                    miscellaneousStatistics?.total_current_loan
                                   )}{" "}
                                 </p>
                               </div>
@@ -211,7 +272,9 @@ const Payments: NextPage = () => {
                                 <p className="text-sm">Total all time loans</p>
                                 <p className="text-lg text-apace-orange-light">
                                   &#8358;{" "}
-                                  {numberWithCommas(stats?.total_all_time_loan)}
+                                  {numberWithCommas(
+                                    loansStatistics?.total_all_time_loan
+                                  )}
                                 </p>
                               </div>
                             </div>
@@ -232,7 +295,7 @@ const Payments: NextPage = () => {
                                   {" "}
                                   &#8358;{" "}
                                   {numberWithCommas(
-                                    miscellaneous?.total_payment_made
+                                    miscellaneousStatistics?.total_payment_made
                                   )}{" "}
                                 </p>
                               </div>
@@ -252,7 +315,7 @@ const Payments: NextPage = () => {
                                   {" "}
                                   &#8358;{" "}
                                   {numberWithCommas(
-                                    miscellaneous?.current_credit_limit
+                                    miscellaneousStatistics?.current_credit_limit
                                   )}{" "}
                                 </p>
                               </div>
@@ -280,7 +343,7 @@ const Payments: NextPage = () => {
                       </Button>
                     </div>
                     <Table
-                      data={dataPayment ? dataPayment : []}
+                      data={tableRow ? tableRow : []}
                       columns={columnsPayment ? columnsPayment : []}
                     />
                   </div>

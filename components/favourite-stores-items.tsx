@@ -1,4 +1,4 @@
-import { IStore, ITopDealStore, ITopProducts } from "../interfaces/items.enum";
+import { IStore, ITopDealStore, ICategory } from "../interfaces/items.enum";
 import { SkeletonLoader, SkeletonLoader2 } from "./skeleton";
 import Link from "next/link";
 
@@ -71,7 +71,7 @@ export function FeaturedStore({ item }: IFeaturedStoreProps) {
 }
 
 type IShopCategoryProps = {
-  item: ITopProducts;
+  item: ICategory;
 };
 
 export function ShopCategory({ item }: IShopCategoryProps) {
@@ -80,7 +80,7 @@ export function ShopCategory({ item }: IShopCategoryProps) {
       <div
         key={item.id}
         style={{
-          backgroundImage: `url(${item.photo})`,
+          backgroundImage: `url(${item.image})`,
           backgroundSize: "cover",
           backgroundPosition: "top",
         }}
@@ -88,7 +88,7 @@ export function ShopCategory({ item }: IShopCategoryProps) {
       >
         <div className="w-full h-full bg-apace-black opacity-40"></div>
         <div className="absolute bottom-2 left-2   rounded-md overflow-hidden z-30 ">
-          <p className="text-2xl font-medium"> {item.category} </p>
+          <p className="text-2xl font-medium"> {item.name} </p>
         </div>
       </div>
     </div>

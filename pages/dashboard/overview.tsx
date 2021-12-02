@@ -1,30 +1,46 @@
 import type { NextPage } from "next";
-import Layout from "../../components/layout";
-import Banner from "../../components/banner";
-import FavouriteStores from "../../components/favourite-stores";
-import Invite from "../../components/invite";
-import ApaceApp from "../../components/apace-app";
-
 import Container from "../../components/container";
 import DashboardLayout from "../../components/dashboard/layout";
-import ApaceStoreTabs from "../../components/store-tabs";
 import OverviewPayment from "../../components/dashboard/overview/payment";
 import OverviewPurchase from "../../components/dashboard/overview/purchase";
 import OverviewReferrals from "../../components/dashboard/overview/referrals";
 import withAuth from "../../route/with-auth";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMiscelaneousStatistics } from "../../store/actions/user.action";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const Overview: NextPage = () => {
   const dispatch = useDispatch();
 
-  const miscellaneousStats = useSelector((state: any) => state.auth);
+  const [miscellaneousStatistics, setMiscellaneousStatistics] = useState<any>();
 
-  const miscellaneous = miscellaneousStats?.miscellaneousStatistics?.data;
+  const fetchMiscellaneousStatistics = async () => {
+    try {
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      const headersRequest = {
+        Authorization: `Bearer ${token}`,
+        "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+      };
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/miscellaneous/statistics/general`,
+        { headers: headersRequest }
+      );
+      setMiscellaneousStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
 
   useEffect(() => {
-    dispatch(fetchMiscelaneousStatistics());
+    fetchMiscellaneousStatistics();
   }, []);
 
   return (
@@ -32,9 +48,9 @@ const Overview: NextPage = () => {
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
           <Container>
-            <OverviewPayment miscellaneous={miscellaneous} />
-            <OverviewPurchase miscellaneous={miscellaneous} />
-            <OverviewReferrals miscellaneous={miscellaneous} />
+            <OverviewPayment miscellaneous={miscellaneousStatistics} />
+            <OverviewPurchase miscellaneous={miscellaneousStatistics} />
+            <OverviewReferrals miscellaneous={miscellaneousStatistics} />
           </Container>
         </div>
       </DashboardLayout>
@@ -42,6 +58,4 @@ const Overview: NextPage = () => {
   );
 };
 
-// export default withAuth(Overview);
-
-export default Overview;
+export default withAuth(Overview);

@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
-import { useDispatch, useSelector } from "react-redux";
-import React, { ReactNode, useEffect } from "react";
-import { fetchSingleLoan } from "../../../store/actions/payment.action";
+import { useDispatch } from "react-redux";
+import React, { ReactNode, useEffect, useState } from "react";
 import router from "next/router";
 import { background } from "../../../utils/background";
 import moment from "moment";
@@ -11,20 +10,42 @@ import Button from "../../../components/button";
 import Table from "../../../components/dashboard/table";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const PaymentDetail: NextPage = () => {
   const dispatch = useDispatch();
   const loanId = router.query.id;
 
-  const loan = useSelector((state: any) => state.payment);
+  const [oneLoan, setOneLoan] = useState<any>();
+  const [tableRowRepaymentSchedule, setTableRowRepaymentSchedule] =
+    useState<any>();
+  const loanDetail = oneLoan?.loan_detail;
+  const order = oneLoan?.order;
 
-  const loanDetail = loan?.oneLoan?.data?.loan_detail;
-  const order = loan?.oneLoan?.data?.order;
-  const loanRepayments = loan?.oneLoan?.data?.loan_repayments;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
-  useEffect(() => {
-    dispatch(fetchSingleLoan(loanId));
-  }, []);
+  const fetchOneLoan = async (loanId: any) => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/${loanId}/detail`,
+        { headers: headersRequest }
+      );
+      setOneLoan(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
 
   type DataPayment = {
     amount: number;
@@ -34,32 +55,30 @@ const PaymentDetail: NextPage = () => {
     status: ReactNode;
   };
 
-  const dataPayment = React.useMemo<DataPayment[]>(
-    () =>
-      loanRepayments?.splice(0, 5).map((a: any) => {
-        return {
-          amount: `N ${numberWithCommas(a?.amount)} `,
-          interest: `${a?.interest}`,
-          due_date: `${
-            a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
-          }`,
-          date_completed: `${
-            a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
-          }`,
-          status: <Button> {a?.status} </Button>,
-        };
-      }),
-    [loanRepayments]
-  );
+  const dataPayment = () => {
+    const tempArr: any[] = [];
+    oneLoan?.loan_repayments?.forEach((a: any) => {
+      tempArr.push({
+        amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
+        interest: `${a?.interest} %`,
+        due_date: `${a?.due_date ? moment(a?.due_date).format("ll") : "-"}`,
+        date_completed: `${
+          a?.date_completed ? moment(a?.date_completed).format("ll") : "-"
+        }`,
+        status: <Button> {a?.status} </Button>,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsPayment = [
     {
-      Header: "Loan amount",
+      Header: "Amount",
       accessor: "amount",
     },
 
     {
-      Header: "Loan started",
+      Header: "Interest",
       accessor: "interest",
     },
     {
@@ -76,6 +95,14 @@ const PaymentDetail: NextPage = () => {
       accessor: "status",
     },
   ];
+
+  useEffect(() => {
+    fetchOneLoan(loanId);
+  }, []);
+
+  useEffect(() => {
+    setTableRowRepaymentSchedule(dataPayment());
+  }, [oneLoan?.loan_repayments]);
 
   return (
     <div>
@@ -170,21 +197,25 @@ const PaymentDetail: NextPage = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <p className="text-lg my-4"> Purchase </p>
-              {loanRepayments ? (
+              {tableRowRepaymentSchedule ? (
                 <Table
-                  data={dataPayment ? dataPayment : []}
+                  data={
+                    tableRowRepaymentSchedule ? tableRowRepaymentSchedule : []
+                  }
                   columns={columnsPayment ? columnsPayment : []}
                 />
               ) : null}
-            </div>
+            </div> */}
 
             <div>
               <p className="text-lg my-4"> Repayment schedule </p>
-              {loanRepayments ? (
+              {tableRowRepaymentSchedule ? (
                 <Table
-                  data={dataPayment ? dataPayment : []}
+                  data={
+                    tableRowRepaymentSchedule ? tableRowRepaymentSchedule : []
+                  }
                   columns={columnsPayment ? columnsPayment : []}
                 />
               ) : null}

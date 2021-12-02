@@ -5,9 +5,14 @@ import Link from "next/link";
 type AllStoreProps = {
   items: IStore[];
   loading: boolean;
+  personalInfo: any;
 };
 
-export function AllStore({ items, loading }: AllStoreProps) {
+export function AllStore({
+  items,
+  loading,
+  personalInfo,
+}: Partial<AllStoreProps>) {
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col   items-start  flex-wrap">
@@ -15,7 +20,11 @@ export function AllStore({ items, loading }: AllStoreProps) {
           items?.map((item: IStore) => (
             <>
               <Link
-                href={`https://apace-store.herokuapp.com/${item.store_name}`}
+                href={`https://apace-store.herokuapp.com/${
+                  item.store_name
+                }?identifier=${
+                  personalInfo?.email_address || personalInfo?.mobile_number
+                } `}
               >
                 <a
                   target="_blank"
@@ -59,9 +68,14 @@ export function AllStore({ items, loading }: AllStoreProps) {
 type TopDealStoreProps = {
   items: ITopDealStore[];
   loading: boolean;
+  personalInfo: any;
 };
 
-export function TopDealstore({ items, loading }: TopDealStoreProps) {
+export function TopDealstore({
+  items,
+  loading,
+  personalInfo,
+}: Partial<TopDealStoreProps>) {
   console.log(items);
 
   return (
@@ -71,7 +85,11 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
           items?.map((item: ITopDealStore) => (
             <>
               <Link
-                href={`https://apace-store.herokuapp.com/${item.store_name}`}
+                href={`https://apace-store.herokuapp.com/${
+                  item.store_name
+                }?identifier=${
+                  personalInfo?.email_address || personalInfo?.mobile_number
+                } `}
               >
                 <a
                   target="_blank"
@@ -122,13 +140,23 @@ export function TopDealstore({ items, loading }: TopDealStoreProps) {
   );
 }
 
-export function FeaturedStore({ items, loading }: TopDealStoreProps) {
+export function FeaturedStore({
+  items,
+  loading,
+  personalInfo,
+}: Partial<TopDealStoreProps>) {
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col items-start  flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
-            <Link href={`https://apace-store.herokuapp.com/${item.store_name}`}>
+            <Link
+              href={`https://apace-store.herokuapp.com/${
+                item.store_name
+              }?identifier=${
+                personalInfo?.email_address || personalInfo?.mobile_number
+              }`}
+            >
               <a
                 target="_blank"
                 key={item.store_name}

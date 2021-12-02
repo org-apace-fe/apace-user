@@ -10,15 +10,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import {
   FeaturedStore,
   ShopCategory,
   TopDeals,
 } from "./favourite-stores-items";
-import Axios from "axios";
-import { ITopDealStore, ITopProducts } from "../interfaces/items.enum";
+
+import { ICategory, ITopDealStore } from "../interfaces/items.enum";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCategories,
@@ -33,22 +33,11 @@ const FavouriteStores = () => {
 
   const stores = useSelector((state: any) => state.stores);
   const loading = useSelector((state: any) => state.loading);
-
   const allFeaturedStores = stores.featuredStores?.items;
   const allTopDealsStores = stores.topDealsStores?.items;
-
-  const [data1, setData1] = useState<ITopProducts[]>();
-  const getProduct = async () => {
-    try {
-      const products = await Axios.get("./mock/topProducts.json");
-      setData1(products?.data);
-    } catch (error) {
-      console.log("ooops");
-    }
-  };
+  const allCategories = stores.allCategories?.data;
 
   useEffect(() => {
-    getProduct();
     dispatch(getAllFeaturedStores());
     dispatch(getAllTopDealsStores());
     dispatch(getAllCategories());
@@ -159,7 +148,7 @@ const FavouriteStores = () => {
             navigation
             pagination={{ clickable: true }}
           >
-            {data1?.map((item: ITopProducts) => (
+            {allCategories?.map((item: ICategory) => (
               <SwiperSlide key={item.id}>
                 <div className=" h-96" style={{ height: "23rem" }}>
                   <ShopCategory item={item} />
