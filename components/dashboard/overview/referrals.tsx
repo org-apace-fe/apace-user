@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTopDealsStores } from "../../../store/actions/apaceStore.action";
+import { getAllCategories } from "../../../store/actions/apaceStore.action";
 import { background } from "../../../utils/background";
 import Button from "../../button";
-import { DashboardTopDealstore } from "../dashboard-top-deals";
+import { DashboardTopCategories } from "../dashboard-top-deals";
 import router from "next/router";
 
 const OverviewReferrals = ({ miscellaneous }: any) => {
@@ -11,10 +11,10 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
 
   const stores = useSelector((state: any) => state.stores);
   const loading = useSelector((state: any) => state.loading);
-  const allTopDealsStores = stores.topDealsStores?.items;
+  const allCategories = stores.allCategories?.data;
 
   useEffect(() => {
-    dispatch(getAllTopDealsStores());
+    dispatch(getAllCategories());
   }, []);
   return (
     <div className="flex lg:flex-row flex-col">
@@ -106,7 +106,7 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
           </Button>
         </div>
         <div className="flex flex-wrap">
-          <DashboardTopDealstore items={allTopDealsStores} loading={loading} />
+          <DashboardTopCategories items={allCategories} loading={loading} />
         </div>
       </div>
     </div>
