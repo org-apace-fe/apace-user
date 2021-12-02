@@ -6,7 +6,6 @@ import Button from "../../button";
 import { DashboardTopDealstore } from "../dashboard-top-deals";
 import Link from "next/link";
 import router from "next/router";
-import { fetchAllLoansStatistics } from "../../../store/actions/payment.action";
 import { numberWithCommas } from "../../../utils/formatNumber";
 
 const OverviewPayment = ({ miscellaneous }: any) => {
@@ -18,7 +17,6 @@ const OverviewPayment = ({ miscellaneous }: any) => {
 
   useEffect(() => {
     dispatch(getAllTopDealsStores());
-    dispatch(fetchAllLoansStatistics());
   }, []);
   return (
     <div className="flex lg:flex-row flex-col ">

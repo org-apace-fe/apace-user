@@ -12,7 +12,6 @@ const OverviewPurchase = ({ miscellaneous }: any) => {
 
   const stores = useSelector((state: any) => state.stores);
   const allTopDealsStores = stores.topDealsStores?.items;
-
   const loading = useSelector((state: any) => state.loading);
 
   useEffect(() => {

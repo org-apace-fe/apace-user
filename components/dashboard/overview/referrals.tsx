@@ -4,8 +4,6 @@ import { getAllTopDealsStores } from "../../../store/actions/apaceStore.action";
 import { background } from "../../../utils/background";
 import Button from "../../button";
 import { DashboardTopDealstore } from "../dashboard-top-deals";
-import Link from "next/link";
-import { fetchReferralsStatistics } from "../../../store/actions/user.action";
 import router from "next/router";
 
 const OverviewReferrals = ({ miscellaneous }: any) => {
@@ -14,12 +12,9 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
   const stores = useSelector((state: any) => state.stores);
   const loading = useSelector((state: any) => state.loading);
   const allTopDealsStores = stores.topDealsStores?.items;
-  const referrals = useSelector((state: any) => state.auth);
-  const referralStatistics = referrals?.referralStatistics?.data;
 
   useEffect(() => {
     dispatch(getAllTopDealsStores());
-    dispatch(fetchReferralsStatistics());
   }, []);
   return (
     <div className="flex lg:flex-row flex-col">
@@ -60,7 +55,7 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
                   <p className="text-sm">All time points</p>
                   <p className="text-lg">
                     {" "}
-                    {referralStatistics?.all_time_points || 0} points{" "}
+                    {miscellaneous?.all_time_points || 0} points{" "}
                   </p>
                 </div>
               </div>
@@ -77,8 +72,7 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
                   <p className="text-sm"># of users referred</p>
                   <p className="text-lg ">
                     {" "}
-                    {referralStatistics?.number_of_referred_customers || 0}{" "}
-                    shoppers
+                    {miscellaneous?.number_of_referred_customers || 0} shoppers
                   </p>
                 </div>
               </div>
@@ -95,7 +89,7 @@ const OverviewReferrals = ({ miscellaneous }: any) => {
                   <p className="text-sm">Points used</p>
                   <p className="text-lg">
                     {" "}
-                    {referralStatistics?.points_used || 0} points
+                    {miscellaneous?.points_used || 0} points
                   </p>
                 </div>
               </div>

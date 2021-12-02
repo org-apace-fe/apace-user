@@ -16,7 +16,6 @@ export const getAllStores = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };
@@ -35,7 +34,6 @@ export const getAllOnlineStores = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };
@@ -54,7 +52,6 @@ export const getAllInStoreStores = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };
@@ -73,7 +70,6 @@ export const getAllTopDealsStores = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };
@@ -92,7 +88,6 @@ export const getAllFeaturedStores = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };
@@ -101,7 +96,7 @@ export const getAllCategories = () => async (dispatch: any) => {
   dispatch(LoadingStart());
   try {
     const headersRequest = {
-      "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+      _auth: `watimagboauthkey`,
     };
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/view/categories/all`,
@@ -115,7 +110,6 @@ export const getAllCategories = () => async (dispatch: any) => {
 
     dispatch(LoadingStop());
   } catch (error) {
-    // dispatch(setAlert(error?.response?.data));
     dispatch(LoadingStop());
   }
 };

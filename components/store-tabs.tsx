@@ -58,7 +58,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ATabs() {
+export default function ATabs({ personalInfo }: any) {
   const dispatch = useDispatch();
   const [value, setValue] = useState(0);
 
@@ -159,7 +159,11 @@ export default function ATabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <p className="text-xl font-black font-body">All </p>
-        <AllStore items={allStores} loading={loading} />
+        <AllStore
+          items={allStores}
+          loading={loading}
+          personalInfo={personalInfo}
+        />
         <PaginationComponent
           page={page}
           onPageChange={handleChangePage}
@@ -169,7 +173,11 @@ export default function ATabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <p className="text-xl font-black font-body">Online </p>
-        <AllStore items={allOnlineStores} loading={loading} />
+        <AllStore
+          items={allOnlineStores}
+          loading={loading}
+          personalInfo={personalInfo}
+        />
         <PaginationComponent
           page={page}
           onPageChange={handleChangePage}
@@ -179,7 +187,11 @@ export default function ATabs() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <p className="text-xl font-black font-body">In-store </p>
-        <AllStore items={allInstoreStores} loading={loading} />
+        <AllStore
+          items={allInstoreStores}
+          loading={loading}
+          personalInfo={personalInfo}
+        />
         <PaginationComponent
           page={page}
           onPageChange={handleChangePage}
@@ -189,7 +201,11 @@ export default function ATabs() {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <p className="text-xl font-black font-body">Top deals </p>
-        <TopDealstore items={allTopDealsStores} loading={loading} />
+        <TopDealstore
+          items={allTopDealsStores}
+          loading={loading}
+          personalInfo={personalInfo}
+        />
         <PaginationComponent
           page={page}
           onPageChange={handleChangePage}
@@ -199,7 +215,11 @@ export default function ATabs() {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <p className="text-xl font-black font-body">Featured </p>
-        <FeaturedStore items={allFeaturedStores} loading={loading} />
+        <FeaturedStore
+          items={allFeaturedStores}
+          loading={loading}
+          personalInfo={personalInfo}
+        />
         <PaginationComponent
           page={page}
           onPageChange={handleChangePage}

@@ -1,32 +1,52 @@
 import type { NextPage } from "next";
 import Container from "../../../components/container";
 import DashboardLayout from "../../../components/dashboard/layout";
-import { useDispatch, useSelector } from "react-redux";
-import React, { ReactNode, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import React, { ReactNode, useEffect, useState } from "react";
 import router from "next/router";
 import { background } from "../../../utils/background";
 import moment from "moment";
 import Table from "../../../components/dashboard/table";
-import { fetchSingleOrder } from "../../../store/actions/purchase.action";
 import withAuth from "../../../route/with-auth";
 import { numberWithCommas } from "../../../utils/formatNumber";
 import isEmpty from "is-empty";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const PurchaseDetail: NextPage = () => {
   const dispatch = useDispatch();
-  const orderId = router.query.id;
+  const orderId = router?.query?.id;
 
-  const order = useSelector((state: any) => state.purchase);
+  const [oneOrder, setOneOrder] = useState<any>();
+  const [tableRowComplaints, setTableRowComplaints] = useState<any[]>();
+  const [tableRowRequestRefund, setTableRowRequestRefund] = useState<any[]>();
+  const orderDetail = oneOrder?.order;
+  const orderComplaints = oneOrder?.complaints;
+  const orderRefundRequest = oneOrder?.refund_requests;
 
-  const orderDetail = order?.oneOrder?.data?.order;
-  const orderComplaints = order?.oneOrder?.data?.complaints;
-  const orderRefundRequest = order?.oneOrder?.data?.refund_requests;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
-  const purchaseOrder = order?.oneOrder?.data?.order;
-
-  useEffect(() => {
-    dispatch(fetchSingleOrder(orderId));
-  }, []);
+  const fetchOneOrder = async (orderId: any) => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/purchase/${orderId}/detail`,
+        { headers: headersRequest }
+      );
+      setOneOrder(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
 
   type Data = {
     date: string;
@@ -34,75 +54,79 @@ const PurchaseDetail: NextPage = () => {
     status: ReactNode;
   };
 
-  const dataComplaints = React.useMemo<Data[]>(
-    () =>
-      orderComplaints?.splice(0, 5).map((a: any) => {
-        return {
-          date: `${a?.date} `,
-          message: `${a?.interest}`,
-
-          status: (
-            <div>
-              <span className="bg-red-400 h-1 w-1 rounded-full"> </span>
-              {a?.status}
-            </div>
-          ),
-        };
-      }),
-    [orderComplaints]
-  );
+  const dataComplaints = () => {
+    const tempArr: any[] = [];
+    orderComplaints?.forEach((a: any) => {
+      tempArr.push({
+        date: `${a?.date} `,
+        message: `${a?.interest}`,
+        status: (
+          <div>
+            <span className="bg-red-400 h-1 w-1 rounded-full"> </span>
+            {a?.status}
+          </div>
+        ),
+      });
+    });
+    return tempArr;
+  };
 
   const columnsComplaints = [
     {
       Header: "Date",
       accessor: "date",
     },
-
     {
       Header: "Message",
       accessor: "message",
     },
-
     {
       Header: "Status",
       accessor: "status",
     },
   ];
 
-  const dataRequestRefund = React.useMemo<Data[]>(
-    () =>
-      orderRefundRequest?.splice(0, 5).map((a: any) => {
-        return {
-          date: `${a?.date} `,
-          message: `${a?.interest}`,
+  const dataRequestRefund = () => {
+    const tempArr: any[] = [];
+    orderRefundRequest?.forEach((a: any) => {
+      tempArr.push({
+        date: `${a?.date} `,
+        message: `${a?.interest}`,
 
-          status: (
-            <div>
-              <span className="bg-red-400 h-1 w-1 rounded-full"> </span>
-              {a?.status}
-            </div>
-          ),
-        };
-      }),
-    [orderRefundRequest]
-  );
+        status: (
+          <div>
+            <span className="bg-red-400 h-1 w-1 rounded-full"> </span>
+            {a?.status}
+          </div>
+        ),
+      });
+    });
+    return tempArr;
+  };
 
   const columnsRequestRefund = [
     {
       Header: "Date",
       accessor: "date",
     },
-
     {
       Header: "Message",
       accessor: "message",
     },
-
     {
       Header: "Status",
       accessor: "status",
     },
   ];
+
+  useEffect(() => {
+    fetchOneOrder(orderId);
+  }, []);
+
+  useEffect(() => {
+    setTableRowComplaints(dataComplaints());
+    setTableRowRequestRefund(dataRequestRefund());
+  }, [oneOrder]);
 
   return (
     <div>
@@ -137,7 +161,7 @@ const PurchaseDetail: NextPage = () => {
                 <div className="h-full rounded-lg relative overflow-hidden bg-apace-black opacity-95 p-4">
                   <div className="absolute top-0 left-0 w-full h-full  ">
                     <img
-                      src={purchaseOrder?.store_logo}
+                      src={orderDetail?.store_logo}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -145,7 +169,7 @@ const PurchaseDetail: NextPage = () => {
                     className="absolute bottom-0 left-0 text-2xl font-medium m-3 "
                     style={{ zIndex: 100 }}
                   >
-                    {purchaseOrder?.store}
+                    {orderDetail?.store}
                   </p>
                 </div>
               </div>
@@ -199,7 +223,7 @@ const PurchaseDetail: NextPage = () => {
               <p className="text-xl mb-4">Complaints </p>
               {!isEmpty(dataComplaints) ? (
                 <Table
-                  data={dataComplaints ? dataComplaints : []}
+                  data={tableRowComplaints ? tableRowComplaints : []}
                   columns={columnsComplaints ? columnsComplaints : []}
                 />
               ) : (
@@ -216,7 +240,7 @@ const PurchaseDetail: NextPage = () => {
               <p className="text-xl mb-4">Refund request </p>
               {!isEmpty(dataRequestRefund) ? (
                 <Table
-                  data={dataRequestRefund ? dataRequestRefund : []}
+                  data={tableRowRequestRefund ? tableRowRequestRefund : []}
                   columns={columnsRequestRefund ? columnsRequestRefund : []}
                 />
               ) : (

@@ -1,60 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import Container from "../../components/container";
 import DashboardLayout from "../../components/dashboard/layout";
 import { background } from "../../utils/background";
-import Table from "../../components/dashboard/table";
 import {
   InstagramIcon,
   LinkednIcon,
   TwitterIcon,
 } from "../../components/icons/social-media";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllReferrals,
-  fetchReferralsActivities,
-  fetchReferralsStatistics,
-} from "../../store/actions/user.action";
 import { useEffect } from "react";
-import { Column } from "react-table";
 import PaginationTable from "../../components/dashboard/table/pagination-table";
 import Loader from "../../components/loader";
 import withAuth from "../../route/with-auth";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const Referrals: NextPage = () => {
-  const referrals = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+  const [referrals, setReferrals] = useState<any>();
+  const [referralsActivities, setReferralActivities] = useState<any>();
+  const [referralStatistics, setReferralStatistics] = useState<any>();
+  const [tableRowReferrals, setTableRowReferrals] = useState<any[]>();
+  const [tableRowReferralActivities, setTableRowReferralActivities] =
+    useState<any[]>();
+
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
+  const allReferallsPage = referrals?.page;
+  const referallsActivitiesPage = referralsActivities?.page;
 
-  const allReferrals = referrals?.referrals?.data;
-  const allReferallsPage = allReferrals?.page;
-  const referralActivities = referrals?.referralActivities?.data;
-  const referallsActivitiesPage = referralActivities?.page;
-  const referralStatistics = referrals?.referralStatistics?.data;
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllReferrals());
-    dispatch(fetchReferralsStatistics());
-    dispatch(fetchReferralsActivities());
-  }, []);
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
 
   type DataReferral = {
     customer_name: string;
     total_point: string;
   };
 
-  const dataReferral = React.useMemo<DataReferral[]>(
-    () =>
-      allReferrals?.items?.map((a: any) => {
-        return {
-          customer_name: `${a?.customer_name} `,
-          total_point: `${a?.total_point} points`,
-        };
-      }),
-    [allReferrals]
-  );
+  const dataReferral = () => {
+    const tempArr: any[] = [];
+    referrals?.items.forEach((a: any) => {
+      tempArr.push({
+        customer_name: `${a?.customer_name} `,
+        total_point: `${a?.total_point} points`,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsReferral = [
     {
@@ -81,18 +81,18 @@ const Referrals: NextPage = () => {
     point_balance: number;
   };
 
-  const dataReferralActivities = React.useMemo<DataReferralActivities[]>(
-    () =>
-      referralActivities?.items.map((a: any) => {
-        return {
-          item_name: `${a?.item_name} `,
-          point_used: `${a?.point_used} points `,
-          discount: `${a?.discount}% off`,
-          point_balance: `${a?.point_balance} points `,
-        };
-      }),
-    [referralActivities]
-  );
+  const dataReferralActivities = () => {
+    const tempArr: any[] = [];
+    referralsActivities?.items.forEach((a: any) => {
+      tempArr.push({
+        item_name: `${a?.item_name} `,
+        point_used: `${a?.point_used} points `,
+        discount: `${a?.discount}% off`,
+        point_balance: `${a?.point_balance} points `,
+      });
+    });
+    return tempArr;
+  };
 
   const columnsReferralActivities = [
     {
@@ -120,12 +120,65 @@ const Referrals: NextPage = () => {
     },
   ];
 
-  console.log(dataReferralActivities, dataReferral);
+  const fetchAllReferrals = () => {
+    dispatch(LoadingStart());
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/all`,
+        { headers: headersRequest }
+      )
+      .then((res) => {
+        setReferrals(res?.data?.data);
+        dispatch(LoadingStop());
+      })
+      .catch((err) => {
+        dispatch(LoadingStop());
+      });
+  };
+
+  const fetchReferralStatistics = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/statistics`,
+        { headers: headersRequest }
+      );
+      setReferralStatistics(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
+  const fetchReferralActivities = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/referral/activities`,
+        { headers: headersRequest }
+      );
+      setReferralActivities(res?.data?.data);
+      dispatch(LoadingStop());
+    } catch (error) {
+      dispatch(LoadingStop());
+    }
+  };
+
+  useEffect(() => {
+    fetchAllReferrals();
+    fetchReferralStatistics();
+    fetchReferralActivities();
+  }, []);
+
+  useEffect(() => {
+    setTableRowReferrals(dataReferral());
+    setTableRowReferralActivities(dataReferralActivities());
+  }, [referrals, referralsActivities]);
 
   return (
     <div>
       <DashboardLayout>
-        {!loaderOpened && dataReferralActivities && dataReferral ? (
+        {!loaderOpened && tableRowReferrals && tableRowReferralActivities ? (
           <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
             <Container>
               <div>
@@ -275,7 +328,7 @@ const Referrals: NextPage = () => {
                   <div className="flex ">
                     <div className="w-5/12 mr-4 ">
                       <PaginationTable
-                        data={dataReferral ? dataReferral : []}
+                        data={tableRowReferrals ? tableRowReferrals : []}
                         columns={columnsReferral ? columnsReferral : []}
                         tablePage={allReferallsPage && allReferallsPage}
                       />
@@ -283,7 +336,9 @@ const Referrals: NextPage = () => {
                     <div className="w-7/10 flex-1 ">
                       <PaginationTable
                         data={
-                          dataReferralActivities ? dataReferralActivities : []
+                          tableRowReferralActivities
+                            ? tableRowReferralActivities
+                            : []
                         }
                         columns={
                           columnsReferralActivities
