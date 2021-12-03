@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import millify from "millify";
 import {
   AreaChart,
   Area,
@@ -7,28 +8,35 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-const Charts = ({ purchaseChart }: any) => {
+type purchaseChart = {
+  date: string;
+  amount: number;
+};
+
+type PurchaseChartProps = {
+  purchaseChart: purchaseChart[];
+};
+
+const Charts = ({ purchaseChart }: PurchaseChartProps) => {
   const data = purchaseChart?.map((pc: any) => {
     return {
-      date: moment(pc.date).format("MMM"),
-      amount: 70000,
-      // total_amount: pc.total_amount
+      date: pc?.date,
+      amount: pc?.total_amount,
     };
   });
 
   return (
     <>
-      <ResponsiveContainer width={"99%"} height={300}>
+      <ResponsiveContainer width={"99%"} height={340}>
         <AreaChart
           width={500}
-          height={300}
+          height={340}
           data={data}
           margin={{
-            top: 5,
+            top: 40,
             right: 30,
             left: 20,
             bottom: 5,
@@ -49,10 +57,19 @@ const Charts = ({ purchaseChart }: any) => {
             horizontal={true}
             vertical={false}
           />
-          <XAxis dataKey="date" />
-          <YAxis dataKey="amount" domain={[0, 200000]} axisLine={false} />
+          <XAxis
+            dataKey="date"
+            tickFormatter={(date) => moment(date).format("MMM")}
+          />
+          <YAxis
+            dataKey="amount"
+            domain={[0, 200000]}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={(amount) => millify(amount)}
+          />
           <Tooltip />
-          <Legend />
+
           <Area
             type="monotone"
             dataKey="amount"

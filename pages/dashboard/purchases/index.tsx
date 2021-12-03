@@ -169,8 +169,8 @@ const Purchase: NextPage = () => {
                         className="relative  h-full rounded-lg p-4 "
                         style={{ background: background.apacegray6 }}
                       >
-                        <div className="absolute top-4 right-4">
-                          <PurchaseAction />
+                        <div className="absolute top-0 right-4">
+                          <Button>Filter</Button>
                         </div>
 
                         <div className="flex  pb-8">
@@ -214,8 +214,16 @@ const Purchase: NextPage = () => {
                 </div>
 
                 {/* //Chart */}
+
                 <div className="lg:w-7/12 w-full">
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden rounded-lg  bg-apace-gray ">
+                    <div
+                      className="py-0 px-4 flex justify-between items-center"
+                      style={{ background: background.apacegray2 }}
+                    >
+                      <p> Purchase trend </p>
+                      <Button>Filter</Button>
+                    </div>
                     <Charts purchaseChart={purchaseChart} />
                   </div>
                 </div>
