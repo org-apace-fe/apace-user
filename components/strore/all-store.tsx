@@ -20,7 +20,7 @@ export function AllStore({
           items?.map((item: IStore) => (
             <>
               <Link
-                href={`https://apace-store.herokuapp.com/${
+                href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
                   item.store_name
                 }?identifier=${
                   personalInfo?.email_address || personalInfo?.mobile_number
@@ -85,7 +85,7 @@ export function TopDealstore({
           items?.map((item: ITopDealStore) => (
             <>
               <Link
-                href={`https://apace-store.herokuapp.com/${
+                href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}/${
                   item.store_name
                 }?identifier=${
                   personalInfo?.email_address || personalInfo?.mobile_number
@@ -151,7 +151,7 @@ export function FeaturedStore({
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <Link
-              href={`https://apace-store.herokuapp.com/${
+              href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}/${
                 item.store_name
               }?identifier=${
                 personalInfo?.email_address || personalInfo?.mobile_number
