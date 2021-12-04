@@ -63,10 +63,10 @@ export default function ATabs({ personalInfo }: any) {
   const [value, setValue] = useState(0);
 
   const stores = useSelector((state: any) => state.stores);
-  const loading = useSelector((state: any) => state.loading);
+  const loader = useSelector((state: any) => state.loader);
+  const loading = loader?.LoaderOpened;
 
   const allStores = stores.allStores?.items;
-
   const allOnlineStores = stores.onlineStores?.items;
   const allInstoreStores = stores.inStoreStores?.items;
   const allFeaturedStores = stores.featuredStores?.items;

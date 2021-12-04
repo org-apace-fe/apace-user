@@ -32,7 +32,8 @@ const FavouriteStores = () => {
   const dispatch = useDispatch();
 
   const stores = useSelector((state: any) => state.stores);
-  const loading = useSelector((state: any) => state.loading);
+  const loader = useSelector((state: any) => state.loader);
+  const loading = loader?.LoaderOpened;
   const allFeaturedStores = stores.featuredStores?.items;
   const allTopDealsStores = stores.topDealsStores?.items;
   const allCategories = stores.allCategories?.data;
