@@ -114,6 +114,12 @@ export const verifyAsShopper =
         { headers: headersRequest }
       );
 
+      const { access_token } = res?.data?.token;
+
+      typeof window !== "undefined"
+        ? localStorage.setItem("token", access_token)
+        : null;
+
       dispatch(
         openToastAndSetContent({
           toastContent: "Verified successfully",
@@ -122,8 +128,9 @@ export const verifyAsShopper =
           },
         })
       );
-      router.push("/auth/shopper/sign-in");
       dispatch(LoadingStop());
+
+      router.push("/dashboard");
     } catch (error) {
       dispatch(
         openToastAndSetContent({
@@ -187,7 +194,6 @@ export const signinAsShopper =
         { headers: headersRequest }
       );
       const { access_token } = res?.data?.token;
-      console.log(access_token);
 
       typeof window !== "undefined"
         ? localStorage.setItem("token", access_token)
