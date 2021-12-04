@@ -1,6 +1,7 @@
 import { IStore, ITopDealStore } from "../../interfaces/items.enum";
 import { SkeletonLoader } from "../skeleton";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 type AllStoreProps = {
   items: IStore[];
@@ -13,6 +14,8 @@ export function AllStore({
   loading,
   personalInfo,
 }: Partial<AllStoreProps>) {
+  const auth = useSelector((state: any) => state.auth);
+  const isAuthenticated = auth.isAuthenticated;
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col   items-start  flex-wrap">
@@ -22,9 +25,14 @@ export function AllStore({
               <Link
                 href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
                   item.store_name
-                }?identifier=${
-                  personalInfo?.email_address || personalInfo?.mobile_number
-                } `}
+                }${
+                  !isAuthenticated
+                    ? ""
+                    : `?identifier=${
+                        personalInfo?.email_address ||
+                        personalInfo?.mobile_number
+                      }`
+                }  `}
               >
                 <a
                   target="_blank"
@@ -76,8 +84,8 @@ export function TopDealstore({
   loading,
   personalInfo,
 }: Partial<TopDealStoreProps>) {
-  console.log(items);
-
+  const auth = useSelector((state: any) => state.auth);
+  const isAuthenticated = auth.isAuthenticated;
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col  items-start  flex-wrap">
@@ -85,11 +93,16 @@ export function TopDealstore({
           items?.map((item: ITopDealStore) => (
             <>
               <Link
-                href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}/${
+                href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
                   item.store_name
-                }?identifier=${
-                  personalInfo?.email_address || personalInfo?.mobile_number
-                } `}
+                }${
+                  !isAuthenticated
+                    ? ""
+                    : `?identifier=${
+                        personalInfo?.email_address ||
+                        personalInfo?.mobile_number
+                      }`
+                }  `}
               >
                 <a
                   target="_blank"
@@ -145,17 +158,23 @@ export function FeaturedStore({
   loading,
   personalInfo,
 }: Partial<TopDealStoreProps>) {
+  const auth = useSelector((state: any) => state.auth);
+  const isAuthenticated = auth.isAuthenticated;
   return (
     <div className="relative w-full bg-apace-black text-white min-h-screen py-8 font-body">
       <div className="flex flex-1 lg:flex-row flex-col items-start  flex-wrap">
         {!loading ? (
           items?.map((item: ITopDealStore) => (
             <Link
-              href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}/${
+              href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
                 item.store_name
-              }?identifier=${
-                personalInfo?.email_address || personalInfo?.mobile_number
-              }`}
+              }${
+                !isAuthenticated
+                  ? ""
+                  : `?identifier=${
+                      personalInfo?.email_address || personalInfo?.mobile_number
+                    }`
+              }  `}
             >
               <a
                 target="_blank"

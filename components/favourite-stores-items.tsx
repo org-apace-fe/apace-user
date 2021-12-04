@@ -8,7 +8,9 @@ type ITopDealsProps = {
 
 export function TopDeals({ item }: ITopDealsProps) {
   return (
-    <Link href={`https://apace-store.herokuapp.com/${item.store_name}`}>
+    <Link
+      href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${item.store_name}`}
+    >
       <a target="_blank" className="w-full text-white">
         <div
           key={item.id}
@@ -48,7 +50,9 @@ type IFeaturedStoreProps = {
 export function FeaturedStore({ item }: IFeaturedStoreProps) {
   return (
     <>
-      <Link href={`https://apace-store.herokuapp.com/${item?.store_name}`}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${item?.store_name}`}
+      >
         <a target="_blank" className="w-full text-white">
           <div
             key={item.id}
