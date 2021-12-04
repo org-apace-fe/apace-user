@@ -77,7 +77,7 @@ export const fetchAllCountries = () => async (dispatch: any) => {
     const token =
       typeof window !== "undefined" ? localStorage.getItem("token") : null;
     const headersRequest = {
-      _auth: `${process.env.NEXT_PUBLIC_EVN_AUTH_KEY_AUTH2}`,
+      _auth: `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY_AUTH2}`,
     };
 
     const res = await axios.get(
