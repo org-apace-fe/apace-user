@@ -4,7 +4,7 @@ import Container from "./container";
 import { Items } from "./caurosel-items";
 import Button from "./button";
 // import Swiper JS
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BigAIcon } from "./icons/logo";
 import { useRouter } from "next/router";
@@ -14,6 +14,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "swiper/css/autoplay";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -147,10 +148,11 @@ const HowItWorks: NextPage = () => {
             <div className="lg:pr-8 pr-0">
               <Swiper
                 // install Swiper modules
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                 spaceBetween={50}
                 slidesPerView={1}
                 navigation
+                autoplay
                 // pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => console.log(swiper)}

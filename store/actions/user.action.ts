@@ -24,7 +24,7 @@ export const registerAsBusiness =
           },
         })
       );
-      router.push("https://apace-store-admin.herokuapp.com/user/login");
+      router.push(`${process.env.NEXT_PUBLIC_ENV_STORE_ADMIN_URL}`);
     } catch (error: any) {
       dispatch(LoadingStop());
       dispatch(
