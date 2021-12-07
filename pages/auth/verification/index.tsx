@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
-import AuthLayout from "../../components/auth/layout";
-import Button from "../../components/button";
-import Form from "../../components/form";
-import Input from "../../components/input";
-import ViewPassword from "../../components/view-password";
+import AuthLayout from "../../../components/auth/layout";
+import Button from "../../../components/button";
+import Form from "../../../components/form";
+import Input from "../../../components/input";
+import ViewPassword from "../../../components/view-password";
 import Link from "next/link";
-import { resendOTP, verifyAsShopper } from "../../store/actions/user.action";
+import { resendOTP, verifyAsShopper } from "../../../store/actions/user.action";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import withoutAuth from "../../route/without-auth";
+import withoutAuth from "../../../route/without-auth";
 
 const Verification: NextPage = () => {
   const apaceIdentifier = useSelector((state: any) => state.auth.identifier);

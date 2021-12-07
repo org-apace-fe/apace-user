@@ -15,6 +15,9 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import Link from "next/link";
+import { openModalAndSetContent } from "../../../store/actions/modal/modalActions";
+import Liquidate from "../../../components/dashboard/modal/liquidate";
 
 const PaymentDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -115,18 +118,38 @@ const PaymentDetail: NextPage = () => {
               {numberWithCommas(loanDetail?.wallet_balance || 0)}{" "}
             </div>
             <div className="flex">
-              <div className="flex mr-4 ">
+              <div
+                className="flex mr-4 cursor-pointer"
+                onClick={() =>
+                  dispatch(
+                    openModalAndSetContent({
+                      modalStyles: {
+                        padding: 0,
+                      },
+                      modalContent: (
+                        <>
+                          <Liquidate />
+                        </>
+                      ),
+                    })
+                  )
+                }
+              >
                 <img src="/icons/payout.svg" />
                 <p className="ml-2">Crash loan</p>
               </div>
-              <div className="flex mr-4">
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Go to purchase</p>
-              </div>
-              <div className="flex">
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Visit store</p>
-              </div>
+              <Link href="/dashboard/purchases">
+                <a className="flex mr-4">
+                  <img src="/icons/payout.svg" />
+                  <p className="ml-2">Go to purchase</p>
+                </a>
+              </Link>
+              <Link href="/dashboard">
+                <a className="flex">
+                  <img src="/icons/payout.svg" />
+                  <p className="ml-2">Visit store</p>
+                </a>
+              </Link>
             </div>
           </div>
           <Container>

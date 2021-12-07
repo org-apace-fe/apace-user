@@ -1,12 +1,23 @@
 import { Menu, Transition } from "@headlessui/react";
 import { background } from "../../utils/background";
 import Link from "next/link";
+import MyModal from "./modal";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openModalAndSetContent } from "../../store/actions/modal/modalActions";
+import Button from "../../components/button";
+import Liquidate from "./modal/liquidate";
+import AskRefund from "./modal/ask-a-refund";
+import MakeComplaint from "./modal/make-a-complaint";
+import ReportPurchase from "./modal/report-purchase";
 
 type PaymentActionProps = {
   id: number;
 };
 
 export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
+  const dispatch = useDispatch();
+
   const More = [
     {
       name: "View detail",
@@ -14,12 +25,9 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
     },
     {
       name: "Go to purchase",
-      href: "/dashboard",
+      href: "/dashboard/purchases",
     },
-    {
-      name: "Crash loan",
-      href: "/dashboard",
-    },
+
     {
       name: "Visit store",
       href: "/dashboard",
@@ -52,6 +60,30 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
               </div>
             )}
           </Menu.Item>
+          <div
+            className="flex flex-col"
+            onClick={() =>
+              dispatch(
+                openModalAndSetContent({
+                  modalStyles: {
+                    padding: 0,
+                  },
+                  modalContent: (
+                    <>
+                      <Liquidate />
+                    </>
+                  ),
+                })
+              )
+            }
+          >
+            <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
+              <img src="/icons/payout.svg" />
+              <a className="ml-3">Crash Loan</a>
+            </div>
+          </div>
+
+          <MyModal />
         </div>
       </Menu.Items>
     </Menu>
@@ -63,22 +95,12 @@ type PurchaseActionProps = {
 };
 
 export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
+  const dispatch = useDispatch();
+
   const PurchaseMore = [
     {
       name: "View detail",
       href: `/dashboard/purchases/${id}`,
-    },
-    {
-      name: "Ask for a refund",
-      href: "/dashboard",
-    },
-    {
-      name: "Make a complaint",
-      href: "/dashboard",
-    },
-    {
-      name: "Report Purchase",
-      href: "/dashboard",
     },
   ];
   return (
@@ -108,6 +130,72 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
               </div>
             )}
           </Menu.Item>
+          <div
+            onClick={() =>
+              dispatch(
+                openModalAndSetContent({
+                  modalStyles: {
+                    padding: 0,
+                  },
+                  modalContent: (
+                    <>
+                      <AskRefund />
+                    </>
+                  ),
+                })
+              )
+            }
+            className="flex flex-col"
+          >
+            <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
+              <img src="/icons/payout.svg" />
+              <a className="ml-3">Ask for refund</a>
+            </div>
+          </div>
+          <div
+            onClick={() =>
+              dispatch(
+                openModalAndSetContent({
+                  modalStyles: {
+                    padding: 0,
+                  },
+                  modalContent: (
+                    <>
+                      <MakeComplaint />
+                    </>
+                  ),
+                })
+              )
+            }
+            className="flex flex-col "
+          >
+            <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
+              <img src="/icons/payout.svg" />
+              <a className="ml-3">Make a complaint</a>
+            </div>
+          </div>
+          <div
+            onClick={() =>
+              dispatch(
+                openModalAndSetContent({
+                  modalStyles: {
+                    padding: 0,
+                  },
+                  modalContent: (
+                    <>
+                      <ReportPurchase />
+                    </>
+                  ),
+                })
+              )
+            }
+            className="flex flex-col"
+          >
+            <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
+              <img src="/icons/payout.svg" />
+              <a className="ml-3">Report Purchase</a>
+            </div>
+          </div>
         </div>
       </Menu.Items>
     </Menu>
