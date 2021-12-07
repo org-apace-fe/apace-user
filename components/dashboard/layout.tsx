@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import DashboardHeader from "./header";
 import Loader from "../loader";
 import Toast from "../toast";
+import Modal from "./modal";
 
 type MyComponentProps = {
   children: ReactNode;
@@ -23,6 +24,7 @@ function DashbardLayout({ children }: MyComponentProps) {
         <DashboardHeader />
         <Loader />
         <Toast />
+        <Modal />
         <main className="w-full  mx-auto min-h-screen ">{children}</main>
       </div>
     </>

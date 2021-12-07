@@ -15,6 +15,10 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import { openModalAndSetContent } from "../../../store/actions/modal/modalActions";
+import AskRefund from "../../../components/dashboard/modal/ask-a-refund";
+import MakeComplaint from "../../../components/dashboard/modal/make-a-complaint";
+import ReportPurchase from "../../../components/dashboard/modal/report-purchase";
 
 const PurchaseDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -140,16 +144,64 @@ const PurchaseDetail: NextPage = () => {
                 {orderDetail?.order_status}
               </span>
             </div>
-            <div className="flex">
-              <div className="flex mr-4 ">
+            <div className="flex cursor-pointer ">
+              <div
+                onClick={() =>
+                  dispatch(
+                    openModalAndSetContent({
+                      modalStyles: {
+                        padding: 0,
+                      },
+                      modalContent: (
+                        <>
+                          <AskRefund />
+                        </>
+                      ),
+                    })
+                  )
+                }
+                className="flex mr-4 "
+              >
                 <img src="/icons/payout.svg" />
                 <p className="ml-2">Ask for a refund</p>
               </div>
-              <div className="flex mr-4">
+              <div
+                onClick={() =>
+                  dispatch(
+                    openModalAndSetContent({
+                      modalStyles: {
+                        padding: 0,
+                      },
+                      modalContent: (
+                        <>
+                          <MakeComplaint />
+                        </>
+                      ),
+                    })
+                  )
+                }
+                className="flex mr-4"
+              >
                 <img src="/icons/payout.svg" />
                 <p className="ml-2">Make a complaint</p>
               </div>
-              <div className="flex">
+              <div
+                onClick={() =>
+                  dispatch(
+                    openModalAndSetContent({
+                      modalStyles: {
+                        padding: 0,
+                      },
+                      modalContent: (
+                        <>
+                          <ReportPurchase />
+                        </>
+                      ),
+                    })
+                  )
+                }
+                className="flex"
+              >
                 <img src="/icons/payout.svg" />
                 <p className="ml-2">Report a purchase</p>
               </div>

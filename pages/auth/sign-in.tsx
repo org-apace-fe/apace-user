@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signinAsBusiness } from "../../store/actions/user.action";
+
 import withoutAuth from "../../route/without-auth";
 
 const SignUpOptions: NextPage = () => {
@@ -31,8 +31,6 @@ const SignUpOptions: NextPage = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     console.log(user);
-
-    dispatch(signinAsBusiness(user, router));
   };
 
   const { email, password } = user;
