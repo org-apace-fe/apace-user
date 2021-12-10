@@ -25,21 +25,29 @@ const MakeComplaint = () => {
           support team will get back to you
         </p>
       </div>
-      <div style={{ background: background.apacegray3 }} className="px-4 py-4">
-        <TextArea placeholder="Message *" className=" w-full" />
-        <Input className="w-full" placeholder="Email address *" />
-      </div>
-      <div
-        className="flex justify-center"
-        style={{ background: background.apacegray2 }}
-      >
-        <Button className="mx-2 w-full" onClick={() => dispatch(closeModal())}>
-          Cancel{" "}
-        </Button>
-        <Button className="mx-2  w-full bg-apace-orange-dark border-apace-orange-dark text-black">
-          Send{" "}
-        </Button>
-      </div>
+      <form>
+        <div
+          style={{ background: background.apacegray3 }}
+          className="px-4 py-4"
+        >
+          <TextArea placeholder="Message *" className=" w-full" />
+          <Input className="w-full" placeholder="Email address *" />
+        </div>
+        <div
+          className="flex justify-center"
+          style={{ background: background.apacegray2 }}
+        >
+          <Button
+            className="mx-2 w-full"
+            onClick={() => dispatch(closeModal())}
+          >
+            Cancel{" "}
+          </Button>
+          <Button className="mx-2  w-full bg-apace-orange-dark border-apace-orange-dark text-black">
+            Send{" "}
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

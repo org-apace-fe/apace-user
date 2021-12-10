@@ -120,7 +120,10 @@ const DashboardHeader = () => {
                   <Pills href="/dashboard/payments"> Payments </Pills>
                   <Pills href="/dashboard/purchases"> Purchase </Pills>
                   <Pills href="/dashboard/referrals"> Referrals </Pills>
-                  <Pills href="/dashboard/settings"> Settings </Pills>
+                  <Pills href="/dashboard/settings/verification">
+                    {" "}
+                    Settings{" "}
+                  </Pills>
                 </div>
               </div>
               {/* tab */}
