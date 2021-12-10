@@ -34,6 +34,14 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "out" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+          
+        env: # Add environment variables here
+          NEXT_PUBLIC_ENV_API_AUTH_URL: https://api.useapace.com
+          NEXT_PUBLIC_ENV_AUTH_KEY: QWBedD124fdfsd9w330KdeJBHF99GVDV4HFAGHDV45678SVAFCFA$67SJCV9876FCGHCCLCJHB4SNKSBB
+          NEXT_PUBLIC_ENV_STORE_BASE_URL: https://store.useapace.com/
+          NEXT_PUBLIC_ENV_AUTH_KEY_AUTH2: 12qqkskskxcdodo405odcmoemo30kx
+          NEXT_PUBLIC_ENV_STORE_ADMIN_URL: https://storeadmin.useapace.com
+          
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
