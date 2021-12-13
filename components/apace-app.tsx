@@ -3,6 +3,7 @@ import Container from "./container";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { waitList } from "../store/actions/apaceStore.action";
+import Image from "next/image";
 
 function ApaceApp() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function ApaceApp() {
         <Container>
           <div className="flex lg:flex-row-reverse flex-col items-center">
             <div className="lg:w-1/2 w-full lg:ml-8 ml-0">
-              <img className="w-full " src="/icons/apaceapp@3x.png" />
+              <Image src="/icons/apaceapp@3x.png" width={502} height={745} />
             </div>
             <div className="lg:w-1/2 w-full lg:mr-8 mr-0 lg:flex lg:flex-col flex-row mt-8 lg:mt-0">
               <h4 className="text-7xl font-black  ">

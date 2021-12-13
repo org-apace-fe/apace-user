@@ -7,7 +7,7 @@ export default function Pills({ children, src, href }: any) {
   return (
     <Link href={href}>
       <a
-        className={`relative mr-20 pb-3 lg:mb-0 mb-3 ${
+        className={`relative lg:mr-20 mr-5 lg:pb-3 pb-1 lg:mb-0 mb-3 ${
           router.pathname == href
             ? "text-white  border-b-4 border-white "
             : "text-gray-400"

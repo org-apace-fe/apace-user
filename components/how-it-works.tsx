@@ -1,6 +1,7 @@
 import router from "next/router";
 import { useEffect, useState } from "react";
 import Button from "./button";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -156,19 +157,24 @@ const HIW = () => {
           </div>
 
           <div className="my-8 ">
-            <Button     onClick={() => router.push("/auth/shopper/sign-up")} className=" bg-apace-orange-light border-apace-orange-light text-black  mr-8">
+            <Button
+              onClick={() => router.push("/auth/shopper/sign-up")}
+              className=" bg-apace-orange-light border-apace-orange-light text-black  mr-8"
+            >
               See how it works for shoppers
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="lg:w-1/2 w-full  h-auto lg:ml-8 ml-0">
+      <div className="relative lg:w-1/2 w-full  h-auto lg:ml-8 ml-0">
         {text.map((text) => {
           return (
-            <img
+            <Image
               key={text.id}
-              className="w-full h-full object-contain "
+              className="object-contain"
+              height={786}
+              width={680}
               src={text.photo}
             />
           );

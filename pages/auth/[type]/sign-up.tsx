@@ -170,7 +170,7 @@ const SignUp: NextPage = () => {
 
             <div className=" lg:w-3/6 w-5/6 mx-auto ">
               <Button
-                className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
+                className="flex justify-center py-0 mt-16 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
                 type="submit"
               >
                 <p> Send Code </p>

@@ -154,7 +154,7 @@ const PurchaseAll: NextPage = () => {
             <div className="flex lg:flex-row flex-col ">
               <div className="lg:w-full w-full">
                 <div className="flex lg:flex-row flex-col flex-wrap">
-                  <div className=" lg:w-1/3 w-full mb-6 pr-4  ">
+                  <div className=" lg:w-1/3 w-full mb-6 lg:pr-4 pr-0  ">
                     <div className="h-32  ">
                       <div
                         className="relative  h-full rounded-lg p-4"
@@ -175,7 +175,7 @@ const PurchaseAll: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className=" lg:w-1/3 w-full mb-6  pr-4">
+                  <div className=" lg:w-1/3 w-full mb-6  lg:pr-4 pr-0">
                     <div className="h-32  ">
                       <div
                         className="relative  h-full rounded-lg p-4"

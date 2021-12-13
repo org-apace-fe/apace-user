@@ -20,7 +20,7 @@ import moment from "moment";
 import { openModalAndSetContent } from "../../../../store/actions/modal/modalActions";
 import GuarantorRequest from "../../../../components/dashboard/modal/guarantor-request";
 
-const Settings: NextPage = () => {
+const Pro: NextPage = () => {
   const dispatch = useDispatch();
 
   const initialState = {
@@ -118,11 +118,11 @@ const Settings: NextPage = () => {
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden text-sm ">
           <SettingsLayout>
-            <div className="flex items-baseline justify-between ">
-              <div className="w-4/12">
+            <div className="flex md:flex-row flex-col items-baseline justify-between  ">
+              <div className="lg:w-4/12 w-full lg:my-0 my-4 lg:ml-0 ml-1 ">
                 <SettingsVerificationNavigation />
               </div>
-              <div className=" w-8/12 mr-8">
+              <div className="lg:w-8/12 w-full mr-8">
                 <div className="flex mb-6 ">
                   <p className="mr-1 text-xl "> Guarantor </p>{" "}
                   <img src="/icons/settings/info-outlined.svg" />
@@ -225,4 +225,4 @@ const Settings: NextPage = () => {
   );
 };
 
-export default Settings;
+export default withAuth(Pro);

@@ -136,80 +136,82 @@ const PurchaseDetail: NextPage = () => {
     <div>
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
-          <div className="border-b border-gray-600 pb-6 mb-6 flex items-center justify-between px-28">
-            <div>
-              {moment(orderDetail?.date_created).format("ll")} - &#8358;
-              {numberWithCommas(orderDetail?.total_amount || 0)}
-              <span className="rounded-full bg-apace-orange-dark py-1 px-2 text-black text-xs ml-3">
-                {orderDetail?.order_status}
-              </span>
-            </div>
-            <div className="flex cursor-pointer ">
-              <div
-                onClick={() =>
-                  dispatch(
-                    openModalAndSetContent({
-                      modalStyles: {
-                        padding: 0,
-                      },
-                      modalContent: (
-                        <>
-                          <AskRefund />
-                        </>
-                      ),
-                    })
-                  )
-                }
-                className="flex mr-4 "
-              >
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Ask for a refund</p>
+          <div className=" overflow-x-auto">
+            <div className="min-w-lg lg:min-w-max max-h-screen border-b border-gray-600 pb-6 mb-6 flex items-center lg:justify-between lg:px-28 px-10">
+              <div className="mr-4">
+                {moment(orderDetail?.date_created).format("ll")} - &#8358;
+                {numberWithCommas(orderDetail?.total_amount || 0)}
+                <span className="rounded-full bg-apace-orange-dark py-1 px-2 text-black text-xs ml-3">
+                  {orderDetail?.order_status}
+                </span>
               </div>
-              <div
-                onClick={() =>
-                  dispatch(
-                    openModalAndSetContent({
-                      modalStyles: {
-                        padding: 0,
-                      },
-                      modalContent: (
-                        <>
-                          <MakeComplaint />
-                        </>
-                      ),
-                    })
-                  )
-                }
-                className="flex mr-4"
-              >
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Make a complaint</p>
-              </div>
-              <div
-                onClick={() =>
-                  dispatch(
-                    openModalAndSetContent({
-                      modalStyles: {
-                        padding: 0,
-                      },
-                      modalContent: (
-                        <>
-                          <ReportPurchase />
-                        </>
-                      ),
-                    })
-                  )
-                }
-                className="flex"
-              >
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Report a purchase</p>
+              <div className="flex cursor-pointer ">
+                <div
+                  onClick={() =>
+                    dispatch(
+                      openModalAndSetContent({
+                        modalStyles: {
+                          padding: 0,
+                        },
+                        modalContent: (
+                          <>
+                            <AskRefund />
+                          </>
+                        ),
+                      })
+                    )
+                  }
+                  className="flex mr-4 "
+                >
+                  <img src="/icons/payout.svg" />
+                  <p className="ml-2">Ask for a refund</p>
+                </div>
+                <div
+                  onClick={() =>
+                    dispatch(
+                      openModalAndSetContent({
+                        modalStyles: {
+                          padding: 0,
+                        },
+                        modalContent: (
+                          <>
+                            <MakeComplaint />
+                          </>
+                        ),
+                      })
+                    )
+                  }
+                  className="flex mr-4"
+                >
+                  <img src="/icons/payout.svg" />
+                  <p className="ml-2">Make a complaint</p>
+                </div>
+                <div
+                  onClick={() =>
+                    dispatch(
+                      openModalAndSetContent({
+                        modalStyles: {
+                          padding: 0,
+                        },
+                        modalContent: (
+                          <>
+                            <ReportPurchase />
+                          </>
+                        ),
+                      })
+                    )
+                  }
+                  className="flex"
+                >
+                  <img src="/icons/payout.svg" />
+                  <p className="ml-2">Report a purchase</p>
+                </div>
               </div>
             </div>
           </div>
           <Container>
             <div className="flex lg:flex-row  flex-col flex-wrap">
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div className="h-full rounded-lg relative overflow-hidden bg-apace-black opacity-95 p-4">
                   <div className="absolute top-0 left-0 w-full h-full  ">
                     <img
@@ -225,7 +227,7 @@ const PurchaseDetail: NextPage = () => {
                   </p>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}
@@ -241,7 +243,7 @@ const PurchaseDetail: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}
@@ -255,7 +257,7 @@ const PurchaseDetail: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}

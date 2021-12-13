@@ -6,18 +6,18 @@ import SettingsLayout from "../../../../components/dashboard/settings/layout";
 import SettingsVerificationNavigation from "../../../../components/dashboard/settings/verification-navigation";
 import Button from "../../../../components/button";
 
-const Settings: NextPage = () => {
+const Plus: NextPage = () => {
   const dispatch = useDispatch();
   return (
     <div>
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden text-sm ">
           <SettingsLayout>
-            <div className="flex items-baseline justify-between ">
-              <div className="w-4/12">
+            <div className="flex md:flex-row flex-col items-baseline justify-between  ">
+              <div className="lg:w-4/12 w-full lg:my-0 my-4 lg:ml-0 ml-1 ">
                 <SettingsVerificationNavigation />
               </div>
-              <div className=" w-8/12 mr-8">
+              <div className=" lg:w-8/12 w-full mr-8">
                 <h1 className="text-xl mb-6  "> Bank Statement </h1>
                 <p>
                   To complete Apace Plus verification, we need to access and
@@ -46,4 +46,4 @@ const Settings: NextPage = () => {
   );
 };
 
-export default Settings;
+export default withAuth(Plus);
