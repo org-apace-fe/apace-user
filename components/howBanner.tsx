@@ -117,6 +117,7 @@ const HowBanner = () => {
               src="/icons/watch-pic.png"
               height={550}
               width={470}
+              priority={true}
             />
           </div>
         </div>

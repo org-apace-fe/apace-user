@@ -76,6 +76,7 @@ const WhyBanner = () => {
                 src="/icons/road-blocks.png"
                 height={592}
                 width={489}
+                priority={true}
               />
             </div>
           </div>
