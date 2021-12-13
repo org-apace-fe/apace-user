@@ -7,6 +7,7 @@ module.exports = {
   },
   images: {
     domains: ["images.pexels.com", "https://picsum.photos/", "useapace.com"],
-    loader: "static",
+    loader: "imgix",
+    path: "/",
   },
 };
