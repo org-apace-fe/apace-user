@@ -121,7 +121,7 @@ const SignIn: NextPage = () => {
               />
             </div>
 
-            <div className="mt-32 cursor-pointer">
+            <div className="mt-16 cursor-pointer">
               <div onClick={() => forgotPassword()} className="text-center">
                 Forgot Password ?
               </div>

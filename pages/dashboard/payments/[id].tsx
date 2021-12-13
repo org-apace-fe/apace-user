@@ -111,50 +111,51 @@ const PaymentDetail: NextPage = () => {
     <div>
       <DashboardLayout>
         <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
-          <div className="border-b border-gray-600 pb-6 mb-6 flex items-center justify-between px-28">
-            <div>
-              {" "}
-              Loan #{loanDetail?.loan_reference} - &#8358;{" "}
-              {numberWithCommas(loanDetail?.wallet_balance || 0)}{" "}
-            </div>
-            <div className="flex">
-              <div
-                className="flex mr-4 cursor-pointer"
-                onClick={() =>
-                  dispatch(
-                    openModalAndSetContent({
-                      modalStyles: {
-                        padding: 0,
-                      },
-                      modalContent: (
-                        <>
-                          <Liquidate />
-                        </>
-                      ),
-                    })
-                  )
-                }
-              >
-                <img src="/icons/payout.svg" />
-                <p className="ml-2">Crash loan</p>
+          <div className=" overflow-x-auto">
+            <div className="min-w-lg lg:min-w-max max-h-screen border-b border-gray-600 pb-6 mb-6 flex items-center lg:justify-between lg:px-28 px-10 ">
+              <div className="mr-4">
+                Loan #{loanDetail?.loan_reference} - &#8358;
+                {numberWithCommas(loanDetail?.wallet_balance || 0)}
               </div>
-              <Link href="/dashboard/purchases">
-                <a className="flex mr-4">
+              <div className="flex">
+                <div
+                  className="flex mr-4 cursor-pointer"
+                  onClick={() =>
+                    dispatch(
+                      openModalAndSetContent({
+                        modalStyles: {
+                          padding: 0,
+                        },
+                        modalContent: (
+                          <>
+                            <Liquidate />
+                          </>
+                        ),
+                      })
+                    )
+                  }
+                >
                   <img src="/icons/payout.svg" />
-                  <p className="ml-2">Go to purchase</p>
-                </a>
-              </Link>
-              <Link href="/dashboard">
-                <a className="flex">
-                  <img src="/icons/payout.svg" />
-                  <p className="ml-2">Visit store</p>
-                </a>
-              </Link>
+                  <p className="ml-2">Crash loan</p>
+                </div>
+                <Link href="/dashboard/purchases">
+                  <a className="flex mr-4">
+                    <img src="/icons/payout.svg" />
+                    <p className="ml-2">Go to purchase</p>
+                  </a>
+                </Link>
+                <Link href="/dashboard">
+                  <a className="flex">
+                    <img src="/icons/payout.svg" />
+                    <p className="ml-2">Visit store</p>
+                  </a>
+                </Link>
+              </div>
             </div>
           </div>
           <Container>
             <div className="flex lg:flex-row  flex-col flex-wrap">
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}
@@ -170,7 +171,7 @@ const PaymentDetail: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}
@@ -186,7 +187,7 @@ const PaymentDetail: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div
                   className="relative  h-full rounded-lg p-4"
                   style={{ background: background.apacegray6 }}
@@ -202,7 +203,7 @@ const PaymentDetail: NextPage = () => {
                   </div>
                 </div>
               </div>
-              <div className=" lg:w-1/4 w-full h-32 mb-6 pl-4">
+              <div className=" lg:w-1/4 w-full h-32 mb-6 lg:pl-4 pl-0">
                 <div className="h-full rounded-lg relative overflow-hidden bg-apace-black opacity-95 p-4">
                   <div className="absolute top-0 left-0 w-full h-full  ">
                     <img

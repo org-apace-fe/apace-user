@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { IItems } from "../interfaces/items.enum";
 import router from "next/router";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -111,9 +112,11 @@ const HowBanner = () => {
           </div>
 
           <div className="lg:w-1/2 w-full ">
-            <img
+            <Image
               className="w-full h-full object-contain"
               src="/icons/watch-pic.png"
+              height={550}
+              width={470}
             />
           </div>
         </div>

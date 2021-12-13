@@ -187,4 +187,4 @@ const SettingsNotification: NextPage = () => {
   );
 };
 
-export default SettingsNotification;
+export default withAuth(SettingsNotification);

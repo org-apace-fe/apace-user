@@ -1,6 +1,7 @@
 import router from "next/router";
 import Button from "./button";
 import Container from "./container";
+import Image from "next/image";
 
 const KYC = () => {
   return (
@@ -22,9 +23,10 @@ const KYC = () => {
 
             <div className="flex  my-32 lg:flex-row-reverse flex-col items-center">
               <div className="lg:w-1/2 w-full lg:px-16 h-auto lg:ml-8 ml-0">
-                <img
-                  className="w-full h-full object-contain "
-                  src="/icons/plain-picture.png"
+                <Image
+                  src="/icons/container3@3x.png"
+                  height={592}
+                  width={489}
                 />
               </div>
               <div className="lg:w-1/2 w-full lg:ml-8 ml-0 lg:flex lg:flex-col flex-row  lg:items-start">
@@ -48,9 +50,10 @@ const KYC = () => {
 
             <div className="flex  my-32 lg:flex-row flex-col items-center">
               <div className="lg:w-1/2 w-full lg:px-16 h-auto lg:mr-8 mr-0">
-                <img
-                  className="w-full h-full object-contain "
-                  src="/icons/plain-picture.png"
+                <Image
+                  src="/icons/container2@3x.png"
+                  height={592}
+                  width={489}
                 />
               </div>
               <div className="lg:w-1/2 w-full lg:ml-8 ml-0 lg:flex lg:flex-col flex-row  lg:items-start">
@@ -75,10 +78,7 @@ const KYC = () => {
 
             <div className="flex  my-32 lg:flex-row-reverse flex-col items-center">
               <div className="lg:w-1/2 w-full lg:px-16 h-auto lg:ml-8 ml-0">
-                <img
-                  className="w-full h-full object-contain "
-                  src="/icons/plain-picture.png"
-                />
+                <Image src="/icons/container@3x.png" height={592} width={489} />
               </div>
               <div className="lg:w-1/2 w-full lg:ml-8 ml-0 lg:flex lg:flex-col flex-row  lg:items-start">
                 <div className="rounded-full h-10 w-10 flex items-center justify-center border border-gray-200 lg:my-2 my-6 ">
@@ -107,9 +107,11 @@ const KYC = () => {
         <Container>
           <div className="flex flex-col justify-center items-center">
             <div className="lg:w-1/2 md:w-4/5 w-full px-4 ">
-              <img
+              <Image
                 src="/icons/help-customer@3x.png"
-                className="w-full h-full object-contain"
+                className="object-contain"
+                height={377}
+                width={592}
               />
             </div>
 

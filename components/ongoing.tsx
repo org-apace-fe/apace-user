@@ -1,4 +1,5 @@
 import Container from "./container";
+import Image from "next/image";
 
 type OngoinProps = {
   pictureUrl: string;
@@ -23,7 +24,12 @@ const Ongoing = ({ pictureUrl, background }: OngoinProps) => {
               style={{ background }}
               className="lg:w-full md:w-4/5 w-full lg:p-24 "
             >
-              <img src={pictureUrl} className="w-full h-full object-contain" />
+              <Image
+                src={pictureUrl}
+                className=" object-contain"
+                height={454}
+                width={944}
+              />
             </div>
 
             <div className="bg-apace-black lg:p-24 py-8">

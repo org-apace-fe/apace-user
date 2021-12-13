@@ -2,6 +2,7 @@ import Container from "./container";
 import Button from "./button";
 import { BigAIcon } from "./icons/logo";
 import router from "next/router";
+import Image from "next/image";
 
 const WhateverYouSell = () => {
   return (
@@ -42,10 +43,13 @@ const WhateverYouSell = () => {
             </div>
           </div>
 
-          <div className="lg:w-1/2 w-full px-16 ">
-            <img
-              className="w-full h-full object-contain"
+          <div className="lg:w-1/2 px-16 ">
+            <Image
+              className="object-contain"
               src="/icons/headphones@3x.png"
+              alt="apace"
+              height={542}
+              width={462}
             />
           </div>
         </div>
@@ -70,52 +74,46 @@ const WhateverYouSell = () => {
             <div className=" pt-16 pb-8  w-full  ">
               <div className="flex flex-1 justify-center items-center flex-wrap ">
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/nike.svg" className="mx-auto" />
+                  <img src="/icons/peers/nike.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/adidas.svg" className="mx-auto" />
+                  <img src="/icons/peers/adidas.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img
-                    src="./icons/peers/playstation.svg"
-                    className="mx-auto"
-                  />
+                  <img src="/icons/peers/playstation.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/logitech.svg" className="mx-auto" />
+                  <img src="/icons/peers/logitech.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
                   <img
-                    src="./icons/peers/urban-outfitters.svg"
+                    src="/icons/peers/urban-outfitters.svg"
                     className="mx-auto"
                   />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
                   <img
-                    src="./icons/peers/officine-panerai-firenze.svg"
+                    src="/icons/peers/officine-panerai-firenze.svg"
                     className="mx-auto"
                   />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/beats.svg" className="mx-auto" />
+                  <img src="/icons/peers/beats.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/vans.svg" className="mx-auto" />
+                  <img src="/icons/peers/vans.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/samsung.svg" className="mx-auto" />
+                  <img src="/icons/peers/samsung.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img
-                    src="./icons/peers/birkenstock.svg"
-                    className="mx-auto"
-                  />
+                  <img src="/icons/peers/birkenstock.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/etsy.svg" className="mx-auto" />
+                  <img src="/icons/peers/etsy.svg" className="mx-auto" />
                 </div>
                 <div className="lg:w-1/6 md:w-1/3 w-1/2 my-1 ">
-                  <img src="./icons/peers/jbl.svg" className="mx-auto" />
+                  <img src="/icons/peers/jbl.svg" className="mx-auto" />
                 </div>
               </div>
             </div>

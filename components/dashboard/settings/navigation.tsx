@@ -6,10 +6,10 @@ const SettingsNavigation = () => {
   const pn = path.pathname;
 
   return (
-    <div className="w-96 text-sm">
-      <div>
+    <div className="lg:w-96 text-sm overflow-x-auto lg:mb-0 mb-2 ">
+      <div className="min-w-lg lg:min-w-max flex lg:flex-col flex-row">
         <Link href="/dashboard/settings/verification">
-          <div className="flex mt-1 mb-2 rounded-lg w-full cursor-pointer  p-2 ">
+          <div className="flex mt-1 mb-2 rounded-lg lg:w-full lg:mr-0 mr-4 cursor-pointer  p-2 ">
             <img src={`/icons/settings/account-verification.svg`} />
             <a
               className={`ml-3 ${
@@ -23,7 +23,7 @@ const SettingsNavigation = () => {
           </div>
         </Link>
         <Link href="/dashboard/settings/profile">
-          <div className="flex mt-1 mb-2 rounded-lg w-full cursor-pointer  p-2 ">
+          <div className="flex mt-1 mb-2 rounded-lg lg:w-full lg:mr-0 mr-4 cursor-pointer p-2 ">
             <img src="/icons/settings/account.svg" />
             <a
               className={`ml-3 ${
@@ -38,7 +38,7 @@ const SettingsNavigation = () => {
           </div>
         </Link>
         <Link href="/dashboard/settings/notifications">
-          <div className="flex mt-1 mb-2 rounded-lg w-full cursor-pointer  p-2 ">
+          <div className="flex mt-1 mb-2 rounded-lg lg:w-full lg:mr-0 mr-4 cursor-pointer  p-2 ">
             <img src="/icons/settings/notifications.svg" />
             <a
               className={`ml-3 ${
@@ -53,7 +53,7 @@ const SettingsNavigation = () => {
           </div>
         </Link>
         <Link href="/dashboard/settings/guarantee">
-          <div className="flex mt-1 mb-2 rounded-lg w-full cursor-pointer  p-2 ">
+          <div className="flex mt-1 mb-2 rounded-lg lg:w-full lg:mr-0 mr-4 cursor-pointer  p-2 ">
             <img src="/icons/settings/guarantor.svg" />
             <a
               className={`ml-3 ${
@@ -68,7 +68,7 @@ const SettingsNavigation = () => {
           </div>
         </Link>
         <Link href="/dashboard/settings/credit-limit">
-          <div className="flex mt-1 mb-2 rounded-lg w-full cursor-pointer  p-2 ">
+          <div className="flex mt-1 mb-2 rounded-lg lg:w-full lg:mr-0 mr-4 cursor-pointer  p-2 ">
             <img src="/icons/settings/credit-limit.svg" />
             <a
               className={`ml-3 ${

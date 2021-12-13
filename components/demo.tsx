@@ -1,4 +1,5 @@
 import Container from "./container";
+import Image from "next/image";
 
 const Demo = () => {
   return (
@@ -6,7 +7,7 @@ const Demo = () => {
       <Container>
         <div className="flex flex-col items-center justify-center">
           <div className=" lg:mx-96 md:mx-36 ">
-            <img src="/icons/demo@3x.png" />
+            <Image src="/icons/demo@3x.png" height={1013} width={502} />
           </div>
         </div>
       </Container>

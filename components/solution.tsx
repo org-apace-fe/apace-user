@@ -1,4 +1,5 @@
 import Container from "./container";
+import Image from "next/image";
 
 const Solution = () => {
   return (
@@ -25,9 +26,11 @@ const Solution = () => {
           </div>
 
           <div className="lg:w-1/2 w-full px-0">
-            <img
+            <Image
               className="w-full h-full object-contain"
               src="/icons/plain-picture.png"
+              height={592}
+              width={489}
             />
           </div>
         </div>

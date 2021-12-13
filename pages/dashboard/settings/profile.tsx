@@ -149,7 +149,7 @@ const SettingsProfile: NextPage = () => {
           <SettingsLayout>
             <div>
               <UploadPicComponent />
-              <div className="w-8/12">
+              <div className="lg:w-8/12 w-full">
                 <Form className="w-full" onSubmit={onSubmit}>
                   <Input
                     placeholder="First name"
@@ -221,4 +221,4 @@ const SettingsProfile: NextPage = () => {
   );
 };
 
-export default SettingsProfile;
+export default withAuth(SettingsProfile);

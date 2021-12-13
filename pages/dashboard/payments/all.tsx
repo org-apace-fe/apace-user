@@ -133,7 +133,7 @@ const PaymentsAll: NextPage = () => {
             <div className="flex lg:flex-row flex-col ">
               <div className="lg:w-full w-full">
                 <div className="flex lg:flex-row flex-col flex-wrap">
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 pr-2">
+                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pr-2 pr-0">
                     <div
                       className="relative  h-full rounded-lg p-4 "
                       style={{ background: background.apacegray6 }}
@@ -151,7 +151,7 @@ const PaymentsAll: NextPage = () => {
                     </div>
                   </div>
 
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 pl-2">
+                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-2 pl-0">
                     <div
                       className="relative  h-full rounded-lg p-4 "
                       style={{ background: background.apacegray6 }}
@@ -170,7 +170,7 @@ const PaymentsAll: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 pl-4">
+                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-4 pl-0">
                     <div
                       className="relative  h-full rounded-lg p-4"
                       style={{ background: background.apacegray6 }}

@@ -39,4 +39,4 @@ const SettingsCreditLimit: NextPage = () => {
   );
 };
 
-export default SettingsCreditLimit;
+export default withAuth(SettingsCreditLimit);
