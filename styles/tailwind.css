@@ -6873,6 +6873,10 @@ video {
   min-width: max-content;
 }
 
+.min-w-lg {
+  min-width: 60rem;
+}
+
 .max-w-0 {
   max-width: 0rem;
 }
@@ -22772,7 +22776,7 @@ video {
 }
 
 .font-body {
-  font-family: Geometria;
+  font-family: Geometria, sans-serif;
 }
 
 .text-xs {
@@ -39295,6 +39299,10 @@ video {
     min-width: max-content;
   }
 
+  .sm\:min-w-lg {
+    min-width: 60rem;
+  }
+
   .sm\:max-w-0 {
     max-width: 0rem;
   }
@@ -55128,7 +55136,7 @@ video {
   }
 
   .sm\:font-body {
-    font-family: Geometria;
+    font-family: Geometria, sans-serif;
   }
 
   .sm\:text-xs {
@@ -71243,6 +71251,10 @@ video {
     min-width: max-content;
   }
 
+  .md\:min-w-lg {
+    min-width: 60rem;
+  }
+
   .md\:max-w-0 {
     max-width: 0rem;
   }
@@ -87076,7 +87088,7 @@ video {
   }
 
   .md\:font-body {
-    font-family: Geometria;
+    font-family: Geometria, sans-serif;
   }
 
   .md\:text-xs {
@@ -103191,6 +103203,10 @@ video {
     min-width: max-content;
   }
 
+  .lg\:min-w-lg {
+    min-width: 60rem;
+  }
+
   .lg\:max-w-0 {
     max-width: 0rem;
   }
@@ -119024,7 +119040,7 @@ video {
   }
 
   .lg\:font-body {
-    font-family: Geometria;
+    font-family: Geometria, sans-serif;
   }
 
   .lg\:text-xs {
@@ -135139,6 +135155,10 @@ video {
     min-width: max-content;
   }
 
+  .xl\:min-w-lg {
+    min-width: 60rem;
+  }
+
   .xl\:max-w-0 {
     max-width: 0rem;
   }
@@ -150972,7 +150992,7 @@ video {
   }
 
   .xl\:font-body {
-    font-family: Geometria;
+    font-family: Geometria, sans-serif;
   }
 
   .xl\:text-xs {
@@ -167087,6 +167107,10 @@ video {
     min-width: max-content;
   }
 
+  .\32xl\:min-w-lg {
+    min-width: 60rem;
+  }
+
   .\32xl\:max-w-0 {
     max-width: 0rem;
   }
@@ -182920,7 +182944,7 @@ video {
   }
 
   .\32xl\:font-body {
-    font-family: Geometria;
+    font-family: Geometria, sans-serif;
   }
 
   .\32xl\:text-xs {

@@ -2,12 +2,8 @@ import isEmpty from "is-empty";
 
 const initialState = {
   user: {},
-  loading: false,
-  referrals: {},
-  referralActivities: {},
-  referralStatistics: {},
-  miscellaneousStatistics: {},
   businessType: null,
+  otp: null,
   identifier: {},
   isAuthenticated: false,
   countries: {},
@@ -26,21 +22,6 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         countries: { ...action.payload },
       };
-    case "SET_ALL_REFERRALS":
-      return {
-        ...state,
-        referrals: { ...action.payload },
-      };
-    case "SET_REFERRALS_ACTIVITIES":
-      return {
-        ...state,
-        referralActivities: { ...action.payload },
-      };
-    case "SET_REFERRALS_STATISTICS":
-      return {
-        ...state,
-        referralStatistics: { ...action.payload },
-      };
     case "SET_BUSINESS_TYPE":
       return {
         ...state,
@@ -51,11 +32,13 @@ export const userReducer = (state = initialState, action: any) => {
         ...state,
         identifier: { ...action.payload },
       };
-    case "SET_MiSCELLANEOUS_STATISTICS":
+
+    case "SET_OTP":
       return {
         ...state,
-        miscellaneousStatistics: { ...action.payload },
+        otp: action.payload,
       };
+
     default:
       return state;
   }

@@ -17,6 +17,7 @@ import {
   LoadingStart,
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
+import Charts from "../../../components/dashboard/charts";
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch();
@@ -153,7 +154,6 @@ const Purchase: NextPage = () => {
   useEffect(() => {
     setTableRow(dataPurchase());
   }, [purchases]);
-
   return (
     <div>
       <DashboardLayout>
@@ -164,13 +164,13 @@ const Purchase: NextPage = () => {
                 <div className="lg:w-5/12 w-full mr-4">
                   {/* Payments */}
                   <div className="flex lg:flex-row flex-col flex-wrap">
-                    <div className="relative lg:w-full w-full lg:h-48 h-auto mb-6 pr-3">
+                    <div className="relative lg:w-full w-full lg:h-48 h-auto mb-6 lg:pr-3 pr-0">
                       <div
                         className="relative  h-full rounded-lg p-4 "
                         style={{ background: background.apacegray6 }}
                       >
-                        <div className="absolute top-4 right-4">
-                          <PurchaseAction />
+                        <div className="absolute top-0 right-4">
+                          <Button>Filter</Button>
                         </div>
 
                         <div className="flex  pb-8">
@@ -187,7 +187,7 @@ const Purchase: NextPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="relative lg:w-full w-full lg:h-48 h-52 mb-6 pr-3">
+                    <div className="relative lg:w-full w-full lg:h-48 h-52 mb-6 lg:pr-3 pr-0">
                       <div
                         className="relative  h-full rounded-lg p-4 "
                         style={{ background: background.apacegray6 }}
@@ -211,9 +211,24 @@ const Purchase: NextPage = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Payments */}
                 </div>
-                <div className="lg:w-7/12 w-full">Chart</div>
+
+                {/* //Chart */}
+                <div className=" overflow-x-auto lg:w-7/12 ">
+                  <div className="min-w-lg lg:min-w-max">
+                    <div className="overflow-hidden rounded-lg  bg-apace-gray ">
+                      <div
+                        className="py-0 px-4 flex justify-between items-center"
+                        style={{ background: background.apacegray2 }}
+                      >
+                        <p> Purchase trend </p>
+                        <Button>Filter</Button>
+                      </div>
+                      <Charts purchaseChart={purchaseChart} />
+                    </div>
+                  </div>
+                </div>
+                {/* //Chart */}
               </div>
 
               <div className="mt-8 text-lg">

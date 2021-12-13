@@ -96,7 +96,7 @@ export const getAllCategories = () => async (dispatch: any) => {
   dispatch(LoadingStart());
   try {
     const headersRequest = {
-      _auth: `watimagboauthkey`,
+      _auth: `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY_AUTH2}`,
     };
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/view/categories/all`,
@@ -118,7 +118,7 @@ export const waitList = (email: any) => async (dispatch: any) => {
   dispatch(LoadingStart());
   try {
     const headersRequest = {
-      _auth: `watimagboauthkey`,
+      _auth: `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY_AUTH2}`,
     };
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/waitlist/add`,

@@ -1,5 +1,4 @@
-import { IStore, ITopDealStore, ICategory } from "../interfaces/items.enum";
-import { SkeletonLoader, SkeletonLoader2 } from "./skeleton";
+import { ITopDealStore, ICategory } from "../interfaces/items.enum";
 import Link from "next/link";
 
 type ITopDealsProps = {
@@ -8,7 +7,9 @@ type ITopDealsProps = {
 
 export function TopDeals({ item }: ITopDealsProps) {
   return (
-    <Link href={`https://apace-store.herokuapp.com/${item.store_name}`}>
+    <Link
+      href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${item.store_name}`}
+    >
       <a target="_blank" className="w-full text-white">
         <div
           key={item.id}
@@ -17,7 +18,7 @@ export function TopDeals({ item }: ITopDealsProps) {
             backgroundSize: "cover",
             backgroundPosition: "top",
           }}
-          className="relative w-full h-80 rounded-lg   "
+          className="relative w-full h-80 rounded-lg"
         >
           <div className="w-full h-full bg-apace-black opacity-40"></div>
           <div className="absolute top-0 right-0 p-2 z-30">
@@ -48,7 +49,9 @@ type IFeaturedStoreProps = {
 export function FeaturedStore({ item }: IFeaturedStoreProps) {
   return (
     <>
-      <Link href={`https://apace-store.herokuapp.com/${item?.store_name}`}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${item?.store_name}`}
+      >
         <a target="_blank" className="w-full text-white">
           <div
             key={item.id}

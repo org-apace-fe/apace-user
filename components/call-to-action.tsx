@@ -27,7 +27,7 @@ const CallToAction = () => {
             </h4>
 
             <div className=" pt-16 pb-8 w-full  ">
-              <div className="lg:grid grid-cols-6 gap-5 flex-col ">
+              <div className="lg:grid grid-cols-6 gap-5 flex flex-col ">
                 {allCategories?.map((category: ICategory, index: any) => (
                   <Link href="/stores" key={category?.id}>
                     <a

@@ -10,8 +10,21 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signinAsShopper } from "../../../store/actions/user.action";
 import withoutAuth from "../../../route/without-auth";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
+import { openToastAndSetContent } from "../../../store/actions/toast/toastActions";
 
 const SignIn: NextPage = () => {
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
+
   const [status, setStatus] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const initialState = {
@@ -31,8 +44,45 @@ const SignIn: NextPage = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     console.log(user);
-
     dispatch(signinAsShopper(user, router));
+  };
+
+  const forgotPassword = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/forgot-password`,
+        {
+          identifier,
+        },
+        { headers: headersRequest }
+      );
+
+      dispatch(LoadingStop());
+      dispatch({
+        type: "SET_IDENTIFIER",
+        payload: { identifier },
+      });
+      dispatch(
+        openToastAndSetContent({
+          toastContent: res?.data?.message,
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
+      router.push("/auth/verification/forgot-password");
+    } catch (error: any) {
+      dispatch(LoadingStop());
+      dispatch(
+        openToastAndSetContent({
+          toastContent: error?.response?.data?.message,
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+    }
   };
 
   const { identifier, password } = user;
@@ -68,17 +118,22 @@ const SignIn: NextPage = () => {
                 name="password"
                 value={password}
                 onChange={handleChange}
-                required
               />
             </div>
-            <div className=" lg:w-3/6 w-5/6 mx-auto ">
-              <Button
-                className="flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
-                type="submit"
-              >
-                <img src="/icons/account.svg" className="mr-2" />
-                <p> Sign in</p>
-              </Button>
+
+            <div className="mt-16 cursor-pointer">
+              <div onClick={() => forgotPassword()} className="text-center">
+                Forgot Password ?
+              </div>
+              <div className=" lg:w-3/6 w-5/6 mx-auto ">
+                <Button
+                  className="flex justify-center py-0 mt-6 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  "
+                  type="submit"
+                >
+                  <img src="/icons/account.svg" className="mr-2" />
+                  <p> Sign in</p>
+                </Button>
+              </div>
             </div>
           </Form>
         </div>

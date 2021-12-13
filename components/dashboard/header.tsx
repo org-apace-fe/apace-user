@@ -58,7 +58,16 @@ const DashboardHeader = () => {
                 </div>
 
                 <div className="flex items-center justify-center">
-                  <Menu as="div" className="relative inline-block text-left">
+                  <Link href="/dashboard/notifications">
+                    <img
+                      src="/icons/notification.svg"
+                      className="md:hidden block px-4 py-2"
+                    />
+                  </Link>
+                  <Menu
+                    as="div"
+                    className="relative  md:inline-block hidden text-left"
+                  >
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
                       <div>
                         <img src="/icons/notification.svg" />
@@ -72,7 +81,16 @@ const DashboardHeader = () => {
                       <Notification />
                     </Menu.Items>
                   </Menu>
-                  <Menu as="div" className="relative inline-block text-left">
+                  <Link href="/dashboard/referrals">
+                    <img
+                      src="/icons/referral.svg"
+                      className="md:hidden block px-4 py-2"
+                    />
+                  </Link>
+                  <Menu
+                    as="div"
+                    className="relative md:inline-block hidden text-left"
+                  >
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
                       <div>
                         <img src="/icons/referral.svg" />
@@ -105,7 +123,7 @@ const DashboardHeader = () => {
                     </Menu.Button>
                     <Menu.Items
                       style={{ zIndex: 100 }}
-                      className="absolute md:block hidden right-0 w-80 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg  "
+                      className="absolute  right-0 w-80 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg outline-none "
                     >
                       <Profile />
                     </Menu.Items>
@@ -113,14 +131,18 @@ const DashboardHeader = () => {
                 </div>
               </div>
               {/* tab */}
-              <div>
-                <div className="flex items-center  text-base  lg:flex mt-4 flex-wrap ">
+
+              <div className="relative overflow-x-auto">
+                <div className="min-w-min lg:min-w-max max-h-screen flex items-center  text-base  lg:flex mt-4 ">
                   <Pills href="/dashboard"> Stores </Pills>
                   <Pills href="/dashboard/overview"> Overview </Pills>
                   <Pills href="/dashboard/payments"> Payments </Pills>
                   <Pills href="/dashboard/purchases"> Purchase </Pills>
                   <Pills href="/dashboard/referrals"> Referrals </Pills>
-                  <Pills href="/dashboard/settings"> Settings </Pills>
+                  <Pills href="/dashboard/settings/verification">
+                    {" "}
+                    Settings{" "}
+                  </Pills>
                 </div>
               </div>
               {/* tab */}

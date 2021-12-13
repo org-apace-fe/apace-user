@@ -60,7 +60,7 @@ const Header = () => {
         { name: "As shopper", href: "/auth/shopper/sign-in", current: false },
         {
           name: "As business",
-          href: "https://apace-store-admin.herokuapp.com/user/login",
+          href: `${process.env.NEXT_PUBLIC_ENV_STORE_ADMIN_URL}`,
           current: false,
         },
       ],

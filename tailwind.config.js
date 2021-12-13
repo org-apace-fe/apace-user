@@ -3,8 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      minWidth: { lg: "60rem" },
       fontFamily: {
-        body: ["Geometria"],
+        body: ["Geometria", "sans-serif"],
       },
       background: {},
       backgroundImage: {
