@@ -51,7 +51,7 @@ const PaymentDetail: NextPage = () => {
   };
 
   type DataPayment = {
-    amount: number;
+    amount: ReactNode;
     interest: string;
     due_date: string;
     date_completed: string;
@@ -59,7 +59,7 @@ const PaymentDetail: NextPage = () => {
   };
 
   const dataPayment = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPayment[] = [];
     oneLoan?.loan_repayments?.forEach((a: any) => {
       tempArr.push({
         amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
@@ -128,7 +128,10 @@ const PaymentDetail: NextPage = () => {
                         },
                         modalContent: (
                           <>
-                            <Liquidate />
+                            <Liquidate
+                              id={loanDetail?.id}
+                              amount={loanDetail?.amount}
+                            />
                           </>
                         ),
                       })

@@ -43,7 +43,7 @@ const PaymentsAll: NextPage = () => {
   };
 
   const dataPayment = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPayment[] = [];
     loans?.items.forEach((a: any) => {
       tempArr.push({
         amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
@@ -54,7 +54,7 @@ const PaymentsAll: NextPage = () => {
         status: (
           <Button className={ColorButton(a?.status)}> {a?.status} </Button>
         ),
-        actions: <PaymentAction id={a?.id} />,
+        actions: <PaymentAction id={a?.id} amount={a?.amount} />,
       });
     });
     return tempArr;

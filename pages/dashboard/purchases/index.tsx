@@ -40,7 +40,6 @@ const Purchase: NextPage = () => {
   type DataPurchase = {
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
     order_status: ReactNode;
@@ -48,7 +47,7 @@ const Purchase: NextPage = () => {
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
@@ -66,7 +65,7 @@ const Purchase: NextPage = () => {
             {a?.order_status}{" "}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;

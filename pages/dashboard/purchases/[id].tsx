@@ -53,17 +53,17 @@ const PurchaseDetail: NextPage = () => {
   };
 
   type Data = {
-    date: string;
+    date_created: string;
     message: string;
     status: ReactNode;
   };
 
   const dataComplaints = () => {
-    const tempArr: any[] = [];
+    const tempArr: Data[] = [];
     orderComplaints?.forEach((a: any) => {
       tempArr.push({
-        date: `${a?.date} `,
-        message: `${a?.interest}`,
+        date_created: `${moment(a?.date_created).format("ll")} `,
+        message: `${a?.message}`,
         status: (
           <div>
             <span className="bg-red-400 h-1 w-1 rounded-full"> </span>
@@ -78,7 +78,7 @@ const PurchaseDetail: NextPage = () => {
   const columnsComplaints = [
     {
       Header: "Date",
-      accessor: "date",
+      accessor: "date_created",
     },
     {
       Header: "Message",
@@ -91,11 +91,11 @@ const PurchaseDetail: NextPage = () => {
   ];
 
   const dataRequestRefund = () => {
-    const tempArr: any[] = [];
+    const tempArr: Data[] = [];
     orderRefundRequest?.forEach((a: any) => {
       tempArr.push({
-        date: `${a?.date} `,
-        message: `${a?.interest}`,
+        date_created: `${moment(a?.date_created).format("ll")} `,
+        message: `${a?.message}`,
 
         status: (
           <div>
@@ -111,7 +111,7 @@ const PurchaseDetail: NextPage = () => {
   const columnsRequestRefund = [
     {
       Header: "Date",
-      accessor: "date",
+      accessor: "date_created",
     },
     {
       Header: "Message",
@@ -155,7 +155,9 @@ const PurchaseDetail: NextPage = () => {
                         },
                         modalContent: (
                           <>
-                            <AskRefund />
+                            <AskRefund
+                              reference={orderDetail?.order_reference}
+                            />
                           </>
                         ),
                       })
@@ -175,7 +177,9 @@ const PurchaseDetail: NextPage = () => {
                         },
                         modalContent: (
                           <>
-                            <MakeComplaint />
+                            <MakeComplaint
+                              reference={orderDetail?.order_reference}
+                            />
                           </>
                         ),
                       })
@@ -195,7 +199,9 @@ const PurchaseDetail: NextPage = () => {
                         },
                         modalContent: (
                           <>
-                            <ReportPurchase />
+                            <ReportPurchase
+                              reference={orderDetail?.order_reference}
+                            />
                           </>
                         ),
                       })
@@ -275,7 +281,7 @@ const PurchaseDetail: NextPage = () => {
 
             <div className="mb-8">
               <p className="text-xl mb-4">Complaints </p>
-              {!isEmpty(dataComplaints) ? (
+              {!isEmpty(orderComplaints) ? (
                 <Table
                   data={tableRowComplaints ? tableRowComplaints : []}
                   columns={columnsComplaints ? columnsComplaints : []}
@@ -292,7 +298,7 @@ const PurchaseDetail: NextPage = () => {
 
             <div>
               <p className="text-xl mb-4">Refund request </p>
-              {!isEmpty(dataRequestRefund) ? (
+              {!isEmpty(orderRefundRequest) ? (
                 <Table
                   data={tableRowRequestRefund ? tableRowRequestRefund : []}
                   columns={columnsRequestRefund ? columnsRequestRefund : []}

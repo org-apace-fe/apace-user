@@ -37,15 +37,14 @@ const PurchaseAll: NextPage = () => {
     date_created: string;
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
-    order_status: string;
+    order_status: ReactNode;
     actions: ReactNode;
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.forEach((a: any, index: any) => {
       tempArr.push({
         s_n: index + 1,
@@ -64,7 +63,7 @@ const PurchaseAll: NextPage = () => {
             {a?.order_status}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;

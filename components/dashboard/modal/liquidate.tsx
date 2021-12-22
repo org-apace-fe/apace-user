@@ -3,8 +3,59 @@ import { background } from "../../../utils/background";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../store/actions/modal/modalActions";
 
-const Liquidate = () => {
+import axios from "axios";
+import {
+  LoadingStart,
+  LoadingStop,
+} from "../../../store/actions/loader/loaderActions";
+import { openToastAndSetContent } from "../../../store/actions/toast/toastActions";
+
+type LiquidateProps = {
+  id: number;
+  amount: string;
+};
+
+const Liquidate = ({ id, amount }: Partial<LiquidateProps>) => {
   const dispatch = useDispatch();
+
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
+
+  const LiquidateLoans = async () => {
+    try {
+      dispatch(LoadingStart());
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/loan/${id}/liquidate`,
+        { amount },
+        { headers: headersRequest }
+      );
+      dispatch(
+        openToastAndSetContent({
+          toastContent: res?.data?.message,
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
+
+      dispatch(LoadingStop());
+    } catch (error: any) {
+      dispatch(
+        openToastAndSetContent({
+          toastContent: error?.response?.data?.message,
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+      dispatch(LoadingStop());
+    }
+  };
+
   return (
     <div className="text-white">
       <div
@@ -34,7 +85,10 @@ const Liquidate = () => {
         <Button className="mx-2 w-full" onClick={() => dispatch(closeModal())}>
           Cancel{" "}
         </Button>
-        <Button className="mx-2  w-full bg-apace-orange-dark border-apace-orange-dark text-black">
+        <Button
+          onClick={() => LiquidateLoans()}
+          className="mx-2  w-full bg-apace-orange-dark border-apace-orange-dark text-black"
+        >
           Proceed{" "}
         </Button>
       </div>

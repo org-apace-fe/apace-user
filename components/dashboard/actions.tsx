@@ -13,9 +13,10 @@ import ReportPurchase from "./modal/report-purchase";
 
 type PaymentActionProps = {
   id: number;
+  amount: string;
 };
 
-export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
+export const PaymentAction = ({ id, amount }: Partial<PaymentActionProps>) => {
   const dispatch = useDispatch();
 
   const More = [
@@ -70,7 +71,7 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <Liquidate />
+                      <Liquidate id={id} amount={amount} />
                     </>
                   ),
                 })
@@ -92,9 +93,13 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
 
 type PurchaseActionProps = {
   id: number;
+  reference: string;
 };
 
-export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
+export const PurchaseAction = ({
+  id,
+  reference,
+}: Partial<PurchaseActionProps>) => {
   const dispatch = useDispatch();
 
   const PurchaseMore = [
@@ -139,7 +144,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <AskRefund />
+                      <AskRefund id={id} reference={reference} />
                     </>
                   ),
                 })
@@ -161,7 +166,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <MakeComplaint />
+                      <MakeComplaint id={id} reference={reference} />
                     </>
                   ),
                 })
@@ -183,7 +188,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <ReportPurchase />
+                      <ReportPurchase id={id} reference={reference} />
                     </>
                   ),
                 })

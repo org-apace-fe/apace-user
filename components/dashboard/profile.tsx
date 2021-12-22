@@ -74,7 +74,7 @@ const Profile = () => {
       </div>
 
       <div className="p-4 cursor-pointer">
-        <Link href="/dashboard/settings">
+        <Link href="/dashboard/settings/verification">
           <a className="flex my-2 ">
             <img src="/icons/settings.svg" /> <p className="ml-4">Settings</p>
           </a>
