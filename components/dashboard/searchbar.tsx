@@ -30,7 +30,7 @@ export default function SearchBar({ children, src, href }: any) {
     }
   }, [storeName]);
 
-  const getStore = async (storename: any) => {
+  const getStore = async (name: any) => {
     const token =
       typeof window !== "undefined" ? localStorage.getItem("token") : null;
     const headersRequest = {
@@ -41,7 +41,7 @@ export default function SearchBar({ children, src, href }: any) {
     dispatch(LoadingStart());
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/view/product/${storename}`,
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/store/all?Name=${name}`,
         { headers: headersRequest }
       );
 

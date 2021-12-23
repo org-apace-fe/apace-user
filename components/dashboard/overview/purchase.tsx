@@ -85,7 +85,7 @@ const OverviewPurchase = ({ miscellaneous }: any) => {
           <div className="text-xl ml-2 my-5">Recently visited</div>{" "}
         </div>
         <div className="flex flex-wrap">
-          <DashboardTopDealstore items={allTopDealsStores} loading={loading} />
+          {/* <DashboardTopDealstore items={allTopDealsStores} loading={loading} /> */}
         </div>
       </div>
     </div>

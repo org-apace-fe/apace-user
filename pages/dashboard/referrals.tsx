@@ -46,7 +46,7 @@ const Referrals: NextPage = () => {
   };
 
   const dataReferral = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferral[] = [];
     referrals?.items.forEach((a: any) => {
       tempArr.push({
         customer_name: `${a?.customer_name} `,
@@ -74,15 +74,14 @@ const Referrals: NextPage = () => {
   ];
 
   type DataReferralActivities = {
-    customer_id: number;
     item_name: string;
-    point_used: number;
-    discount: number;
-    point_balance: number;
+    point_used: string;
+    discount: string;
+    point_balance: string;
   };
 
   const dataReferralActivities = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferralActivities[] = [];
     referralsActivities?.items.forEach((a: any) => {
       tempArr.push({
         item_name: `${a?.item_name} `,

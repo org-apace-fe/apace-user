@@ -16,6 +16,7 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import Loader from "../../../components/loader";
 
 const PaymentsAll: NextPage = () => {
   const dispatch = useDispatch();
@@ -127,89 +128,97 @@ const PaymentsAll: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
-          <Container>
-            <h1 className="text-lg mb-4">All payments due</h1>
-            <div className="flex lg:flex-row flex-col ">
-              <div className="lg:w-full w-full">
-                <div className="flex lg:flex-row flex-col flex-wrap">
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pr-2 pr-0">
-                    <div
-                      className="relative  h-full rounded-lg p-4 "
-                      style={{ background: background.apacegray6 }}
-                    >
-                      <div className="flex">
-                        <img src="/icons/payout.svg" />
-                        <div className="ml-4">
-                          <p className="text-sm">Total due</p>
-                          <p className="text-lg text-apace-orange-light">
-                            &#8358;{" "}
-                            {numberWithCommas(loansStatistics?.total_loan_due)}
-                          </p>
+        {loansStatistics && loans ? (
+          <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
+            <Container>
+              <h1 className="text-lg mb-4">All payments due</h1>
+              <div className="flex lg:flex-row flex-col ">
+                <div className="lg:w-full w-full">
+                  <div className="flex lg:flex-row flex-col flex-wrap">
+                    <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pr-2 pr-0">
+                      <div
+                        className="relative  h-full rounded-lg p-4 "
+                        style={{ background: background.apacegray6 }}
+                      >
+                        <div className="flex">
+                          <img src="/icons/payout.svg" />
+                          <div className="ml-4">
+                            <p className="text-sm">Total due</p>
+                            <p className="text-lg text-apace-orange-light">
+                              &#8358;{" "}
+                              {numberWithCommas(
+                                loansStatistics?.total_loan_due
+                              )}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-2 pl-0">
-                    <div
-                      className="relative  h-full rounded-lg p-4 "
-                      style={{ background: background.apacegray6 }}
-                    >
-                      <div className="flex">
-                        <img src="/icons/receipt.svg" />
-                        <div className="ml-4">
-                          <p className="text-sm">Total all time loans</p>
-                          <p className="text-lg text-apace-orange-light">
-                            &#8358;{" "}
-                            {numberWithCommas(
-                              loansStatistics?.total_all_time_loan
-                            )}
-                          </p>
+                    <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-2 pl-0">
+                      <div
+                        className="relative  h-full rounded-lg p-4 "
+                        style={{ background: background.apacegray6 }}
+                      >
+                        <div className="flex">
+                          <img src="/icons/receipt.svg" />
+                          <div className="ml-4">
+                            <p className="text-sm">Total all time loans</p>
+                            <p className="text-lg text-apace-orange-light">
+                              &#8358;{" "}
+                              {numberWithCommas(
+                                loansStatistics?.total_all_time_loan
+                              )}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-4 pl-0">
-                    <div
-                      className="relative  h-full rounded-lg p-4"
-                      style={{ background: background.apacegray6 }}
-                    >
-                      <div className="flex">
-                        <img src="/icons/lending-limit.svg" />
-                        <div className="ml-2">
-                          <p className="text-sm">Total payments made acr...</p>
-                          <p className="text-lg">
-                            {" "}
-                            &#8358;{" "}
-                            {numberWithCommas(
-                              loansStatistics?.total_payment_made
-                            )}{" "}
-                          </p>
+                    <div className=" lg:w-1/3 w-full h-32 mb-6 lg:pl-4 pl-0">
+                      <div
+                        className="relative  h-full rounded-lg p-4"
+                        style={{ background: background.apacegray6 }}
+                      >
+                        <div className="flex">
+                          <img src="/icons/lending-limit.svg" />
+                          <div className="ml-2">
+                            <p className="text-sm">
+                              Total payments made acr...
+                            </p>
+                            <p className="text-lg">
+                              {" "}
+                              &#8358;{" "}
+                              {numberWithCommas(
+                                loansStatistics?.total_payment_made
+                              )}{" "}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-8 text-lg">
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="text-xl">Payment history</div>{" "}
+              <div className="mt-8 text-lg">
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="text-xl">Payment history</div>{" "}
+                  </div>
+                  {loans?.items ? (
+                    <PaginationTable
+                      data={tableRow ? tableRow : []}
+                      columns={columnsPayment ? columnsPayment : []}
+                      tablePage={loans?.page && loans?.page}
+                    />
+                  ) : null}
                 </div>
-                {loans?.items ? (
-                  <PaginationTable
-                    data={tableRow ? tableRow : []}
-                    columns={columnsPayment ? columnsPayment : []}
-                    tablePage={loans?.page && loans?.page}
-                  />
-                ) : null}
               </div>
-            </div>
-          </Container>
-        </div>
+            </Container>
+          </div>
+        ) : (
+          <Loader />
+        )}
       </DashboardLayout>
     </div>
   );

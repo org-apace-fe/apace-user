@@ -23,15 +23,18 @@ export const PaymentAction = ({ id, amount }: Partial<PaymentActionProps>) => {
     {
       name: "View detail",
       href: `/dashboard/payments/${id}`,
+      icon: "/icons/view.svg",
     },
     {
       name: "Go to purchase",
       href: "/dashboard/purchases",
+      icon: "/icons/cart.svg",
     },
 
     {
       name: "Visit store",
       href: "/dashboard",
+      icon: "/icons/purchase-item.svg",
     },
   ];
   return (
@@ -53,7 +56,7 @@ export const PaymentAction = ({ id, amount }: Partial<PaymentActionProps>) => {
                 {More.map((more) => (
                   <Link href={more.href}>
                     <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-                      <img src="/icons/payout.svg" />
+                      <img src={more.icon} />
                       <a className="ml-3">{more.name}</a>
                     </div>
                   </Link>
@@ -79,12 +82,10 @@ export const PaymentAction = ({ id, amount }: Partial<PaymentActionProps>) => {
             }
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/crash.svg" />
               <a className="ml-3">Crash Loan</a>
             </div>
           </div>
-
-          <MyModal />
         </div>
       </Menu.Items>
     </Menu>
@@ -106,6 +107,7 @@ export const PurchaseAction = ({
     {
       name: "View detail",
       href: `/dashboard/purchases/${id}`,
+      icon: "/icons/view.svg",
     },
   ];
   return (
@@ -127,7 +129,7 @@ export const PurchaseAction = ({
                 {PurchaseMore.map((more) => (
                   <Link href={more.href}>
                     <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-                      <img src="/icons/payout.svg" />
+                      <img src={more.icon} />
                       <a className="ml-3">{more.name}</a>
                     </div>
                   </Link>
@@ -153,7 +155,7 @@ export const PurchaseAction = ({
             className="flex flex-col"
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/refund.svg" />
               <a className="ml-3">Ask for refund</a>
             </div>
           </div>
@@ -175,7 +177,7 @@ export const PurchaseAction = ({
             className="flex flex-col "
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/complaints.svg" />
               <a className="ml-3">Make a complaint</a>
             </div>
           </div>
@@ -197,7 +199,7 @@ export const PurchaseAction = ({
             className="flex flex-col"
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/report.svg" />
               <a className="ml-3">Report Purchase</a>
             </div>
           </div>
