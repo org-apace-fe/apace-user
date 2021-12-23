@@ -16,6 +16,7 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import Loader from "../../../components/loader";
 
 const PurchaseAll: NextPage = () => {
   const dispatch = useDispatch();
@@ -37,15 +38,14 @@ const PurchaseAll: NextPage = () => {
     date_created: string;
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
-    order_status: string;
+    order_status: ReactNode;
     actions: ReactNode;
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.forEach((a: any, index: any) => {
       tempArr.push({
         s_n: index + 1,
@@ -64,7 +64,7 @@ const PurchaseAll: NextPage = () => {
             {a?.order_status}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;
@@ -149,65 +149,69 @@ const PurchaseAll: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
-          <Container>
-            <div className="flex lg:flex-row flex-col ">
-              <div className="lg:w-full w-full">
-                <div className="flex lg:flex-row flex-col flex-wrap">
-                  <div className=" lg:w-1/3 w-full mb-6 lg:pr-4 pr-0  ">
-                    <div className="h-32  ">
-                      <div
-                        className="relative  h-full rounded-lg p-4"
-                        style={{ background: background.apacegray6 }}
-                      >
-                        <div className="flex">
-                          <img src="/icons/lending-limit.svg" />
-                          <div className="ml-2">
-                            <p className="text-sm">Total amount on purchases</p>
-                            <p className="text-lg">
-                              &#8358;
-                              {numberWithCommas(
-                                purchaseStatistics?.total_all_time_spent
-                              )}
-                            </p>
+        {purchaseStatistics && purchases ? (
+          <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
+            <Container>
+              <div className="flex lg:flex-row flex-col ">
+                <div className="lg:w-full w-full">
+                  <div className="flex lg:flex-row flex-col flex-wrap">
+                    <div className=" lg:w-1/3 w-full mb-6 lg:pr-4 pr-0  ">
+                      <div className="h-32  ">
+                        <div
+                          className="relative  h-full rounded-lg p-4"
+                          style={{ background: background.apacegray6 }}
+                        >
+                          <div className="flex">
+                            <img src="/icons/lending-limit.svg" />
+                            <div className="ml-2">
+                              <p className="text-sm">
+                                Total amount on purchases
+                              </p>
+                              <p className="text-lg">
+                                &#8358;
+                                {numberWithCommas(
+                                  purchaseStatistics?.total_all_time_spent
+                                )}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className=" lg:w-1/3 w-full mb-6  lg:pr-4 pr-0">
-                    <div className="h-32  ">
-                      <div
-                        className="relative  h-full rounded-lg p-4"
-                        style={{ background: background.apacegray6 }}
-                      >
-                        <div className="flex">
-                          <img src="/icons/lending-limit.svg" />
-                          <div className="ml-2">
-                            <p className="text-sm">
-                              Total stores purchased from
-                            </p>
-                            <p className="text-lg">
-                              {purchaseStatistics?.total_store_purchase_from}
-                            </p>
+                    <div className=" lg:w-1/3 w-full mb-6  lg:pr-4 pr-0">
+                      <div className="h-32  ">
+                        <div
+                          className="relative  h-full rounded-lg p-4"
+                          style={{ background: background.apacegray6 }}
+                        >
+                          <div className="flex">
+                            <img src="/icons/lending-limit.svg" />
+                            <div className="ml-2">
+                              <p className="text-sm">
+                                Total stores purchased from
+                              </p>
+                              <p className="text-lg">
+                                {purchaseStatistics?.total_store_purchase_from}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className=" lg:w-1/3 w-full mb-6 ">
-                    <div className="h-32 ">
-                      <div
-                        className="relative  h-full rounded-lg p-4"
-                        style={{ background: background.apacegray6 }}
-                      >
-                        <div className="flex">
-                          <img src="/icons/lending-limit.svg" />
-                          <div className="ml-2">
-                            <p className="text-sm">Total purchases</p>
-                            <p className="text-lg">
-                              {purchaseStatistics?.total_purchases}
-                            </p>
+                    <div className=" lg:w-1/3 w-full mb-6 ">
+                      <div className="h-32 ">
+                        <div
+                          className="relative  h-full rounded-lg p-4"
+                          style={{ background: background.apacegray6 }}
+                        >
+                          <div className="flex">
+                            <img src="/icons/lending-limit.svg" />
+                            <div className="ml-2">
+                              <p className="text-sm">Total purchases</p>
+                              <p className="text-lg">
+                                {purchaseStatistics?.total_purchases}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -215,22 +219,24 @@ const PurchaseAll: NextPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-8 text-lg">
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="text-xl">Purchase history</div>
+              <div className="mt-8 text-lg">
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="text-xl">Purchase history</div>
+                  </div>
+                  <PaginationTable
+                    data={tableRow ? tableRow : []}
+                    columns={columnsPurchase ? columnsPurchase : []}
+                    tablePage={purchases?.page && purchases?.page}
+                  />
                 </div>
-                <PaginationTable
-                  data={tableRow ? tableRow : []}
-                  columns={columnsPurchase ? columnsPurchase : []}
-                  tablePage={purchases?.page && purchases?.page}
-                />
               </div>
-            </div>
-          </Container>
-        </div>
+            </Container>
+          </div>
+        ) : (
+          <Loader />
+        )}
       </DashboardLayout>
     </div>
   );

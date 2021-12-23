@@ -48,7 +48,7 @@ const Payments: NextPage = () => {
   };
 
   const dataPayment = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPayment[] = [];
     loans?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
@@ -59,7 +59,7 @@ const Payments: NextPage = () => {
         status: (
           <Button className={ColorButton(a?.status)}> {a?.status} </Button>
         ),
-        actions: <PaymentAction id={a?.id} />,
+        actions: <PaymentAction id={a?.id} amount={a?.amount} />,
       });
     });
     return tempArr;
@@ -162,7 +162,7 @@ const Payments: NextPage = () => {
     <>
       <div>
         <DashboardLayout>
-          {tableRow ? (
+          {loansStatistics && miscellaneousStatistics && loans ? (
             <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
               <Container>
                 <div
@@ -226,7 +226,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/revenue.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total due</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -245,7 +245,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-2">
                                 <p className="text-sm">
                                   Total current loan amount
@@ -267,7 +267,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/receipt.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total all time loans</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -360,4 +360,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default Payments;

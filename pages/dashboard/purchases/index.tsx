@@ -40,7 +40,6 @@ const Purchase: NextPage = () => {
   type DataPurchase = {
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
     order_status: ReactNode;
@@ -48,7 +47,7 @@ const Purchase: NextPage = () => {
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
@@ -66,7 +65,7 @@ const Purchase: NextPage = () => {
             {a?.order_status}{" "}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;
@@ -157,7 +156,7 @@ const Purchase: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        {tableRow ? (
+        {miscellaneousStatistics && purchases ? (
           <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
             <Container>
               <div className="flex lg:flex-row flex-col ">
@@ -170,7 +169,10 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="absolute top-0 right-4">
-                          <Button>Filter</Button>
+                          <Button className="flex items-center">
+                            <img src="/icons/calendar.svg" />{" "}
+                            <p className="ml-2"> Filter </p>
+                          </Button>
                         </div>
 
                         <div className="flex  pb-8">
@@ -193,7 +195,7 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="flex  pb-8">
-                          <img src="/icons/payout.svg" />
+                          <img src="/icons/lending-limit.svg" />
                           <div className="ml-4  ">
                             <p className="text-sm">Current lending limit</p>
                             <p className="text-lg text-apace-orange-light">
@@ -222,7 +224,10 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray2 }}
                       >
                         <p> Purchase trend </p>
-                        <Button>Filter</Button>
+                        <Button className="flex items-center">
+                          <img src="/icons/calendar.svg" />{" "}
+                          <p className="ml-2"> Filter </p>
+                        </Button>
                       </div>
                       <Charts purchaseChart={purchaseChart} />
                     </div>
