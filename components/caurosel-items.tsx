@@ -1,4 +1,5 @@
 import { IItems } from "../interfaces/items.enum";
+import Image from "next/image";
 
 type ItemsProps = {
   item: IItems;
@@ -7,7 +8,15 @@ type ItemsProps = {
 export function Items({ item }: ItemsProps) {
   return (
     <div key={item.id} className=" h-96" style={{ height: "30rem" }}>
-      <img className="w-full h-full object-contain" src={item.photo} />
+      <Image
+        className="w-full h-full object-contain"
+        src={item.photo}
+        layout="fill"
+        placeholder="blur"
+        alt="apace"
+        blurDataURL="#BD632F"
+        priority={true}
+      />
     </div>
   );
 }
@@ -18,7 +27,11 @@ type Items2Props = {
 export function Items2({ item }: Items2Props) {
   return (
     <div key={item.id} className=" h-96" style={{ height: "30rem" }}>
-      <img className="w-full h-full object-contain" src={item.photo} />
+      <Image
+        className="w-full h-full object-contain"
+        src={item.photo}
+        layout="fill"
+      />
     </div>
   );
 }

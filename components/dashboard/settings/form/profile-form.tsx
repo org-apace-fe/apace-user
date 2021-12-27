@@ -327,7 +327,7 @@ const ProfileForm = () => {
               />
               <small
                 onClick={() => verifyBvn("BVN")}
-                className="text-purple-600 underline cursor-pointer"
+                className="text-white underline cursor-pointer"
               >
                 Verify BVN
               </small>
@@ -343,7 +343,7 @@ const ProfileForm = () => {
               />
               <small
                 onClick={() => verifyBvnOtp("BVN")}
-                className=" text-purple-600 underline cursor-pointer"
+                className=" text-white underline cursor-pointer"
               >
                 Verify BVN OTP
               </small>

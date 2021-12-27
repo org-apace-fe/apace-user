@@ -1,5 +1,4 @@
-import { IStore, ITopDealStore, ICategory } from "../interfaces/items.enum";
-import { SkeletonLoader, SkeletonLoader2 } from "./skeleton";
+import { ITopDealStore, ICategory } from "../interfaces/items.enum";
 import Link from "next/link";
 
 type ITopDealsProps = {
@@ -19,7 +18,7 @@ export function TopDeals({ item }: ITopDealsProps) {
             backgroundSize: "cover",
             backgroundPosition: "top",
           }}
-          className="relative w-full h-80 rounded-lg   "
+          className="relative w-full h-80 rounded-lg"
         >
           <div className="w-full h-full bg-apace-black opacity-40"></div>
           <div className="absolute top-0 right-0 p-2 z-30">

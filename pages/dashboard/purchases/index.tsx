@@ -40,7 +40,6 @@ const Purchase: NextPage = () => {
   type DataPurchase = {
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
     order_status: ReactNode;
@@ -48,7 +47,7 @@ const Purchase: NextPage = () => {
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
@@ -66,7 +65,7 @@ const Purchase: NextPage = () => {
             {a?.order_status}{" "}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;
@@ -157,20 +156,23 @@ const Purchase: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        {tableRow ? (
+        {miscellaneousStatistics && purchases ? (
           <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
             <Container>
               <div className="flex lg:flex-row flex-col ">
                 <div className="lg:w-5/12 w-full mr-4">
                   {/* Payments */}
                   <div className="flex lg:flex-row flex-col flex-wrap">
-                    <div className="relative lg:w-full w-full lg:h-48 h-auto mb-6 pr-3">
+                    <div className="relative lg:w-full w-full lg:h-48 h-auto mb-6 lg:pr-3 pr-0">
                       <div
                         className="relative  h-full rounded-lg p-4 "
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="absolute top-0 right-4">
-                          <Button>Filter</Button>
+                          <Button className="flex items-center">
+                            <img src="/icons/calendar.svg" />{" "}
+                            <p className="ml-2"> Filter </p>
+                          </Button>
                         </div>
 
                         <div className="flex  pb-8">
@@ -187,13 +189,13 @@ const Purchase: NextPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="relative lg:w-full w-full lg:h-48 h-52 mb-6 pr-3">
+                    <div className="relative lg:w-full w-full lg:h-48 h-52 mb-6 lg:pr-3 pr-0">
                       <div
                         className="relative  h-full rounded-lg p-4 "
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="flex  pb-8">
-                          <img src="/icons/payout.svg" />
+                          <img src="/icons/lending-limit.svg" />
                           <div className="ml-4  ">
                             <p className="text-sm">Current lending limit</p>
                             <p className="text-lg text-apace-orange-light">
@@ -214,17 +216,21 @@ const Purchase: NextPage = () => {
                 </div>
 
                 {/* //Chart */}
-
-                <div className="lg:w-7/12 w-full">
-                  <div className="overflow-hidden rounded-lg  bg-apace-gray ">
-                    <div
-                      className="py-0 px-4 flex justify-between items-center"
-                      style={{ background: background.apacegray2 }}
-                    >
-                      <p> Purchase trend </p>
-                      <Button>Filter</Button>
+                <div className=" overflow-x-auto lg:w-7/12 ">
+                  <div className="min-w-lg lg:min-w-max">
+                    <div className="overflow-hidden rounded-lg  bg-apace-gray ">
+                      <div
+                        className="py-0 px-4 flex justify-between items-center"
+                        style={{ background: background.apacegray2 }}
+                      >
+                        <p> Purchase trend </p>
+                        <Button className="flex items-center">
+                          <img src="/icons/calendar.svg" />{" "}
+                          <p className="ml-2"> Filter </p>
+                        </Button>
+                      </div>
+                      <Charts purchaseChart={purchaseChart} />
                     </div>
-                    <Charts purchaseChart={purchaseChart} />
                   </div>
                 </div>
                 {/* //Chart */}
@@ -257,4 +263,4 @@ const Purchase: NextPage = () => {
   );
 };
 
-export default Purchase;
+export default withAuth(Purchase);

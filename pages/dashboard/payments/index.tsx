@@ -48,7 +48,7 @@ const Payments: NextPage = () => {
   };
 
   const dataPayment = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPayment[] = [];
     loans?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
@@ -59,7 +59,7 @@ const Payments: NextPage = () => {
         status: (
           <Button className={ColorButton(a?.status)}> {a?.status} </Button>
         ),
-        actions: <PaymentAction id={a?.id} />,
+        actions: <PaymentAction id={a?.id} amount={a?.amount} />,
       });
     });
     return tempArr;
@@ -162,7 +162,7 @@ const Payments: NextPage = () => {
     <>
       <div>
         <DashboardLayout>
-          {tableRow ? (
+          {loansStatistics && miscellaneousStatistics && loans ? (
             <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
               <Container>
                 <div
@@ -175,7 +175,7 @@ const Payments: NextPage = () => {
                       {/* Payments */}
                       <div className="flex lg:flex-row flex-col flex-wrap">
                         {loansDue?.items?.map((loan: any) => (
-                          <div className="relative lg:w-1/2 w-full lg:h-64 h-auto mb-6 pr-3">
+                          <div className="relative lg:w-1/2 w-full lg:h-64 h-auto mb-6 lg:pr-3 pr-0">
                             <div
                               className="relative  h-full rounded-lg p-4 "
                               style={{ background: background.apacegray6 }}
@@ -220,13 +220,13 @@ const Payments: NextPage = () => {
                     </div>
                     <div className="lg:w-6/12 w-full">
                       <div className="flex lg:flex-row flex-col flex-wrap">
-                        <div className=" lg:w-1/2 w-full h-32 mb-6 pr-2">
+                        <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pr-2 pr-0">
                           <div
                             className="relative  h-full rounded-lg p-4 "
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/revenue.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total due</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -239,13 +239,13 @@ const Payments: NextPage = () => {
                             </div>
                           </div>
                         </div>
-                        <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                        <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                           <div
                             className="relative  h-full rounded-lg p-4"
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-2">
                                 <p className="text-sm">
                                   Total current loan amount
@@ -261,13 +261,13 @@ const Payments: NextPage = () => {
                             </div>
                           </div>
                         </div>
-                        <div className=" lg:w-1/2 w-full h-32 mb-6 pr-2">
+                        <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pr-2 pr-0">
                           <div
                             className="relative  h-full rounded-lg p-4 "
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/receipt.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total all time loans</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -280,7 +280,7 @@ const Payments: NextPage = () => {
                             </div>
                           </div>
                         </div>
-                        <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                        <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                           <div
                             className="relative  h-full rounded-lg p-4"
                             style={{ background: background.apacegray6 }}
@@ -342,6 +342,7 @@ const Payments: NextPage = () => {
                         View all
                       </Button>
                     </div>
+
                     <Table
                       data={tableRow ? tableRow : []}
                       columns={columnsPayment ? columnsPayment : []}
@@ -359,4 +360,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default Payments;

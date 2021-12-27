@@ -1,5 +1,6 @@
 import Container from "./container";
 import { BigAIcon } from "./icons/logo";
+import Image from "next/image";
 
 const WhyBanner = () => {
   return (
@@ -33,9 +34,11 @@ const WhyBanner = () => {
           </div>
 
           <div className="lg:w-1/2 w-full ">
-            <img
+            <Image
               className="w-full h-full object-contain"
               src="/icons/amp-time.png"
+              height={542}
+              width={582}
             />
           </div>
         </div>
@@ -68,9 +71,12 @@ const WhyBanner = () => {
             </div>
 
             <div className="lg:w-1/2 w-full px-0">
-              <img
+              <Image
                 className="w-full h-full object-contain"
                 src="/icons/road-blocks.png"
+                height={592}
+                width={489}
+                priority={true}
               />
             </div>
           </div>

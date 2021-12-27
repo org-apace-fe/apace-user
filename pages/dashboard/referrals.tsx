@@ -46,7 +46,7 @@ const Referrals: NextPage = () => {
   };
 
   const dataReferral = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferral[] = [];
     referrals?.items.forEach((a: any) => {
       tempArr.push({
         customer_name: `${a?.customer_name} `,
@@ -74,15 +74,14 @@ const Referrals: NextPage = () => {
   ];
 
   type DataReferralActivities = {
-    customer_id: number;
     item_name: string;
-    point_used: number;
-    discount: number;
-    point_balance: number;
+    point_used: string;
+    discount: string;
+    point_balance: string;
   };
 
   const dataReferralActivities = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferralActivities[] = [];
     referralsActivities?.items.forEach((a: any) => {
       tempArr.push({
         item_name: `${a?.item_name} `,
@@ -187,7 +186,7 @@ const Referrals: NextPage = () => {
                   <div className="lg:w-8/12 w-full mr-4">
                     {/* Payments */}
                     <div className="flex lg:flex-row  flex-col flex-wrap">
-                      <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                      <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                         <div
                           className="relative  h-full rounded-lg p-4"
                           style={{ background: background.apacegray6 }}
@@ -207,7 +206,7 @@ const Referrals: NextPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                      <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                         <div
                           className="relative  h-full rounded-lg p-4"
                           style={{ background: background.apacegray6 }}
@@ -224,7 +223,7 @@ const Referrals: NextPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                      <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                         <div
                           className="relative  h-full rounded-lg p-4"
                           style={{ background: background.apacegray6 }}
@@ -242,7 +241,7 @@ const Referrals: NextPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className=" lg:w-1/2 w-full h-32 mb-6 pl-4">
+                      <div className=" lg:w-1/2 w-full h-32 mb-6 lg:pl-4 pl-0">
                         <div
                           className="relative  h-full rounded-lg p-4"
                           style={{ background: background.apacegray6 }}
@@ -264,7 +263,7 @@ const Referrals: NextPage = () => {
                   </div>
                   <div className="lg:w-4/12 w-full">
                     <div className="flex lg:flex-row flex-col flex-wrap">
-                      <div className=" lg:w-full w-full h-auto mb-6 pr-2">
+                      <div className=" lg:w-full w-full h-auto mb-6 lg:pr-2 pr-0">
                         <div
                           className="relative h-full rounded-lg p-4 "
                           style={{ background: background.apacegray6 }}
@@ -325,15 +324,15 @@ const Referrals: NextPage = () => {
 
               <div className="mt-8 text-lg">
                 <div>
-                  <div className="flex ">
-                    <div className="w-5/12 mr-4 ">
+                  <div className="lg:flex ">
+                    <div className="lg:w-5/12 w-full mr-4 lg:mb-0 mb-6 ">
                       <PaginationTable
                         data={tableRowReferrals ? tableRowReferrals : []}
                         columns={columnsReferral ? columnsReferral : []}
                         tablePage={allReferallsPage && allReferallsPage}
                       />
                     </div>
-                    <div className="w-7/10 flex-1 ">
+                    <div className="lg:w-7/10 w-full flex-1 ">
                       <PaginationTable
                         data={
                           tableRowReferralActivities

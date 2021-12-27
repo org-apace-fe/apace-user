@@ -15,6 +15,7 @@ import { background } from "../../utils/background";
 import Pills from "./pills";
 import { useSelector } from "react-redux";
 import Avatar from "react-avatar";
+import SearchBar from "./searchbar";
 
 const DashboardHeader = () => {
   const profile = useSelector((state: any) => state.auth);
@@ -36,29 +37,21 @@ const DashboardHeader = () => {
                     <ApaceLogoIcon />
                   </a>
                 </Link>
-                <div className="hidden md:block w-3/6">
-                  <form className="w-full">
-                    <div className="flex flex-row-reverse relative ">
-                      <input
-                        style={{ background: background.apacegray2 }}
-                        className="py-2 pl-10 pr-4 w-full text-white rounded-full  outline-none "
-                        placeholder="Search your favourite stores"
-                      />
-                      <div
-                        className="absolute "
-                        style={{ top: "0.5rem", left: "0.6rem" }}
-                      >
-                        <SearchIcon
-                          className="h-6 w-6 text-white"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
 
+                {/* SearchBar */}
+                <SearchBar />
+                {/* SearchBar */}
                 <div className="flex items-center justify-center">
-                  <Menu as="div" className="relative inline-block text-left">
+                  <Link href="/dashboard/notifications">
+                    <img
+                      src="/icons/notification.svg"
+                      className="md:hidden block px-4 py-2"
+                    />
+                  </Link>
+                  <Menu
+                    as="div"
+                    className="relative  md:inline-block hidden text-left"
+                  >
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
                       <div>
                         <img src="/icons/notification.svg" />
@@ -72,7 +65,16 @@ const DashboardHeader = () => {
                       <Notification />
                     </Menu.Items>
                   </Menu>
-                  <Menu as="div" className="relative inline-block text-left">
+                  <Link href="/dashboard/referrals">
+                    <img
+                      src="/icons/referral.svg"
+                      className="md:hidden block px-4 py-2"
+                    />
+                  </Link>
+                  <Menu
+                    as="div"
+                    className="relative md:inline-block hidden text-left"
+                  >
                     <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-300 hover:text-apace-orange-light  ">
                       <div>
                         <img src="/icons/referral.svg" />
@@ -105,7 +107,7 @@ const DashboardHeader = () => {
                     </Menu.Button>
                     <Menu.Items
                       style={{ zIndex: 100 }}
-                      className="absolute md:block hidden right-0 w-80 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg  "
+                      className="absolute  right-0 w-80 mt-2 origin-top-right bg-gray-700 text-white rounded-md shadow-lg outline-none "
                     >
                       <Profile />
                     </Menu.Items>
@@ -113,16 +115,17 @@ const DashboardHeader = () => {
                 </div>
               </div>
               {/* tab */}
-              <div>
-                <div className="flex items-center  text-base  lg:flex mt-4 flex-wrap ">
+
+              <div className="relative overflow-x-auto">
+                <div className="min-w-min lg:min-w-max max-h-screen flex items-center  text-base  lg:flex mt-4 ">
                   <Pills href="/dashboard"> Stores </Pills>
                   <Pills href="/dashboard/overview"> Overview </Pills>
                   <Pills href="/dashboard/payments"> Payments </Pills>
                   <Pills href="/dashboard/purchases"> Purchase </Pills>
                   <Pills href="/dashboard/referrals"> Referrals </Pills>
+                  <Pills href="/dashboard/cards"> Cards </Pills>
                   <Pills href="/dashboard/settings/verification">
-                    {" "}
-                    Settings{" "}
+                    Settings
                   </Pills>
                 </div>
               </div>

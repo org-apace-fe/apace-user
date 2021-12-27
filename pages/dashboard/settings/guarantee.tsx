@@ -96,4 +96,4 @@ const SettingsGuarantee: NextPage = () => {
   );
 };
 
-export default SettingsGuarantee;
+export default withAuth(SettingsGuarantee);
