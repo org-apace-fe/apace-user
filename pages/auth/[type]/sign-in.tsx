@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signinAsShopper } from "../../../store/actions/user.action";
 import withoutAuth from "../../../route/without-auth";
 import {
   LoadingStart,
@@ -26,7 +25,6 @@ const SignIn: NextPage = () => {
   };
 
   const [status, setStatus] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
   const initialState = {
     identifier: "",
     password: "",
@@ -41,10 +39,62 @@ const SignIn: NextPage = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(user);
-    dispatch(signinAsShopper(user, router));
+    dispatch({
+      type: "SET_IDENTIFIER",
+      payload: user,
+    });
+    dispatch(LoadingStart());
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/sign-in`,
+        user,
+        { headers: headersRequest }
+      );
+
+      if (res?.data?.status_code === 11) {
+        dispatch(
+          openToastAndSetContent({
+            toastContent: res?.data?.message,
+            toastStyles: {
+              backgroundColor: "green",
+            },
+          })
+        );
+        console.log(res?.data?.message);
+        router.push("/auth/verification");
+      }
+
+      const { access_token } = res?.data?.token;
+
+      typeof window !== "undefined"
+        ? localStorage.setItem("token", access_token)
+        : null;
+
+      dispatch(
+        openToastAndSetContent({
+          toastContent: "Signed in successfully",
+          toastStyles: {
+            backgroundColor: "green",
+          },
+        })
+      );
+
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.log(error?.response?.data);
+
+      dispatch(
+        openToastAndSetContent({
+          toastContent: error?.response?.data?.message,
+          toastStyles: {
+            backgroundColor: "red",
+          },
+        })
+      );
+      dispatch(LoadingStop());
+    }
   };
 
   const forgotPassword = async () => {

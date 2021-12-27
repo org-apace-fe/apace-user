@@ -1,12 +1,30 @@
 import { NextPage } from "next";
 import DashboardLayout from "../../../components/dashboard/layout";
 import withAuth from "../../../route/with-auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SettingsLayout from "../../../components/dashboard/settings/layout";
 import Link from "next/link";
+import { useEffect } from "react";
+import { fetchUserProfile } from "../../../store/actions/user.action";
+import { numberWithCommas } from "../../../utils/formatNumber";
 
 const SettingsCreditLimit: NextPage = () => {
   const dispatch = useDispatch();
+  const profile = useSelector((state: any) => state.auth);
+
+  const personalInfo = profile?.user?.data?.peronal_info;
+  const loanLimit = profile?.user?.data?.loan_limit;
+
+  const customerTiers = profile?.user?.data?.customer_tiers;
+
+  const activeTiers = customerTiers?.find((tier: any) => {
+    return tier.is_active === true;
+  });
+
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, []);
+
   return (
     <div>
       <DashboardLayout>
@@ -19,8 +37,9 @@ const SettingsCreditLimit: NextPage = () => {
               </div>
 
               <p className="mt-4">
-                You’re on Apace Personal verification which pegs your credit
-                limit at N 20,000.00
+                You’re on Apace {activeTiers?.tier_name} verification which pegs
+                your credit limit at &#8358;{" "}
+                {numberWithCommas(loanLimit?.limit)}{" "}
               </p>
 
               <p className="my-6">

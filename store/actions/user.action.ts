@@ -198,7 +198,7 @@ export const signinAsShopper =
       typeof window !== "undefined"
         ? localStorage.setItem("token", access_token)
         : null;
-
+      console.log(res);
       dispatch(
         openToastAndSetContent({
           toastContent: "Signed in successfully",
