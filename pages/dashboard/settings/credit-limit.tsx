@@ -12,6 +12,8 @@ const SettingsCreditLimit: NextPage = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.auth);
 
+  const onBoardingStep = profile?.user?.data?.on_boarding_step;
+
   const personalInfo = profile?.user?.data?.peronal_info;
   const loanLimit = profile?.user?.data?.loan_limit;
 

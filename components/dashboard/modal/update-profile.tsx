@@ -21,6 +21,13 @@ type ComplaintProps = {
 const UpdateProfileModal = ({ id, reference }: Partial<ComplaintProps>) => {
   const dispatch = useDispatch();
 
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const headersRequest = {
+    Authorization: `Bearer ${token}`,
+    "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+  };
+
   const profile = useSelector((state: any) => state.auth);
   const personalInfo = profile?.user?.data?.peronal_info;
   const verifications = profile?.user?.data?.verifications;
@@ -39,7 +46,8 @@ const UpdateProfileModal = ({ id, reference }: Partial<ComplaintProps>) => {
 
   const { firstname, lastname, address, dob } = user;
 
-  const profileUpdate = async () => {
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
     let fields: any[] = [];
     Object.keys(user).forEach((key: string) => {
       if (user[key]) {
@@ -50,29 +58,27 @@ const UpdateProfileModal = ({ id, reference }: Partial<ComplaintProps>) => {
       }
     });
     try {
-      const token =
-        typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      const headersRequest = {
-        Authorization: `Bearer ${token}`,
-        "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
-      };
       dispatch(LoadingStart());
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/profile/update`,
         { fields },
         { headers: headersRequest }
       );
-      dispatch(fetchUserProfile());
+
+      console.log(res, user, fields);
+
       dispatch(
         openToastAndSetContent({
-          toastContent: "Profile Updated",
+          toastContent: res?.data?.message,
           toastStyles: {
             backgroundColor: "green",
           },
         })
       );
+      dispatch(fetchUserProfile());
       dispatch(LoadingStop());
     } catch (error: any) {
+      console.log(error, user, fields);
       dispatch(
         openToastAndSetContent({
           toastContent: error?.response?.data?.message,
@@ -83,11 +89,6 @@ const UpdateProfileModal = ({ id, reference }: Partial<ComplaintProps>) => {
       );
       dispatch(LoadingStop());
     }
-  };
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    profileUpdate();
   };
 
   useEffect(() => {

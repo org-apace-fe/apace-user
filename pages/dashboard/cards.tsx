@@ -14,6 +14,7 @@ import isEmpty from "is-empty";
 import moment from "moment";
 import Button from "../../components/button";
 import { background } from "../../utils/background";
+import { fetchUserProfile } from "../../store/actions/user.action";
 
 const Cards: NextPage = () => {
   const dispatch = useDispatch();
@@ -97,6 +98,7 @@ const Cards: NextPage = () => {
         })
       );
       fetchCards();
+      dispatch(fetchUserProfile());
       dispatch(LoadingStop());
     } catch (error: any) {
       dispatch(

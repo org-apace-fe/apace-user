@@ -20,11 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       return response;
     },
     (error) => {
-      if (
-        error?.response?.data?.message?.trim() ===
-          "You need to be logged in to access this resource" &&
-        error?.response?.status === 401
-      ) {
+      if (error?.response?.status === 401) {
         console.log(error?.response?.data?.message, error?.response?.status);
 
         dispatch(

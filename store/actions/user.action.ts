@@ -99,7 +99,8 @@ export const fetchAllCountries = () => async (dispatch: any) => {
 };
 
 export const verifyAsShopper =
-  (data: any, router: any, type: any) => async (dispatch: any) => {
+  (data: any, router: any, type: any = "email") =>
+  async (dispatch: any) => {
     dispatch(LoadingStart());
     try {
       typeof window !== "undefined"
@@ -114,7 +115,11 @@ export const verifyAsShopper =
         { headers: headersRequest }
       );
 
-      const { access_token } = res?.data?.token;
+      console.log(
+        `process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/sign-up/${type}/complete)`
+      );
+
+      const access_token = res?.data?.token?.access_token;
 
       typeof window !== "undefined"
         ? localStorage.setItem("token", access_token)
@@ -131,10 +136,12 @@ export const verifyAsShopper =
       dispatch(LoadingStop());
 
       router.push("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
+
       dispatch(
         openToastAndSetContent({
-          toastContent: "Verified failed",
+          toastContent: error?.response?.data?.message,
           toastStyles: {
             backgroundColor: "red",
           },
@@ -193,7 +200,7 @@ export const signinAsShopper =
         user,
         { headers: headersRequest }
       );
-      const { access_token } = res?.data?.token;
+      const access_token = res?.data?.token?.access_token;
 
       typeof window !== "undefined"
         ? localStorage.setItem("token", access_token)
@@ -271,5 +278,5 @@ export const logoutUser = (router: any) => (dispatch: any) => {
   dispatch(setCurrentUser({}));
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
-  if (!token) router.push("/");
+  if (!token) router.push("/auth/shopper/sign-in");
 };

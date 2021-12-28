@@ -53,7 +53,7 @@ const SignIn: NextPage = () => {
         { headers: headersRequest }
       );
 
-      if (res?.data?.status_code === 11) {
+      if (res?.data?.status_code === "11") {
         dispatch(
           openToastAndSetContent({
             toastContent: res?.data?.message,
@@ -64,27 +64,27 @@ const SignIn: NextPage = () => {
         );
         console.log(res?.data?.message);
         router.push("/auth/verification");
+        dispatch(LoadingStop());
+      } else {
+        const access_token = res?.data?.token?.access_token;
+
+        typeof window !== "undefined"
+          ? localStorage.setItem("token", access_token)
+          : null;
+
+        dispatch(
+          openToastAndSetContent({
+            toastContent: "Signed in successfully",
+            toastStyles: {
+              backgroundColor: "green",
+            },
+          })
+        );
+
+        router.push("/dashboard");
+        dispatch(LoadingStop());
       }
-
-      const { access_token } = res?.data?.token;
-
-      typeof window !== "undefined"
-        ? localStorage.setItem("token", access_token)
-        : null;
-
-      dispatch(
-        openToastAndSetContent({
-          toastContent: "Signed in successfully",
-          toastStyles: {
-            backgroundColor: "green",
-          },
-        })
-      );
-
-      router.push("/dashboard");
     } catch (error: any) {
-      console.log(error?.response?.data);
-
       dispatch(
         openToastAndSetContent({
           toastContent: error?.response?.data?.message,

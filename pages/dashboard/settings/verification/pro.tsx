@@ -53,7 +53,7 @@ const Pro: NextPage = () => {
         guarantorMessage,
         { headers: headersRequest }
       );
-      dispatch(fetchUserProfile());
+
       dispatch(
         openToastAndSetContent({
           toastContent: res?.data?.message,
@@ -62,6 +62,9 @@ const Pro: NextPage = () => {
           },
         })
       );
+      fetchguarantorRequest();
+      dispatch(fetchUserProfile());
+
       dispatch(LoadingStop());
     } catch (error: any) {
       dispatch(
