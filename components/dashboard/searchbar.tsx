@@ -10,9 +10,10 @@ import {
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Select from "react-select";
 
-export default function SearchBar({ children, src, href }: any) {
+import isEmpty from "is-empty";
+
+export default function SearchBar() {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -77,7 +78,7 @@ export default function SearchBar({ children, src, href }: any) {
           </div>
         </div>
         <div
-          className={`absolute w-full overflow-x-auto lg:w-full ${
+          className={`absolute w-full overflow-x-auto lg:w-full rounded-lg  ${
             status ? "" : "hidden"
           }`}
           style={{ zIndex: 100, background: background.apacegray2 }}
@@ -91,51 +92,62 @@ export default function SearchBar({ children, src, href }: any) {
             X
           </div>
           <div className=" flex flex-1 lg:flex-row px-4  items-start flex-wrap min-w-lg lg:min-w-max">
-            {store?.items?.map((store: any) => {
-              return (
-                <div className="w-1/4 mr-4">
-                  <Link
-                    href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
-                      store.store_name
-                    }${
-                      !isAuthenticated
-                        ? ""
-                        : `?identifier=${
-                            personalInfo?.email_address ||
-                            personalInfo?.mobile_number
-                          }`
-                    }  `}
-                  >
-                    <a
-                      target="_blank"
-                      key={store.store_name}
-                      className=" w-full p-2"
-                    >
-                      <div className="w-full text-white">
-                        <div
-                          style={{
-                            backgroundImage: `url(${store.store_logo})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "top",
-                          }}
-                          className="relative w-full h-24 rounded-lg  font-bold "
+            {!isEmpty(store?.items) ? (
+              <>
+                {store?.items?.map((store: any) => {
+                  return (
+                    <div className="w-1/4 mr-4">
+                      <Link
+                        href={`${process.env.NEXT_PUBLIC_ENV_STORE_BASE_URL}${
+                          store.store_name
+                        }${
+                          !isAuthenticated
+                            ? ""
+                            : `?identifier=${
+                                personalInfo?.email_address ||
+                                personalInfo?.mobile_number
+                              }`
+                        }  `}
+                      >
+                        <a
+                          target="_blank"
+                          key={store.store_name}
+                          className=" w-full p-2"
                         >
-                          <div className="w-full h-full bg-apace-black opacity-40"></div>
-                          <div className="absolute bottom-3 left-2 w-8 h-7 rounded-md overflow-hidden  z-30 ">
-                            <img
-                              className=" object-cover "
-                              src={store.feature_image}
-                              alt="Picture of the author"
-                            />
+                          <div className="w-full text-white">
+                            <div
+                              style={{
+                                backgroundImage: `url(${store.store_logo})`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "top",
+                              }}
+                              className="relative w-full h-24 rounded-lg  font-bold "
+                            >
+                              <div className="w-full h-full bg-apace-black opacity-40"></div>
+                              <div className="absolute bottom-3 left-2 w-8 h-7 rounded-md overflow-hidden  z-30 ">
+                                <img
+                                  className=" object-cover "
+                                  src={store.feature_image}
+                                  alt="Picture of the author"
+                                />
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <p className="my-1 text-white"> {store.store_name} </p>
-                    </a>
-                  </Link>
-                </div>
-              );
-            })}
+                          <p className="my-1 text-white">
+                            {" "}
+                            {store.store_name}{" "}
+                          </p>
+                        </a>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="flex justify-center h-32 text-white text-center rounded-lg items-center ">
+                No store found
+              </div>
+            )}
           </div>
         </div>
       </form>

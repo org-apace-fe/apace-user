@@ -17,6 +17,7 @@ import {
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
 import Loader from "../../../components/loader";
+import isEmpty from "is-empty";
 
 const PurchaseAll: NextPage = () => {
   const dispatch = useDispatch();
@@ -225,11 +226,21 @@ const PurchaseAll: NextPage = () => {
                   <div className="flex justify-between items-center mb-4">
                     <div className="text-xl">Purchase history</div>
                   </div>
-                  <PaginationTable
-                    data={tableRow ? tableRow : []}
-                    columns={columnsPurchase ? columnsPurchase : []}
-                    tablePage={purchases?.page && purchases?.page}
-                  />
+
+                  {!isEmpty(purchases?.items) ? (
+                    <PaginationTable
+                      data={tableRow ? tableRow : []}
+                      columns={columnsPurchase ? columnsPurchase : []}
+                      tablePage={purchases?.page && purchases?.page}
+                    />
+                  ) : (
+                    <div
+                      className="flex justify-center h-56 rounded-lg items-center "
+                      style={{ background: background.apacegray3 }}
+                    >
+                      No purchase history yet !
+                    </div>
+                  )}
                 </div>
               </div>
             </Container>

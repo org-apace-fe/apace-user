@@ -73,7 +73,7 @@ const ProfileForm = () => {
       dispatch(fetchUserProfile());
       dispatch(
         openToastAndSetContent({
-          toastContent: "Profile Updated",
+          toastContent: res?.data?.message,
           toastStyles: {
             backgroundColor: "green",
           },

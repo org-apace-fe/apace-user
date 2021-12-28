@@ -19,6 +19,7 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import isEmpty from "is-empty";
 
 const Payments: NextPage = () => {
   const dispatch = useDispatch();
@@ -158,6 +159,9 @@ const Payments: NextPage = () => {
   useEffect(() => {
     setTableRow(dataPayment());
   }, [loans]);
+
+  console.log(!isEmpty(loans?.items), loans?.items);
+
   return (
     <>
       <div>
@@ -320,8 +324,8 @@ const Payments: NextPage = () => {
                                 </p>
                               </div>
                             </div>
-                            <Link href="/">
-                              <div className="absolute bottom-4 right-4 flex">
+                            <Link href="/dashboard/settings/credit-limit">
+                              <div className="absolute bottom-4 cursor-pointer right-4 flex">
                                 <img src="/icons/arrow-forward.svg" />
                               </div>
                             </Link>
@@ -343,10 +347,19 @@ const Payments: NextPage = () => {
                       </Button>
                     </div>
 
-                    <Table
-                      data={tableRow ? tableRow : []}
-                      columns={columnsPayment ? columnsPayment : []}
-                    />
+                    {!isEmpty(loans?.items) ? (
+                      <Table
+                        data={tableRow ? tableRow : []}
+                        columns={columnsPayment ? columnsPayment : []}
+                      />
+                    ) : (
+                      <div
+                        className="flex justify-center h-56 rounded-lg items-center "
+                        style={{ background: background.apacegray3 }}
+                      >
+                        No payment history yet !
+                      </div>
+                    )}
                   </div>
                 </div>
               </Container>
