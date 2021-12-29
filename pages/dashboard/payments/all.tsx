@@ -17,6 +17,7 @@ import {
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
 import Loader from "../../../components/loader";
+import isEmpty from "is-empty";
 
 const PaymentsAll: NextPage = () => {
   const dispatch = useDispatch();
@@ -205,13 +206,20 @@ const PaymentsAll: NextPage = () => {
                   <div className="flex justify-between items-center mb-4">
                     <div className="text-xl">Payment history</div>{" "}
                   </div>
-                  {loans?.items ? (
+                  {!isEmpty(loans?.items) ? (
                     <PaginationTable
                       data={tableRow ? tableRow : []}
                       columns={columnsPayment ? columnsPayment : []}
                       tablePage={loans?.page && loans?.page}
                     />
-                  ) : null}
+                  ) : (
+                    <div
+                      className="flex justify-center h-56 rounded-lg items-center "
+                      style={{ background: background.apacegray3 }}
+                    >
+                      No payment history yet !
+                    </div>
+                  )}
                 </div>
               </div>
             </Container>

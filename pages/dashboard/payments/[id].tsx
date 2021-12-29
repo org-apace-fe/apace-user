@@ -19,6 +19,7 @@ import Link from "next/link";
 import { openModalAndSetContent } from "../../../store/actions/modal/modalActions";
 import Liquidate from "../../../components/dashboard/modal/liquidate";
 import Loader from "../../../components/loader";
+import isEmpty from "is-empty";
 
 const PaymentDetail: NextPage = () => {
   const dispatch = useDispatch();
@@ -236,14 +237,21 @@ const PaymentDetail: NextPage = () => {
 
               <div>
                 <p className="text-lg my-4"> Repayment schedule </p>
-                {tableRowRepaymentSchedule ? (
+                {!isEmpty(oneLoan?.loan_repayments) ? (
                   <Table
                     data={
                       tableRowRepaymentSchedule ? tableRowRepaymentSchedule : []
                     }
                     columns={columnsPayment ? columnsPayment : []}
                   />
-                ) : null}
+                ) : (
+                  <div
+                    className="flex justify-center h-56 rounded-lg items-center "
+                    style={{ background: background.apacegray3 }}
+                  >
+                    No repayment schedule
+                  </div>
+                )}
               </div>
             </Container>
           </div>
