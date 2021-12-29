@@ -62,7 +62,6 @@ const SignIn: NextPage = () => {
             },
           })
         );
-        console.log(res?.data?.message);
         router.push("/auth/verification");
         dispatch(LoadingStop());
       } else {
@@ -94,6 +93,9 @@ const SignIn: NextPage = () => {
         })
       );
       dispatch(LoadingStop());
+      console.log("====================================");
+      console.log(error, "y");
+      console.log("====================================");
     }
   };
 
