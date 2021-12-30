@@ -6,6 +6,7 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   images: {
+    loader: "cloudinary",
     domains: ["images.pexels.com", "https://picsum.photos/", "useapace.com"],
   },
 };
