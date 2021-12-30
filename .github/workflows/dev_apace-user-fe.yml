@@ -24,14 +24,15 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          CI='' npm run build --if-present
+      - name: Zip artifact for deployment
+        run: zip -r build.zip build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: build.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,6 +46,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+          
+      - name: unzip artifact for deployment
+        run: unzip -o build.zip 
+        
+      - name: add process.json
+        run: |
+          echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "index.html" } }' >> build/process.json
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -54,3 +62,10 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2822122DF164650AF831349825BC3BC }}
           package: .
+          
+        env: # Add environment variables here
+          NEXT_PUBLIC_ENV_API_AUTH_URL: https://api.useapace.com
+          NEXT_PUBLIC_ENV_AUTH_KEY: QWBedD124fdfsd9w330KdeJBHF99GVDV4HFAGHDV45678SVAFCFA$67SJCV9876FCGHCCLCJHB4SNKSBB
+          NEXT_PUBLIC_ENV_STORE_BASE_URL: https://store.useapace.com/
+          NEXT_PUBLIC_ENV_AUTH_KEY_AUTH2: 12qqkskskxcdodo405odcmoemo30kx
+          NEXT_PUBLIC_ENV_STORE_ADMIN_URL: https://storeadmin.useapace.com
