@@ -33,6 +33,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         );
         dispatch(closeModal());
         dispatch(logoutUser(router));
+      } else {
+        throw new Error(error);
       }
     }
   );
