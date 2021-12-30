@@ -35,10 +35,7 @@ jobs:
           output_location: "out" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
           
-      - run: |
-          npm install
-          npm start
-          displayName: 'npm install and start'
+  
           
         env: # Add environment variables here
           NEXT_PUBLIC_ENV_API_AUTH_URL: https://api.useapace.com
