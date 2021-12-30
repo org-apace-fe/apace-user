@@ -4,34 +4,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../store/actions/modal/modalActions";
 import TextArea from "../../text-area";
 import Input from "../../input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LoadingStart,
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
-import { fetchUserProfile } from "../../../store/actions/user.action";
 import { openToastAndSetContent } from "../../../store/actions/toast/toastActions";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
 
+  const auth = useSelector((state: any) => state.auth);
+  const email = auth?.user?.data?.peronal_info?.email_address;
+
   const initialState = {
-    identifier: "",
+    email_address: "",
     message: "",
   };
-  const [guarantorMessage, setGuarantorMessage] = useState<any>(initialState);
+  const [data, setData] = useState<any>(initialState);
 
   const handleChange = (e: any) => {
-    setGuarantorMessage({
-      ...guarantorMessage,
+    setData({
+      ...data,
       [e.target.name]: e.target.value,
     });
   };
 
-  const { identifier, message } = guarantorMessage;
-
-  const sendguarantorRequest = async () => {
+  const contactUs = async () => {
     try {
       const token =
         typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -41,11 +41,10 @@ const ContactUs = () => {
       };
       dispatch(LoadingStart());
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/verification/guarantor/request/send`,
-        guarantorMessage,
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/contact-us/message/send`,
+        data,
         { headers: headersRequest }
       );
-      dispatch(fetchUserProfile());
       dispatch(
         openToastAndSetContent({
           toastContent: res?.data?.message,
@@ -54,6 +53,7 @@ const ContactUs = () => {
           },
         })
       );
+
       dispatch(LoadingStop());
     } catch (error: any) {
       dispatch(
@@ -70,8 +70,17 @@ const ContactUs = () => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    sendguarantorRequest();
+    contactUs();
   };
+
+  useEffect(() => {
+    setData({
+      ...data,
+      email_address: email,
+    });
+  }, []);
+
+  const { email_address, message } = data;
 
   return (
     <div className="text-white">
@@ -89,8 +98,8 @@ const ContactUs = () => {
           <Input
             className="w-full mb-4"
             placeholder="Email address *"
-            name="identifier"
-            value={identifier}
+            name="email_address"
+            value={email_address}
             onChange={handleChange}
             required
           />

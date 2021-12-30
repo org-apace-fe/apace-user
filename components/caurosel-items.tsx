@@ -15,6 +15,7 @@ export function Items({ item }: ItemsProps) {
         placeholder="blur"
         alt="apace"
         blurDataURL="#BD632F"
+        priority={true}
       />
     </div>
   );

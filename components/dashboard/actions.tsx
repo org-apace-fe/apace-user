@@ -13,24 +13,28 @@ import ReportPurchase from "./modal/report-purchase";
 
 type PaymentActionProps = {
   id: number;
+  amount: string;
 };
 
-export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
+export const PaymentAction = ({ id, amount }: Partial<PaymentActionProps>) => {
   const dispatch = useDispatch();
 
   const More = [
     {
       name: "View detail",
       href: `/dashboard/payments/${id}`,
+      icon: "/icons/view.svg",
     },
     {
       name: "Go to purchase",
       href: "/dashboard/purchases",
+      icon: "/icons/cart.svg",
     },
 
     {
       name: "Visit store",
       href: "/dashboard",
+      icon: "/icons/purchase-item.svg",
     },
   ];
   return (
@@ -52,7 +56,7 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
                 {More.map((more) => (
                   <Link href={more.href}>
                     <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-                      <img src="/icons/payout.svg" />
+                      <img src={more.icon} />
                       <a className="ml-3">{more.name}</a>
                     </div>
                   </Link>
@@ -70,7 +74,7 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <Liquidate />
+                      <Liquidate id={id} amount={amount} />
                     </>
                   ),
                 })
@@ -78,12 +82,10 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
             }
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/crash.svg" />
               <a className="ml-3">Crash Loan</a>
             </div>
           </div>
-
-          <MyModal />
         </div>
       </Menu.Items>
     </Menu>
@@ -92,15 +94,20 @@ export const PaymentAction = ({ id }: Partial<PaymentActionProps>) => {
 
 type PurchaseActionProps = {
   id: number;
+  reference: string;
 };
 
-export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
+export const PurchaseAction = ({
+  id,
+  reference,
+}: Partial<PurchaseActionProps>) => {
   const dispatch = useDispatch();
 
   const PurchaseMore = [
     {
       name: "View detail",
       href: `/dashboard/purchases/${id}`,
+      icon: "/icons/view.svg",
     },
   ];
   return (
@@ -122,7 +129,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                 {PurchaseMore.map((more) => (
                   <Link href={more.href}>
                     <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-                      <img src="/icons/payout.svg" />
+                      <img src={more.icon} />
                       <a className="ml-3">{more.name}</a>
                     </div>
                   </Link>
@@ -139,7 +146,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <AskRefund />
+                      <AskRefund id={id} reference={reference} />
                     </>
                   ),
                 })
@@ -148,7 +155,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
             className="flex flex-col"
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/refund.svg" />
               <a className="ml-3">Ask for refund</a>
             </div>
           </div>
@@ -161,7 +168,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <MakeComplaint />
+                      <MakeComplaint id={id} reference={reference} />
                     </>
                   ),
                 })
@@ -170,7 +177,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
             className="flex flex-col "
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/complaints.svg" />
               <a className="ml-3">Make a complaint</a>
             </div>
           </div>
@@ -183,7 +190,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
                   },
                   modalContent: (
                     <>
-                      <ReportPurchase />
+                      <ReportPurchase id={id} reference={reference} />
                     </>
                   ),
                 })
@@ -192,7 +199,7 @@ export const PurchaseAction = ({ id }: Partial<PurchaseActionProps>) => {
             className="flex flex-col"
           >
             <div className="flex my-1 rounded-lg w-full cursor-pointer hover:bg-gray-800 p-2 ">
-              <img src="/icons/payout.svg" />
+              <img src="/icons/report.svg" />
               <a className="ml-3">Report Purchase</a>
             </div>
           </div>

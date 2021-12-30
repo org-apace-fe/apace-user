@@ -15,6 +15,7 @@ import { background } from "../../utils/background";
 import Pills from "./pills";
 import { useSelector } from "react-redux";
 import Avatar from "react-avatar";
+import SearchBar from "./searchbar";
 
 const DashboardHeader = () => {
   const profile = useSelector((state: any) => state.auth);
@@ -36,27 +37,10 @@ const DashboardHeader = () => {
                     <ApaceLogoIcon />
                   </a>
                 </Link>
-                <div className="hidden md:block w-3/6">
-                  <form className="w-full">
-                    <div className="flex flex-row-reverse relative ">
-                      <input
-                        style={{ background: background.apacegray2 }}
-                        className="py-2 pl-10 pr-4 w-full text-white rounded-full  outline-none "
-                        placeholder="Search your favourite stores"
-                      />
-                      <div
-                        className="absolute "
-                        style={{ top: "0.5rem", left: "0.6rem" }}
-                      >
-                        <SearchIcon
-                          className="h-6 w-6 text-white"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
 
+                {/* SearchBar */}
+                <SearchBar />
+                {/* SearchBar */}
                 <div className="flex items-center justify-center">
                   <Link href="/dashboard/notifications">
                     <img
@@ -139,9 +123,9 @@ const DashboardHeader = () => {
                   <Pills href="/dashboard/payments"> Payments </Pills>
                   <Pills href="/dashboard/purchases"> Purchase </Pills>
                   <Pills href="/dashboard/referrals"> Referrals </Pills>
+                  <Pills href="/dashboard/cards"> Cards </Pills>
                   <Pills href="/dashboard/settings/verification">
-                    {" "}
-                    Settings{" "}
+                    Settings
                   </Pills>
                 </div>
               </div>

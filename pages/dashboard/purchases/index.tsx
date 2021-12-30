@@ -18,6 +18,11 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import Charts from "../../../components/dashboard/charts";
+import isEmpty from "is-empty";
+import {
+  closeModal,
+  openModalAndSetContent,
+} from "../../../store/actions/modal/modalActions";
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch();
@@ -34,13 +39,15 @@ const Purchase: NextPage = () => {
     "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
   };
 
+  const profile = useSelector((state: any) => state.auth);
+  const onBoardingStep = profile?.user?.data?.on_boarding_step;
+
   const loader = useSelector((state: any) => state.loader);
   const loaderOpened = loader.LoaderOpened;
 
   type DataPurchase = {
     total_amount: ReactNode;
     store: ReactNode;
-    store_logo: string;
     category: string;
     deal: string;
     order_status: ReactNode;
@@ -48,7 +55,7 @@ const Purchase: NextPage = () => {
   };
 
   const dataPurchase = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPurchase[] = [];
     purchases?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         total_amount: <p>&#8358; {numberWithCommas(a?.total_amount)} </p>,
@@ -66,7 +73,7 @@ const Purchase: NextPage = () => {
             {a?.order_status}{" "}
           </Button>
         ),
-        actions: <PurchaseAction id={a?.id} />,
+        actions: <PurchaseAction id={a?.id} reference={a?.order_reference} />,
       });
     });
     return tempArr;
@@ -145,6 +152,96 @@ const Purchase: NextPage = () => {
     }
   };
 
+  const increaseLimit = () => {
+    if (onBoardingStep?.step_code === "verify-bvn") {
+      dispatch(
+        openModalAndSetContent({
+          modalStyles: {
+            padding: 0,
+          },
+          modalContent: (
+            <>
+              <div
+                className="flex flex-col justify-center h-56 rounded-lg items-center px-4 "
+                style={{ background: background.apacegray3 }}
+              >
+                <p>Please verify your bvn to increase your credit limit</p>
+                <Button
+                  onClick={() => {
+                    dispatch(closeModal());
+                    router.push("/dashboard/settings/verification");
+                  }}
+                  className=" bg-apace-orange-dark border-apace-orange-dark text-black"
+                >
+                  Verify your bvn
+                </Button>
+              </div>
+            </>
+          ),
+        })
+      );
+    } else if (onBoardingStep?.step_code === "add-account-statement") {
+      dispatch(
+        openModalAndSetContent({
+          modalStyles: {
+            padding: 0,
+          },
+          modalContent: (
+            <>
+              <div
+                className="flex flex-col justify-center h-56 rounded-lg items-center px-4 "
+                style={{ background: background.apacegray3 }}
+              >
+                <p>
+                  Please add your account statement to increase your credit
+                  limit
+                </p>
+                <Button
+                  onClick={() => {
+                    dispatch(closeModal());
+                    router.push("/dashboard/settings/verification");
+                  }}
+                  className=" bg-apace-orange-dark border-apace-orange-dark text-black"
+                >
+                  Add Account Statement
+                </Button>
+              </div>
+            </>
+          ),
+        })
+      );
+    } else if (onBoardingStep?.step_code === "add-guarantor") {
+      dispatch(
+        openModalAndSetContent({
+          modalStyles: {
+            padding: 0,
+          },
+          modalContent: (
+            <>
+              <div
+                className="flex flex-col justify-center h-56 rounded-lg items-center px-4 "
+                style={{ background: background.apacegray3 }}
+              >
+                <p>Add a guarantor to increase your credit limit</p>
+                <Button
+                  onClick={() => {
+                    dispatch(closeModal());
+                    router.push("/dashboard/settings/verification/pro");
+                  }}
+                  className=" bg-apace-orange-dark border-apace-orange-dark text-black"
+                >
+                  Add guarantor
+                </Button>
+              </div>
+            </>
+          ),
+        })
+      );
+    } else {
+      return undefined;
+    }
+  };
+
   useEffect(() => {
     fetchAllPurchases();
     fetchMiscellaneousStatistics();
@@ -157,7 +254,7 @@ const Purchase: NextPage = () => {
   return (
     <div>
       <DashboardLayout>
-        {tableRow ? (
+        {miscellaneousStatistics && purchases ? (
           <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
             <Container>
               <div className="flex lg:flex-row flex-col ">
@@ -170,7 +267,10 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="absolute top-0 right-4">
-                          <Button>Filter</Button>
+                          <Button className="flex items-center">
+                            <img src="/icons/calendar.svg" />{" "}
+                            <p className="ml-2"> Filter </p>
+                          </Button>
                         </div>
 
                         <div className="flex  pb-8">
@@ -193,7 +293,7 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray6 }}
                       >
                         <div className="flex  pb-8">
-                          <img src="/icons/payout.svg" />
+                          <img src="/icons/lending-limit.svg" />
                           <div className="ml-4  ">
                             <p className="text-sm">Current lending limit</p>
                             <p className="text-lg text-apace-orange-light">
@@ -206,7 +306,9 @@ const Purchase: NextPage = () => {
                         </div>
 
                         <div className="absolute botton-2 left-4">
-                          <Button>Update limit</Button>
+                          <Button onClick={() => increaseLimit()}>
+                            Update limit
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -222,7 +324,10 @@ const Purchase: NextPage = () => {
                         style={{ background: background.apacegray2 }}
                       >
                         <p> Purchase trend </p>
-                        <Button>Filter</Button>
+                        <Button className="flex items-center">
+                          <img src="/icons/calendar.svg" />{" "}
+                          <p className="ml-2"> Filter </p>
+                        </Button>
                       </div>
                       <Charts purchaseChart={purchaseChart} />
                     </div>
@@ -242,10 +347,19 @@ const Purchase: NextPage = () => {
                     </Button>
                   </div>
 
-                  <Table
-                    data={tableRow ? tableRow : []}
-                    columns={columnsPurchase ? columnsPurchase : []}
-                  />
+                  {!isEmpty(purchases?.items) ? (
+                    <Table
+                      data={tableRow ? tableRow : []}
+                      columns={columnsPurchase ? columnsPurchase : []}
+                    />
+                  ) : (
+                    <div
+                      className="flex justify-center h-56 rounded-lg items-center "
+                      style={{ background: background.apacegray3 }}
+                    >
+                      No purchase history yet !
+                    </div>
+                  )}
                 </div>
               </div>
             </Container>

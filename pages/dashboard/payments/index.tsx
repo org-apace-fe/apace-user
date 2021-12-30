@@ -19,6 +19,7 @@ import {
   LoadingStop,
 } from "../../../store/actions/loader/loaderActions";
 import axios from "axios";
+import isEmpty from "is-empty";
 
 const Payments: NextPage = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Payments: NextPage = () => {
   };
 
   const dataPayment = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataPayment[] = [];
     loans?.items.slice(0, 5).forEach((a: any) => {
       tempArr.push({
         amount: <p> &#8358; {numberWithCommas(a?.amount)} </p>,
@@ -59,7 +60,7 @@ const Payments: NextPage = () => {
         status: (
           <Button className={ColorButton(a?.status)}> {a?.status} </Button>
         ),
-        actions: <PaymentAction id={a?.id} />,
+        actions: <PaymentAction id={a?.id} amount={a?.amount} />,
       });
     });
     return tempArr;
@@ -158,11 +159,14 @@ const Payments: NextPage = () => {
   useEffect(() => {
     setTableRow(dataPayment());
   }, [loans]);
+
+  console.log(!isEmpty(loans?.items), loans?.items);
+
   return (
     <>
       <div>
         <DashboardLayout>
-          {tableRow ? (
+          {loansStatistics && miscellaneousStatistics && loans ? (
             <div className="relative bg-apace-black text-white min-h-full py-8 overflow-hidden ">
               <Container>
                 <div
@@ -226,7 +230,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/revenue.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total due</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -245,7 +249,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/payout.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-2">
                                 <p className="text-sm">
                                   Total current loan amount
@@ -267,7 +271,7 @@ const Payments: NextPage = () => {
                             style={{ background: background.apacegray6 }}
                           >
                             <div className="flex">
-                              <img src="/icons/receipt.svg" />
+                              <img src="/icons/crash.svg" />
                               <div className="ml-4">
                                 <p className="text-sm">Total all time loans</p>
                                 <p className="text-lg text-apace-orange-light">
@@ -320,8 +324,8 @@ const Payments: NextPage = () => {
                                 </p>
                               </div>
                             </div>
-                            <Link href="/">
-                              <div className="absolute bottom-4 right-4 flex">
+                            <Link href="/dashboard/settings/credit-limit">
+                              <div className="absolute bottom-4 cursor-pointer right-4 flex">
                                 <img src="/icons/arrow-forward.svg" />
                               </div>
                             </Link>
@@ -343,10 +347,19 @@ const Payments: NextPage = () => {
                       </Button>
                     </div>
 
-                    <Table
-                      data={tableRow ? tableRow : []}
-                      columns={columnsPayment ? columnsPayment : []}
-                    />
+                    {!isEmpty(loans?.items) ? (
+                      <Table
+                        data={tableRow ? tableRow : []}
+                        columns={columnsPayment ? columnsPayment : []}
+                      />
+                    ) : (
+                      <div
+                        className="flex justify-center h-56 rounded-lg items-center "
+                        style={{ background: background.apacegray3 }}
+                      >
+                        No payment history yet !
+                      </div>
+                    )}
                   </div>
                 </div>
               </Container>
@@ -360,4 +373,4 @@ const Payments: NextPage = () => {
   );
 };
 
-export default withAuth(Payments);
+export default Payments;

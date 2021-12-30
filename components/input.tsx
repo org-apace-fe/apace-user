@@ -13,6 +13,7 @@ type InputProps = {
   required: boolean;
   placeholder: string;
   name: string;
+  readOnly: boolean;
 };
 
 export default function Input({
@@ -26,6 +27,7 @@ export default function Input({
   defaultValue,
   disabled,
   pattern,
+  readOnly,
 }: Partial<InputProps>) {
   return (
     <input
@@ -39,6 +41,7 @@ export default function Input({
       defaultValue={defaultValue}
       disabled={disabled}
       pattern={pattern}
+      readOnly={readOnly}
     />
   );
 }

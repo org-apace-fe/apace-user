@@ -18,6 +18,7 @@ import {
   LoadingStop,
 } from "../../store/actions/loader/loaderActions";
 import axios from "axios";
+import isEmpty from "is-empty";
 
 const Referrals: NextPage = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Referrals: NextPage = () => {
   };
 
   const dataReferral = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferral[] = [];
     referrals?.items.forEach((a: any) => {
       tempArr.push({
         customer_name: `${a?.customer_name} `,
@@ -74,15 +75,14 @@ const Referrals: NextPage = () => {
   ];
 
   type DataReferralActivities = {
-    customer_id: number;
     item_name: string;
-    point_used: number;
-    discount: number;
-    point_balance: number;
+    point_used: string;
+    discount: string;
+    point_balance: string;
   };
 
   const dataReferralActivities = () => {
-    const tempArr: any[] = [];
+    const tempArr: DataReferralActivities[] = [];
     referralsActivities?.items.forEach((a: any) => {
       tempArr.push({
         item_name: `${a?.item_name} `,
@@ -327,28 +327,46 @@ const Referrals: NextPage = () => {
                 <div>
                   <div className="lg:flex ">
                     <div className="lg:w-5/12 w-full mr-4 lg:mb-0 mb-6 ">
-                      <PaginationTable
-                        data={tableRowReferrals ? tableRowReferrals : []}
-                        columns={columnsReferral ? columnsReferral : []}
-                        tablePage={allReferallsPage && allReferallsPage}
-                      />
+                      {!isEmpty(referrals?.items) ? (
+                        <PaginationTable
+                          data={tableRowReferrals ? tableRowReferrals : []}
+                          columns={columnsReferral ? columnsReferral : []}
+                          tablePage={allReferallsPage && allReferallsPage}
+                        />
+                      ) : (
+                        <div
+                          className="flex justify-center h-56 rounded-lg items-center "
+                          style={{ background: background.apacegray3 }}
+                        >
+                          Your referrals will show up here
+                        </div>
+                      )}
                     </div>
                     <div className="lg:w-7/10 w-full flex-1 ">
-                      <PaginationTable
-                        data={
-                          tableRowReferralActivities
-                            ? tableRowReferralActivities
-                            : []
-                        }
-                        columns={
-                          columnsReferralActivities
-                            ? columnsReferralActivities
-                            : []
-                        }
-                        tablePage={
-                          referallsActivitiesPage && referallsActivitiesPage
-                        }
-                      />
+                      {!isEmpty(referralsActivities?.items) ? (
+                        <PaginationTable
+                          data={
+                            tableRowReferralActivities
+                              ? tableRowReferralActivities
+                              : []
+                          }
+                          columns={
+                            columnsReferralActivities
+                              ? columnsReferralActivities
+                              : []
+                          }
+                          tablePage={
+                            referallsActivitiesPage && referallsActivitiesPage
+                          }
+                        />
+                      ) : (
+                        <div
+                          className="flex justify-center h-56 rounded-lg items-center "
+                          style={{ background: background.apacegray3 }}
+                        >
+                          Your referrals activities will show up here
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
