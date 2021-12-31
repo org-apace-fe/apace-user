@@ -53,7 +53,7 @@ const Cards: NextPage = () => {
       const cardData = res?.data?.data;
 
       if (cardData) {
-        window.open(cardData?.payment_link, "_blank");
+        window.open(cardData?.payment_link, "_self");
       }
       dispatch(
         openToastAndSetContent({
