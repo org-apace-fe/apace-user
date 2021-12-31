@@ -9,7 +9,7 @@ import { openToastAndSetContent } from "../store/actions/toast/toastActions";
 import { closeModal } from "../store/actions/modal/modalActions";
 import { logoutUser } from "../store/actions/user.action";
 import router from "next/router";
-import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorBoundary from '../components/ErrorBoundary'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const dispatch = useDispatch();

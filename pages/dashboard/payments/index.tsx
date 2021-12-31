@@ -160,7 +160,6 @@ const Payments: NextPage = () => {
     setTableRow(dataPayment());
   }, [loans]);
 
-  console.log(!isEmpty(loans?.items), loans?.items);
 
   return (
     <>
@@ -178,7 +177,7 @@ const Payments: NextPage = () => {
                     <div className="lg:w-6/12 w-full mr-4">
                       {/* Payments */}
                       <div className="flex lg:flex-row flex-col flex-wrap">
-                        {loansDue?.items?.map((loan: any) => (
+                        {/* {loansDue?.items?.map((loan: any) => (
                           <div className="relative lg:w-1/2 w-full lg:h-64 h-auto mb-6 lg:pr-3 pr-0">
                             <div
                               className="relative  h-full rounded-lg p-4 "
@@ -218,7 +217,7 @@ const Payments: NextPage = () => {
                               </div>
                             </div>
                           </div>
-                        ))}
+                        ))} */}
                       </div>
                       {/* Payments */}
                     </div>
