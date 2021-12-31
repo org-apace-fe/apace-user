@@ -9,6 +9,7 @@ import { openToastAndSetContent } from "../store/actions/toast/toastActions";
 import { closeModal } from "../store/actions/modal/modalActions";
 import { logoutUser } from "../store/actions/user.action";
 import router from "next/router";
+import ErrorBoundary from '../components/ErrorBoundary';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const dispatch = useDispatch();
@@ -44,7 +45,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className="bg-apace-black  font-body ">
         <Provider store={store}>
           <PersistGate persistor={store?.__PERSISTOR} loading={null}>
+            <ErrorBoundary>
             <Component {...pageProps} />
+            </ErrorBoundary>
           </PersistGate>
         </Provider>
       </div>
