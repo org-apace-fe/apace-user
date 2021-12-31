@@ -6,6 +6,8 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   images: {
+    loader: "cloudinary",
+    path: "https://orgapace.blob.core.windows.net",
     domains: ["images.pexels.com", "https://picsum.photos/", "useapace.com"],
   },
 };
