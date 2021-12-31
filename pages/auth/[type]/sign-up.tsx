@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { openToastAndSetContent } from "../../../store/actions/toast/toastActions";
 import withoutAuth from "../../../route/without-auth";
+import { LoadingStart, LoadingStop } from "../../../store/actions/loader/loaderActions";
+import axios from "axios";
 
 const SignUp: NextPage = () => {
   const [type, setType] = useState("");
@@ -29,8 +31,36 @@ const SignUp: NextPage = () => {
 
   const ultimateRegex = `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).{8,}`;
 
+  const registerAsShopper =
+  (newUser: any, router: any, type: any) => {
+    dispatch(LoadingStart());
+      typeof window !== "undefined"
+        ? localStorage.setItem("email", newUser?.email)
+        : null;
+      const headersRequest = {
+        "auth-key": `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+      };
+      axios.post(
+        `${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/sign-up/${type}`,
+        newUser,
+        { headers: headersRequest }
+      ).then(res=>{
+      router.push("/auth/verification");
+      dispatch(LoadingStop());
+      }).catch(error=>{
+      dispatch(LoadingStop());
+        dispatch(
+          openToastAndSetContent({
+            toastContent: error?.message,
+            toastStyles: {
+              backgroundColor: "red",
+            },
+          })
+        );
+      })
+  };
+
   const onSubmit = (e: any) => {
-    console.log(password, confirmPassword);
     e.preventDefault();
 
     if (!password.match(ultimateRegex)) {
@@ -61,7 +91,7 @@ const SignUp: NextPage = () => {
         type: "SET_IDENTIFIER",
         payload: data,
       });
-      dispatch(registerAsShopper(shopperUser, router, type));
+      registerAsShopper(shopperUser, router, type);
     }
   };
 
@@ -73,7 +103,6 @@ const SignUp: NextPage = () => {
 
   useEffect(() => {
     const checkPassword = new RegExp(ultimateRegex).test(password);
-    console.log(checkPassword);
     if (checkPassword) {
       setPasswordStatus(true);
     } else setPasswordStatus(false);

@@ -7,7 +7,7 @@ module.exports = {
   },
   images: {
     loader: "cloudinary",
-    path: "https://orgapace.blob.core.windows.net",
+    path: "https://beta.useapace.com",
     domains: ["images.pexels.com", "https://picsum.photos/", "useapace.com"],
   },
 };
