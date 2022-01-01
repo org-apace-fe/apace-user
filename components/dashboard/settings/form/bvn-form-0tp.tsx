@@ -13,7 +13,7 @@ import { openToastAndSetContent } from '../../../../store/actions/toast/toastAct
 import axios from 'axios';
 import { fetchUserProfile } from '../../../../store/actions/user.action';
 
-function BvnForm() {
+function BvnFormOtp() {
 	const dispatch = useDispatch();
 
 	const profile = useSelector((state: any) => state.auth);
@@ -22,12 +22,13 @@ function BvnForm() {
 	const onBoardingStep = profile?.user?.data?.on_boarding_step;
 
 	// const bvnState = { bvn: '', otp: '' };
-	// const [bvnData, setBvnData] = useState(bvnState);
-	// const [work, setWork] = useState(false);
+	const [bvnData, setBvnData] = useState('');
+	const [work, setWork] = useState(false);
 
-	// const handleBvnChange = (e: any) => {
-	// 	setBvnData({ ...bvnData, [e.target.name]: e.target.value });
-	// };
+	const handleBvnChange = (e: any) => {
+		// setBvnData({ ...bvnData, [e.target.name]: e.target.value });
+		setBvnData(e.target.value);
+	};
 
 	// const { bvn, otp } = bvnData;
 
@@ -35,13 +36,8 @@ function BvnForm() {
 	// 	e.preventDefault();
 	// 	profileUpdate();
 	// };
-	const [bvnData, setBvnData] = useState('');
 
-	const handleBvnChange = (e: any) => {
-		setBvnData(e.target.value);
-	};
-
-	const verifyBvn = async (type: any) => {
+	const verifyBvnOtp = async (type: any) => {
 		try {
 			const token =
 				typeof window !== 'undefined' ? localStorage.getItem('token') : null;
@@ -51,11 +47,10 @@ function BvnForm() {
 			};
 			dispatch(LoadingStart());
 			const res = await axios.post(
-				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/verify-me`,
+				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/verify-me/complete`,
 				{
 					type,
-					value: bvnData,
-					dob: personalInfo?.date_of_birth,
+					bvnData,
 				},
 				{ headers: headersRequest }
 			);
@@ -68,7 +63,6 @@ function BvnForm() {
 					},
 				})
 			);
-
 			dispatch(LoadingStop());
 		} catch (error: any) {
 			dispatch(
@@ -79,7 +73,6 @@ function BvnForm() {
 					},
 				})
 			);
-
 			dispatch(LoadingStop());
 		}
 	};
@@ -90,45 +83,25 @@ function BvnForm() {
 
 			<Form className='w-full'>
 				<div className='flex flex-col items-center justify-between w-full mb-6'>
-					<div className='flex flex-col mr-3 w-full mb-12'>
+					<div className='flex flex-col w-full'>
 						<Input
-							placeholder='BVN'
+							placeholder='OTP'
 							className='mt-2 mb-1 w-full'
 							type='text'
-							name='bvn'
+							name='otp'
 							value={bvnData}
 							onChange={handleBvnChange}
 						/>
 						<button
-							onClick={() => verifyBvn('BVN')}
+							onClick={() => verifyBvnOtp('BVN')}
 							className='text-black bg-purple-600 border-purple-600 w-1/3 h-10 mr-4 my-4 rounded-full'>
-							Verify BVN
+							Verify BVN OTP
 						</button>
 					</div>
-
-					{/* {onBoardingStep?.step_code === 'verify-bvn-pending' && (
-						<div
-							className='flex flex-col w-full'
-							style={{ display: work ? 'flex' : 'none' }}>
-							<Input
-								placeholder='OTP'
-								className='mt-2 mb-1 w-full'
-								type='text'
-								name='otp'
-								value={otp}
-								onChange={handleBvnChange}
-							/>
-							<button
-								onClick={() => verifyBvnOtp('BVN')}
-								className='text-black bg-purple-600 border-purple-600 '>
-								Verify BVN OTP
-							</button>
-						</div>
-					)} */}
 				</div>
 			</Form>
 		</>
 	);
 }
 
-export default BvnForm;
+export default BvnFormOtp;
