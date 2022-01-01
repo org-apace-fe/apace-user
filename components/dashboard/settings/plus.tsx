@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useState } from 'react';
 import DashboardLayout from '../../../components/dashboard/layout';
 import withAuth from '../../../route/with-auth';
 import { useDispatch } from 'react-redux';
@@ -8,6 +9,15 @@ import Button from '../../../components/button';
 
 const Plus = () => {
 	const dispatch = useDispatch();
+
+	const [checked, setChecked] = useState(false);
+	const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.checked) {
+			setChecked(true);
+		} else {
+			setChecked(false);
+		}
+	};
 	return (
 		<div>
 			<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden text-sm '>
@@ -20,7 +30,11 @@ const Plus = () => {
 					</p>
 
 					<label className='flex items-center my-4'>
-						<input type='checkbox' className='form-checkbox bg-black mr-2 ' />
+						<input
+							type='checkbox'
+							className='form-checkbox bg-black mr-2 '
+							onClick={(e) => checkHandler}
+						/>
 						<span className='ml-2 mr-6'> I grant permission </span>
 					</label>
 

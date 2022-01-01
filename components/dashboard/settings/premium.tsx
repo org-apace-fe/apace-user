@@ -8,7 +8,7 @@ import Button from '../../../components/button';
 import { openModalAndSetContent } from '../../../store/actions/modal/modalActions';
 import ContactUs from '../../../components/dashboard/modal/contact-us';
 
-const Premium: NextPage = () => {
+const Premium = () => {
 	const dispatch = useDispatch();
 	return (
 		<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden text-sm '>

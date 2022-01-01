@@ -243,6 +243,7 @@ const StyledCard = styled.div`
 	background-position: center;
 	background-repeat: no-repeat;
 	padding: 15px;
+	border: 1px solid #ffffff;
 
 	.flex-first {
 		display: flex;
