@@ -25,13 +25,7 @@ const Plus = () => {
 	  }, [])
 
 	const [checked, setChecked] = useState(false);
-	const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.checked) {
-			setChecked(true);
-		} else {
-			setChecked(false);
-		}
-	};
+
 	return (
 		<div>
 			<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden text-sm '>
@@ -47,11 +41,11 @@ const Plus = () => {
 						<input
 							type='checkbox'
 							className='form-checkbox bg-black mr-2 '
-							onClick={(e) => checkHandler}
+							onChange={()=>setChecked(!checked)}
 						/>
 						<span className='ml-2 mr-6'> I grant permission </span>
 					</label>
-					<Button className='text-black bg-purple-600 border-purple-600 ' onClick={()=>monoConnect.open()}>
+					<Button disabled={!checked} className='text-black bg-purple-600 border-purple-600 ' onClick={()=>monoConnect.open()}>
 						Proceed
 					</Button>
 				</div>
