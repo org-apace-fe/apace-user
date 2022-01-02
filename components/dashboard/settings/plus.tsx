@@ -1,5 +1,6 @@
+import React, { useState } from 'react';
 import { NextPage } from 'next';
-import { useState } from 'react';
+import MonoConnect from '@mono.co/connect.js';
 import DashboardLayout from '../../../components/dashboard/layout';
 import withAuth from '../../../route/with-auth';
 import { useDispatch } from 'react-redux';
@@ -9,6 +10,19 @@ import Button from '../../../components/button';
 
 const Plus = () => {
 	const dispatch = useDispatch();
+
+	const monoConnect = React.useMemo(() => {
+		const monoInstance = new MonoConnect({
+		  onClose: () => console.log('Widget closed'),
+		  onLoad: () => console.log('Widget loaded successfully'),
+		  onSuccess: ({ code }:{code: any}) => console.log(`Linked successfully: ${code}`),
+		  key: process.env.NEXT_PUBLIC_MONO_PUBLIC_KEY
+		})
+	
+		monoInstance.setup()
+		
+		return monoInstance;
+	  }, [])
 
 	const [checked, setChecked] = useState(false);
 	const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +51,7 @@ const Plus = () => {
 						/>
 						<span className='ml-2 mr-6'> I grant permission </span>
 					</label>
-
-					<Button className='text-black bg-purple-600 border-purple-600 '>
+					<Button className='text-black bg-purple-600 border-purple-600 ' onClick={()=>monoConnect.open()}>
 						Proceed
 					</Button>
 				</div>
