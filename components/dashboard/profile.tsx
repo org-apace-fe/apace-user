@@ -18,6 +18,8 @@ import router from 'next/router';
 import Avatar from 'react-avatar';
 import { numberWithCommas } from '../../utils/formatNumber';
 import { useEffect } from 'react';
+import React from 'react';
+import MonoConnect from '@mono.co/connect.js';
 
 const Profile = () => {
 	const profile = useSelector((state: any) => state.auth);
@@ -40,6 +42,21 @@ const Profile = () => {
 		Authorization: `Bearer ${token}`,
 		'auth-key': `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
 	};
+
+	console.log('mono', process.env.NEXT_PUBLIC_MONO_PUBLIC_KEY)
+
+	const monoConnect = React.useMemo(() => {
+		const monoInstance = new MonoConnect({
+		  onClose: () => console.log('Widget closed'),
+		  onLoad: () => console.log('Widget loaded successfully'),
+		  onSuccess: ({ code }:{code: any}) => console.log(`Linked successfully: ${code}`),
+		  key: process.env.NEXT_PUBLIC_MONO_PUBLIC_KEY
+		})
+	
+		monoInstance.setup()
+		
+		return monoInstance;
+	  }, [])
 
 	// useEffect(() => {
 	// 	dispatch(fetchUserProfile());
@@ -123,6 +140,7 @@ const Profile = () => {
 								<Button
 									onClick={() => {
 										dispatch(closeModal());
+										monoConnect.open();
 									}}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
 									Add Account Statement
