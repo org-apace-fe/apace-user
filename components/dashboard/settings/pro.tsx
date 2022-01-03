@@ -63,19 +63,25 @@ const Pro = () => {
 					},
 				})
 			);
+
+			console.log('warimagbo:', res);
 			fetchguarantorRequest();
 			dispatch(fetchUserProfile());
-
+			setGuarantorMessage(initialState);
 			dispatch(LoadingStop());
 		} catch (error: any) {
+			// console.log('kosh', 'damilare i amhere');
 			dispatch(
 				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
+					toastContent: 'Guarantor doesnt exist',
 					toastStyles: {
 						backgroundColor: 'red',
 					},
 				})
 			);
+			// console.log('warimagbo:', error);
+			setGuarantorMessage(initialState);
+
 			dispatch(LoadingStop());
 		}
 	};
@@ -110,6 +116,7 @@ const Pro = () => {
 
 	const onSubmit = (e: any) => {
 		e.preventDefault();
+
 		sendguarantorRequest();
 	};
 
