@@ -18,6 +18,7 @@ import router from 'next/router';
 import Avatar from 'react-avatar';
 import { numberWithCommas } from '../../utils/formatNumber';
 import { useEffect } from 'react';
+import React from 'react';
 
 const Profile = () => {
 	const profile = useSelector((state: any) => state.auth);

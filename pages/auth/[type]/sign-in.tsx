@@ -93,10 +93,8 @@ const SignIn: NextPage = () => {
 				})
 			);
 			dispatch(LoadingStop());
-			console.log('====================================');
-			console.log(error, 'y');
-			console.log('====================================');
 		}
+		dispatch(LoadingStop());
 	};
 
 	const forgotPassword = async () => {
