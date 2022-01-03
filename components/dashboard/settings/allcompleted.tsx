@@ -15,7 +15,7 @@ const AllCompleted = () => {
 			<div className=' lg:w-8/12 w-full mr-8 grid place-items-center h-30'>
 				<h1 className='text-xl mb-6 text-center'>
 					{' '}
-					All Verification steps completed
+					You cannot increase your limit anymore
 				</h1>
 				<p>Thank you for using Apace.</p>
 
