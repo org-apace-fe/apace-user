@@ -66,9 +66,9 @@ const SettingsGuarantee: NextPage = () => {
 		fetchRequestGuarantors();
 	}, []);
 
-	useEffect(() => {
-		console.log(requestGuarantors);
-	}, [requestGuarantors]);
+	// useEffect(() => {
+	// 	console.log(fetchGuarantors);
+	// }, []);
 
 	const authorizedHandler = async (action: string, id: number | string) => {
 		try {
@@ -94,6 +94,7 @@ const SettingsGuarantee: NextPage = () => {
 			);
 
 			fetchGuarantors();
+			fetchRequestGuarantors();
 
 			dispatch(LoadingStop());
 		} catch (error: any) {
@@ -122,11 +123,7 @@ const SettingsGuarantee: NextPage = () => {
 							</div>
 							<div className='flex flex-col items-baseline flex-wrap'>
 								{isEmpty(requestGuarantors) ? (
-									<p className='mt-4'>
-										{' '}
-										You have no guarantee request on Apace yet. When you do,
-										they’ll show up here.
-									</p>
+									<p className='mt-4'> </p>
 								) : (
 									<>
 										{requestGuarantors?.map((guarantor) => {
@@ -161,6 +158,11 @@ const SettingsGuarantee: NextPage = () => {
 															{guarantor?.customer_email}
 														</p>
 
+														<h1> Message </h1>
+														<p className='font-black text-base mb-5'>
+															{guarantor?.message}
+														</p>
+
 														<h1> Expires </h1>
 														<p className='font-black text-base mb-5'>
 															{moment(guarantor?.expiry_date).format('LL')}
@@ -175,6 +177,12 @@ const SettingsGuarantee: NextPage = () => {
 																	guarantor?.guarantor_id
 																)
 															}
+															style={{
+																display:
+																	guarantor?.status === 'Accepted'
+																		? 'none'
+																		: '',
+															}}
 															className='text-black bg-purple-600 border-purple-600 px-4 h-10 mr-4 my-4 rounded-full'>
 															Accept Guarantor
 														</button>
@@ -185,6 +193,12 @@ const SettingsGuarantee: NextPage = () => {
 																	guarantor?.guarantor_id
 																)
 															}
+															style={{
+																display:
+																	guarantor?.status === 'Rejected'
+																		? 'none'
+																		: '',
+															}}
 															className='text-white bg-red-600 border-red-600 px-4 h-10 mr-4 my-4 rounded-full'>
 															Decline Guarantor
 														</button>
@@ -208,21 +222,30 @@ const SettingsGuarantee: NextPage = () => {
 											return (
 												<div key={guarantor?.guarantor_id} className='w-1/3'>
 													<div className='w-20 h-20 mr-4 my-4 rounded-full overflow-hidden'>
-														<img
-															src={guarantor?.customer_avatar}
-															className='w-full h-full object-cover'
-														/>
+														{guarantor?.customer_avatar ? (
+															<img
+																src={guarantor?.guarantor_avatar}
+																className='w-full h-full object-cover'
+																alt=''
+															/>
+														) : (
+															<img
+																alt='Profile img'
+																src='https://i.ibb.co/fH4x0Xk/360-F-346936114-Rax-E6-OQogebg-AWTal-E1myse-Y1-Hbb5q-PM.jpg'
+																className='w-full h-full object-cover'
+															/>
+														)}
 													</div>
 
 													<h1> Name </h1>
 													<p className='font-black text-base mb-5'>
-														{guarantor?.customer_first_name}{' '}
-														{guarantor?.customer_last_name}{' '}
+														{guarantor?.guarantor_first_name}{' '}
+														{guarantor?.guarantor_last_name}{' '}
 													</p>
 
 													<h1> Email </h1>
 													<p className='font-black text-base mb-5'>
-														{guarantor?.customer_email}
+														{guarantor?.guarantor_email}
 													</p>
 
 													<h1> Expires </h1>
