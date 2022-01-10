@@ -57,7 +57,7 @@ export const registerAsShopper =
       router.push("/auth/verification");
       dispatch(LoadingStop());
     } catch (error: any) {
-      console.log(error?.response?.data?.message);
+      console.log('God is good', error?.response?.data);
 
       dispatch(
         openToastAndSetContent({
