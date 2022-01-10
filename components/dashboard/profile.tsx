@@ -168,7 +168,7 @@ const Profile = () => {
 			className=' rounded-lg overflow-hidden'
 			style={{ background: background.apacegray3 }}>
 			<div className='flex p-4'>
-				{/* {!personalInfo?.avatar ? (
+				{!personalInfo?.avatar ? (
 					<Avatar
 						className='sb-avatar rounded-full mr-4'
 						size='3.5rem'
@@ -182,7 +182,7 @@ const Profile = () => {
 							className='w-full h-full object-cover'
 						/>
 					</div>
-				)} */}
+				)}
 
 				<div className='text-sm'>
 					<p className='font-black'>
