@@ -147,9 +147,11 @@ const Cards: NextPage = () => {
 	};
 
 	const txRef = params.get('tx_ref');
-	if (txRef && txRef !== "") {
-		addCardComplete(txRef);
-	}
+	useEffect(() => {
+		if (txRef && txRef !== '') {
+			addCardComplete(txRef);
+		}
+	}, [txRef]);
 
 	useEffect(() => {
 		fetchCards();
@@ -175,38 +177,40 @@ const Cards: NextPage = () => {
 							) : (
 								<div className='flex'>
 									<div>
-										{cards?.map((card) => {
-											return (
-												<StyledCard key={card?.id}>
-													{/* <p> Card Token : {card?.card_token} </p> */}
-													{/* <p> Masked Pan : {card?.masked_pan} </p> */}
-													<div className='flex-first'>
-														<p className='flex-first-p'>
-															{personalInfo?.first_name}
-														</p>
-														<img className='flex-first-img' src='' alt='' />
-													</div>
-													<img
-														className='flex-second-img'
-														src='https://i.ibb.co/q99hjMq/Group-4.png'
-														alt=''
-													/>
-													<p className='flex-third-p'>{card?.masked_pan} </p>
-													<div className='footer'>
-														<button
-															className='bg-apace-orange-dark border-apace-orange-dark text-black rounded-full p-2'
-															onClick={() => disableCard(card?.id)}>
-															Disable
-														</button>
+										<StyledWrapper>
+											{cards?.map((card) => {
+												return (
+													<StyledCard key={card?.id}>
+														{/* <p> Card Token : {card?.card_token} </p> */}
+														{/* <p> Masked Pan : {card?.masked_pan} </p> */}
+														<div className='flex-first'>
+															<p className='flex-first-p'>
+																{personalInfo?.first_name}
+															</p>
+															<img className='flex-first-img' src='' alt='' />
+														</div>
+														<img
+															className='flex-second-img'
+															src='https://i.ibb.co/q99hjMq/Group-4.png'
+															alt=''
+														/>
+														<p className='flex-third-p'>{card?.masked_pan} </p>
+														<div className='footer'>
+															<button
+																className='bg-apace-orange-dark border-apace-orange-dark text-black rounded-full p-2'
+																onClick={() => disableCard(card?.id)}>
+																Disable
+															</button>
 
-														<p className='footer-p'>
-															Date created:{' '}
-															{moment(card?.date_created).format('ll')}
-														</p>
-													</div>
-												</StyledCard>
-											);
-										})}
+															<p className='footer-p'>
+																Date created:{' '}
+																{moment(card?.date_created).format('ll')}
+															</p>
+														</div>
+													</StyledCard>
+												);
+											})}
+										</StyledWrapper>
 									</div>
 
 									<div className='ml-4'>
@@ -226,10 +230,17 @@ const Cards: NextPage = () => {
 	);
 };
 
+const StyledWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	width: 900px;
+	flex-wrap: wrap;
+`;
+
 const StyledCard = styled.div`
 	width: 407px;
 	height: 224.97px;
-
+	margin: 15px;
 	/* background: #293688; */
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25), 0px 0px 10px rgba(0, 0, 0, 0.03);
 	border-radius: 20px;
