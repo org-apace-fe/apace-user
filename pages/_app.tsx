@@ -13,6 +13,14 @@ import ErrorBoundary from '../components/ErrorBoundary';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const dispatch = useDispatch();
+	const token =
+		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+	axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+	axios.defaults.headers.common[
+		'auth-key'
+	] = `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`;
+
+	axios.defaults.baseURL = process.env.NEXT_PUBLIC_ENV_API_AUTH_URL;
 
 	axios?.interceptors?.response?.use(
 		(response) => {
@@ -35,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				dispatch(closeModal());
 				dispatch(logoutUser(router));
 			} else {
-				throw new Error(error);
+				return Promise.reject(error);
 			}
 		}
 	);

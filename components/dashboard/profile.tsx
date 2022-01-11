@@ -207,7 +207,7 @@ const Profile = () => {
 					<p
 						onClick={() => increaseLimit()}
 						className='text-apace-orange-light cursor-pointer'>
-						Increase limit (Coming soon){' '}
+						Increase limit
 					</p>
 				</div>
 			</div>

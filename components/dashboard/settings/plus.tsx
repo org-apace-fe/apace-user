@@ -7,22 +7,54 @@ import { useDispatch } from 'react-redux';
 import SettingsLayout from '../../../components/dashboard/settings/layout';
 import SettingsVerificationNavigation from '../../../components/dashboard/settings/verification-navigation';
 import Button from '../../../components/button';
+import axios from 'axios';
+import { openToastAndSetContent } from '../../../store/actions/toast/toastActions';
+import {
+	LoadingStart,
+	LoadingStop,
+} from '../../../store/actions/loader/loaderActions';
 
 const Plus = () => {
 	const dispatch = useDispatch();
 
 	const monoConnect = React.useMemo(() => {
 		const monoInstance = new MonoConnect({
-		  onClose: () => console.log('Widget closed'),
-		  onLoad: () => console.log('Widget loaded successfully'),
-		  onSuccess: ({ code }:{code: any}) => console.log(`Linked successfully: ${code}`),
-		  key: process.env.NEXT_PUBLIC_MONO_PUBLIC_KEY
-		})
-	
-		monoInstance.setup()
-		
+			onClose: () => console.log('Widget closed'),
+			onLoad: () => console.log('Widget loaded successfully'),
+			onSuccess: ({ token }: { token: any }) => {
+				axios
+					.post('/api/v1/customer/verification/bank-statement/add', {
+						access_token: token,
+					})
+					.then((res) => {
+						dispatch(
+							openToastAndSetContent({
+								toastContent: res?.data?.message,
+								toastStyles: {
+									backgroundColor: 'green',
+								},
+							})
+						);
+					})
+					.catch((error) => {
+						dispatch(
+							openToastAndSetContent({
+								toastContent: error?.response?.data?.message,
+								toastStyles: {
+									backgroundColor: 'red',
+								},
+							})
+						);
+						dispatch(LoadingStop());
+					});
+			},
+			key: process.env.NEXT_PUBLIC_MONO_PUBLIC_KEY,
+		});
+
+		monoInstance.setup();
+
 		return monoInstance;
-	  }, [])
+	}, []);
 
 	const [checked, setChecked] = useState(false);
 
@@ -41,11 +73,14 @@ const Plus = () => {
 						<input
 							type='checkbox'
 							className='form-checkbox bg-black mr-2 '
-							onChange={()=>setChecked(!checked)}
+							onChange={() => setChecked(!checked)}
 						/>
 						<span className='ml-2 mr-6'> I grant permission </span>
 					</label>
-					<Button disabled={!checked} className='text-black bg-purple-600 border-purple-600 ' onClick={()=>monoConnect.open()}>
+					<Button
+						disabled={!checked}
+						className='text-black bg-purple-600 border-purple-600 '
+						onClick={() => monoConnect.open()}>
 						Proceed
 					</Button>
 				</div>
