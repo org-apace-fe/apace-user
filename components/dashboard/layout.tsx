@@ -61,6 +61,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 	const addCard = async () => {
 		try {
 			dispatch(LoadingStart());
+			handleClose2();
+
 			const res = await axios.patch(
 				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/add`,
 				{},
@@ -79,7 +81,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 					},
 				})
 			);
-			handleClose2();
+			dispatch(fetchUserProfile());
+
 			dispatch(LoadingStop());
 		} catch (error: any) {
 			dispatch(
