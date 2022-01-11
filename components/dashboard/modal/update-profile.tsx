@@ -12,6 +12,8 @@ import {
 } from '../../../store/actions/loader/loaderActions';
 import { openToastAndSetContent } from '../../../store/actions/toast/toastActions';
 import { fetchUserProfile } from '../../../store/actions/user.action';
+import AddCard from '../modal/add-card';
+import { openModalAndSetContent } from '../../../store/actions/modal/modalActions';
 
 type ComplaintProps = {
 	id: number;
@@ -82,10 +84,22 @@ const UpdateProfileModal = ({
 					},
 				})
 			);
-			handleClose();
+			dispatch(closeModal);
 			dispatch(fetchUserProfile());
 			dispatch(LoadingStop());
-			handleOpen2();
+			dispatch(
+				openModalAndSetContent({
+					modalStyles: {
+						padding: 0,
+					},
+					modalContent: (
+						<>
+							<AddCard />
+						</>
+					),
+					haveCloseIcon: false,
+				})
+			);
 		} catch (error: any) {
 			console.log(error, user, fields);
 			dispatch(
