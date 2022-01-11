@@ -5,7 +5,7 @@ import DashboardLayout from '../../components/dashboard/layout';
 import withAuth from '../../route/with-auth';
 import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { closeModal } from '../../store/actions/modal/modalActions';
 import {
 	LoadingStart,
 	LoadingStop,
@@ -89,6 +89,7 @@ const Cards: NextPage = () => {
 
 	const addCardComplete = async (reference: any) => {
 		try {
+			// dispatch(closeModal);
 			dispatch(LoadingStart());
 			const res = await axios.patch(
 				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/add/${reference}/complete`,
@@ -106,6 +107,7 @@ const Cards: NextPage = () => {
 			fetchCards();
 			dispatch(fetchUserProfile());
 			dispatch(LoadingStop());
+			dispatch(closeModal);
 		} catch (error: any) {
 			dispatch(
 				openToastAndSetContent({
