@@ -17,12 +17,12 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../../store/actions/toast/toastActions';
 
 const SignIn: NextPage = () => {
-	const token =
-		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-	const headersRequest = {
-		Authorization: `Bearer ${token}`,
-		'auth-key': `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
-	};
+	// const token =
+	// 	typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+	// const headersRequest = {
+	// 	Authorization: `Bearer ${token}`,
+	// 	'auth-key': `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
+	// };
 
 	const [status, setStatus] = useState(false);
 	const initialState = {
@@ -39,74 +39,130 @@ const SignIn: NextPage = () => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = async (e: any) => {
+	// const onSubmit = async (e: any) => {
+	// 	e.preventDefault();
+	// 	dispatch({
+	// 		type: 'SET_IDENTIFIER',
+	// 		payload: user,
+	// 	});
+	// 	dispatch(LoadingStart());
+	// 	try {
+	// 		const res = await axios.post(
+	// 			`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/sign-in`,
+	// 			user,
+	// 			{ headers: headersRequest }
+	// 		);
+
+	// 		if (res?.data?.status_code === '11') {
+	// 			dispatch(
+	// 				openToastAndSetContent({
+	// 					toastContent: res?.data?.message,
+	// 					toastStyles: {
+	// 						backgroundColor: 'green',
+	// 					},
+	// 				})
+	// 			);
+	// 			router.push('/auth/verification');
+	// 			dispatch(LoadingStop());
+	// 		} else {
+	// 			const access_token = res?.data?.token?.access_token;
+
+	// 			typeof window !== 'undefined'
+	// 				? localStorage.setItem('token', access_token)
+	// 				: null;
+
+	// 			dispatch(
+	// 				openToastAndSetContent({
+	// 					toastContent: 'Signed in successfully',
+	// 					toastStyles: {
+	// 						backgroundColor: 'green',
+	// 					},
+	// 				})
+	// 			);
+
+	// 			router.push('/dashboard');
+	// 			dispatch(LoadingStop());
+	// 		}
+	// 	} catch (error: any) {
+	// 		console.log('error:', error);
+	// 		console.log('error2:', error?.response);
+	// 		console.log('erro3:', error?.response?.data);
+	// 		console.log('erro4:', error?.response?.data?.message);
+
+	// 		dispatch(
+	// 			openToastAndSetContent({
+	// 				toastContent: error?.response?.data?.message,
+	// 				toastStyles: {
+	// 					backgroundColor: 'red',
+	// 				},
+	// 			})
+	// 		);
+	// 		dispatch(LoadingStop());
+	// 	}
+	// 	dispatch(LoadingStop());
+	// };
+
+	const onSubmit = (e: any) => {
 		e.preventDefault();
 		dispatch({
 			type: 'SET_IDENTIFIER',
 			payload: user,
 		});
 		dispatch(LoadingStart());
-		try {
-			const res = await axios.post(
-				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/sign-in`,
-				user,
-				{ headers: headersRequest }
-			);
 
-			if (res?.data?.status_code === '11') {
+		axios
+			.post('/api/v1/customer/sign-in', user)
+			.then((res) => {
+				if (res?.data?.status_code === '11') {
+					dispatch(
+						openToastAndSetContent({
+							toastContent: res?.data?.message,
+							toastStyles: {
+								backgroundColor: 'green',
+							},
+						})
+					);
+					router.push('/auth/verification');
+					dispatch(LoadingStop());
+				} else {
+					const access_token = res?.data?.token?.access_token;
+
+					typeof window !== 'undefined'
+						? localStorage.setItem('token', access_token)
+						: null;
+
+					dispatch(
+						openToastAndSetContent({
+							toastContent: 'Signed in successfully',
+							toastStyles: {
+								backgroundColor: 'green',
+							},
+						})
+					);
+
+					router.push('/dashboard');
+					dispatch(LoadingStop());
+				}
+			})
+			.catch((error) => {
 				dispatch(
 					openToastAndSetContent({
-						toastContent: res?.data?.message,
+						toastContent: error?.response?.data?.message,
 						toastStyles: {
-							backgroundColor: 'green',
+							backgroundColor: 'red',
 						},
 					})
 				);
-				router.push('/auth/verification');
 				dispatch(LoadingStop());
-			} else {
-				const access_token = res?.data?.token?.access_token;
-
-				typeof window !== 'undefined'
-					? localStorage.setItem('token', access_token)
-					: null;
-
-				dispatch(
-					openToastAndSetContent({
-						toastContent: 'Signed in successfully',
-						toastStyles: {
-							backgroundColor: 'green',
-						},
-					})
-				);
-
-				router.push('/dashboard');
-				dispatch(LoadingStop());
-			}
-		} catch (error: any) {
-			dispatch(
-				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-			dispatch(LoadingStop());
-		}
-		dispatch(LoadingStop());
+			});
 	};
 
 	const forgotPassword = async () => {
 		try {
 			dispatch(LoadingStart());
-			const res = await axios.post(
-				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/forgot-password`,
-				{
-					identifier,
-				},
-				{ headers: headersRequest }
-			);
+			const res = await axios.post('/api/v1/customer/forgot-password', {
+				identifier,
+			});
 
 			dispatch(LoadingStop());
 			dispatch({
