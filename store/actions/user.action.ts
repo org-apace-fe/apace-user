@@ -231,7 +231,7 @@ export const signinAsShopper =
 
 // Fetch User Profile
 export const fetchUserProfile = () => async (dispatch: any) => {
-  dispatch(LoadingStart());
+  // dispatch(LoadingStart());
   try {
     const token =
       typeof window !== "undefined" ? localStorage.getItem("token") : null;
@@ -247,9 +247,9 @@ export const fetchUserProfile = () => async (dispatch: any) => {
     dispatch(setCurrentUser(res?.data));
     const response = res?.data;
 
-    if (response) dispatch(LoadingStop());
+    // if (response) dispatch(LoadingStop());
   } catch (error: any) {
-    dispatch(LoadingStop());
+    // dispatch(LoadingStop());
     dispatch(
       openToastAndSetContent({
         toastContent: error?.response?.data?.message,

@@ -29,47 +29,47 @@ function DashbardLayout({ children }: MyComponentProps) {
 	const profile = useSelector((state: any) => state.auth);
 	const onBoardingStep = profile?.user?.data?.on_boarding_step;
 
-	useLayoutEffect(() => {
-		dispatch(fetchUserProfile());
 
-		if (
-			onBoardingStep?.step_code === 'update-profile' &&
-			onBoardingStep?.is_required
-		) {
-			dispatch(
-				openModalAndSetContent({
-					modalStyles: {
-						padding: 0,
-					},
-					modalContent: (
-						<>
-							<UpdateProfileModal />
-						</>
-					),
-					haveCloseIcon: false,
-				})
-			);
-		} else if (
-			onBoardingStep?.step_code === 'add-card' &&
-			onBoardingStep?.is_required
-		) {
-			dispatch(
-				openModalAndSetContent({
-					modalStyles: {
-						padding: 0,
-					},
-					modalContent: (
-						<>
-							<AddCard />
-						</>
-					),
-					haveCloseIcon: false,
-				})
-			);
-		} else {
-			return undefined;
-		}
+	useEffect(() => {
+		dispatch(fetchUserProfile());
 	}, []);
+
+	if (
+		onBoardingStep?.step_code === 'update-profile' &&
+		onBoardingStep?.is_required
+	) {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+				},
+				modalContent: (
+					<>
+						<UpdateProfileModal />
+					</>
+				),
+				haveCloseIcon: false,
+			})
+		);
+	}
+	if (
+		onBoardingStep?.step_code === 'add-card' &&
+		onBoardingStep?.is_required
+	) {
+		dispatch(
+			openModalAndSetContent({
+				modalStyles: {
+					padding: 0,
+				},
+				modalContent: (
+					<>
+						<AddCard />
+					</>
+				),
+				haveCloseIcon: false,
+			})
+		);
+	}
 
 	return (
 		<>
