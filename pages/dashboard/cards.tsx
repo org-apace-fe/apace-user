@@ -85,16 +85,12 @@ const Cards: NextPage = () => {
 	};
 
 	const params = new URLSearchParams(window.location.search);
-	const txRef = params.get('tx_ref');
 
 	const addCardComplete = async (reference: any) => {
 		try {
-			// dispatch(closeModal);
 			dispatch(LoadingStart());
 			const res = await axios.patch(
-				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/add/${reference}/complete`,
-				{},
-				{ headers: headersRequest }
+				`/api/v1/customer/saved-card/add/${reference}/complete`
 			);
 			dispatch(
 				openToastAndSetContent({
@@ -107,7 +103,7 @@ const Cards: NextPage = () => {
 			fetchCards();
 			dispatch(fetchUserProfile());
 			dispatch(LoadingStop());
-			dispatch(closeModal);
+			dispatch(closeModal());
 		} catch (error: any) {
 			dispatch(
 				openToastAndSetContent({
@@ -125,9 +121,7 @@ const Cards: NextPage = () => {
 		try {
 			dispatch(LoadingStart());
 			const res = await axios.patch(
-				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/${cardId}/disable`,
-				{},
-				{ headers: headersRequest }
+				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/${cardId}/disable`
 			);
 			dispatch(
 				openToastAndSetContent({
@@ -152,15 +146,14 @@ const Cards: NextPage = () => {
 		}
 	};
 
+	const txRef = params.get('tx_ref');
+	if (txRef && txRef !== "") {
+		addCardComplete(txRef);
+	}
+
 	useEffect(() => {
 		fetchCards();
 	}, []);
-
-	useEffect(() => {
-		if (txRef) {
-			addCardComplete(txRef);
-		}
-	}, [txRef]);
 
 	return (
 		<div>

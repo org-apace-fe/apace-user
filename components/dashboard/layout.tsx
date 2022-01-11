@@ -8,7 +8,7 @@ import Toast from '../toast';
 import Modall from './modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../../store/actions/user.action';
-import { openModalAndSetContent } from '../../store/actions/modal/modalActions';
+import { closeModal, openModalAndSetContent } from '../../store/actions/modal/modalActions';
 import UpdateProfileModal from './modal/update-profile';
 import AddCard from './modal/add-card';
 
@@ -51,8 +51,7 @@ function DashbardLayout({ children }: MyComponentProps) {
 				haveCloseIcon: false,
 			})
 		);
-	}
-	if (
+	}else if (
 		onBoardingStep?.step_code === 'add-card' &&
 		onBoardingStep?.is_required
 	) {
@@ -69,6 +68,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 				haveCloseIcon: false,
 			})
 		);
+	}else{
+		dispatch(closeModal());
 	}
 
 	return (
