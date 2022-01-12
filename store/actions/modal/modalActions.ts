@@ -13,6 +13,7 @@ export const openModalAndSetContent = ({
 	modalStyles,
 	haveCloseIcon,
 }: ModalContentAndStyle) => {
+	console.log('wherevariable:', haveCloseIcon);
 	return {
 		type: 'OPEN_AND_SET_MODAL_CONTENT',
 		modalContent,
