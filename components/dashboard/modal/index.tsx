@@ -43,6 +43,8 @@ export default function Modal() {
 		e.preventDefault();
 		dispatch(closeModal());
 	};
+
+	console.log('thecloseicon:', haveCloseIcon);
 	return (
 		<>
 			{modalOpened ? (

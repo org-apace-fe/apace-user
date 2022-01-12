@@ -113,7 +113,6 @@ const CreditLimitComponent = () => {
 							</div>
 						</>
 					),
-					haveCloseIcon: true,
 				})
 			);
 		} else if (onBoardingStep?.step_code === 'add-account-statement') {
@@ -141,7 +140,6 @@ const CreditLimitComponent = () => {
 							</div>
 						</>
 					),
-					haveCloseIcon: true,
 				})
 			);
 		} else if (onBoardingStep?.step_code === 'add-guarantor') {
@@ -166,7 +164,6 @@ const CreditLimitComponent = () => {
 							</div>
 						</>
 					),
-					haveCloseIcon: true,
 				})
 			);
 		} else {
