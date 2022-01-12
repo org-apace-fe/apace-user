@@ -4,14 +4,14 @@ interface ModalActionInterface {
 	type: string;
 	modalContent: ReactNode;
 	modalStyles: CSSProperties;
-	haveCloseIcon?: boolean;
+	haveCloseIcon: boolean;
 }
 
 interface ModalInterface {
 	modalOpened: boolean;
 	modalContent: ReactNode;
 	modalStyles: CSSProperties;
-	haveCloseIcon?: boolean;
+	haveCloseIcon: boolean;
 }
 
 const initialModalState: ModalInterface = {
@@ -38,7 +38,7 @@ const modalReducer = (
 				modalOpened: true,
 				modalContent: action.modalContent,
 				modalStyles: { ...state.modalStyles, ...action.modalStyles },
-				haveCloseIcon: action.haveCloseIcon,
+				haveCloseIcon: action.haveCloseIcon || true,
 			};
 		}
 		default: {

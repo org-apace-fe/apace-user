@@ -1,5 +1,6 @@
 import { background } from '../../utils/background';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
 	closeModal,
 	openModalAndSetContent,
@@ -34,7 +35,7 @@ const Profile = () => {
 	});
 
 	const dispatch = useDispatch();
-
+	const router = useRouter();
 	const token =
 		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 	const headersRequest = {
@@ -95,9 +96,9 @@ const Profile = () => {
 								style={{ background: background.apacegray3 }}>
 								<p>Please verify your bvn to increase your credit limit</p>
 								<Button
-									onClick={() => {
-										dispatch(closeModal());
-									}}
+									onClick={() =>
+										router.push('/dashboard/settings/verification')
+									}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
 									Verify your bvn
 								</Button>
@@ -122,9 +123,9 @@ const Profile = () => {
 									limit
 								</p>
 								<Button
-									onClick={() => {
-										dispatch(closeModal());
-									}}
+									onClick={() =>
+										router.push('/dashboard/settings/verification')
+									}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
 									Add Account Statement
 								</Button>
@@ -146,15 +147,16 @@ const Profile = () => {
 								style={{ background: background.apacegray3 }}>
 								<p>Add a guarantor to increase your credit limit</p>
 								<Button
-									onClick={() => {
-										dispatch(closeModal());
-									}}
+									onClick={() =>
+										router.push('/dashboard/settings/verification')
+									}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
 									Add guarantor
 								</Button>
 							</div>
 						</>
 					),
+					haveCloseIcon: true,
 				})
 			);
 		} else {
