@@ -156,7 +156,6 @@ const Profile = () => {
 							</div>
 						</>
 					),
-					haveCloseIcon: true,
 				})
 			);
 		} else {

@@ -8,7 +8,10 @@ import Toast from '../toast';
 import Modall from './modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../../store/actions/user.action';
-import { closeModal, openModalAndSetContent } from '../../store/actions/modal/modalActions';
+import {
+	closeModal,
+	openModalAndSetContent,
+} from '../../store/actions/modal/modalActions';
 import UpdateProfileModal from './modal/update-profile';
 import AddCard from './modal/add-card';
 
@@ -28,8 +31,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 
 	const profile = useSelector((state: any) => state.auth);
 	const onBoardingStep = profile?.user?.data?.on_boarding_step;
-
-
+	// const modale = useSelector((state: any) => state.modal);
+	// console.log(modale);
 	useEffect(() => {
 		dispatch(fetchUserProfile());
 	}, []);
@@ -51,7 +54,7 @@ function DashbardLayout({ children }: MyComponentProps) {
 				haveCloseIcon: false,
 			})
 		);
-	}else if (
+	} else if (
 		onBoardingStep?.step_code === 'add-card' &&
 		onBoardingStep?.is_required
 	) {
@@ -68,7 +71,7 @@ function DashbardLayout({ children }: MyComponentProps) {
 				haveCloseIcon: false,
 			})
 		);
-	}else{
+	} else {
 		dispatch(closeModal());
 	}
 

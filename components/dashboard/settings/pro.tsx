@@ -211,7 +211,6 @@ const Pro = () => {
 													<GuarantorRequest />
 												</>
 											),
-											haveCloseIcon: true,
 										})
 									)
 								}>

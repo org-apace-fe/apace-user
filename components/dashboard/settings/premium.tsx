@@ -29,7 +29,6 @@ const Premium = () => {
 										<ContactUs />
 									</>
 								),
-								haveCloseIcon: true,
 							})
 						)
 					}>
