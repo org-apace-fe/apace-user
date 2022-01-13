@@ -23,7 +23,7 @@ function AddCard() {
 	const addCard = async () => {
 		try {
 			dispatch(LoadingStart());
-			dispatch(closeModal);
+			dispatch(closeModal());
 
 			const res = await axios.patch(
 				`${process.env.NEXT_PUBLIC_ENV_API_AUTH_URL}/api/v1/customer/saved-card/add`,

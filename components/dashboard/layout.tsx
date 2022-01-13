@@ -31,8 +31,7 @@ function DashbardLayout({ children }: MyComponentProps) {
 
 	const profile = useSelector((state: any) => state.auth);
 	const onBoardingStep = profile?.user?.data?.on_boarding_step;
-	// const modale = useSelector((state: any) => state.modal);
-	// console.log(modale);
+
 	useEffect(() => {
 		dispatch(fetchUserProfile());
 	}, []);
@@ -56,7 +55,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 		);
 	} else if (
 		onBoardingStep?.step_code === 'add-card' &&
-		onBoardingStep?.is_required
+		onBoardingStep?.is_required &&
+		router.pathname !== '/dashboard/cards'
 	) {
 		dispatch(
 			openModalAndSetContent({
