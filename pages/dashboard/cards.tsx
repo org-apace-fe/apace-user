@@ -175,7 +175,7 @@ const Cards: NextPage = () => {
 									</Button>
 								</div>
 							) : (
-								<div className='flex'>
+								<StyledWholeRap>
 									<div>
 										<StyledWrapper>
 											{cards?.map((card) => {
@@ -220,7 +220,7 @@ const Cards: NextPage = () => {
 											Add Card +
 										</Button>
 									</div>
-								</div>
+								</StyledWholeRap>
 							)}
 						</>
 					</Container>
@@ -230,11 +230,23 @@ const Cards: NextPage = () => {
 	);
 };
 
+const StyledWholeRap = styled.div`
+	display: flex;
+	align-items: flex-start;
+	@media screen and (max-width: 640px) {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+`;
+
 const StyledWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	width: 900px;
-	flex-wrap: wrap;
+
+	@media screen and (max-width: 950px) {
+		flex-direction: column;
+	}
 `;
 
 const StyledCard = styled.div`
@@ -251,6 +263,11 @@ const StyledCard = styled.div`
 	padding: 15px;
 	border: 1px solid #ffffff;
 
+	@media screen and (max-width: 470px) {
+		width: 320px;
+		height: 224.97px;
+	}
+
 	.flex-first {
 		display: flex;
 		justify-content: space-between;
@@ -266,6 +283,10 @@ const StyledCard = styled.div`
 
 	.flex-second-img {
 		margin: 1rem 20rem;
+
+		@media screen and (max-width: 470px) {
+			margin: 1rem 15rem;
+		}
 	}
 
 	.flex-third-p {
