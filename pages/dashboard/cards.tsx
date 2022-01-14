@@ -88,6 +88,7 @@ const Cards: NextPage = () => {
 
 	const addCardComplete = (reference: any) => {
 		dispatch(LoadingStart());
+		console.log('my friend:', 'kinishow');
 		axios
 			.patch(`/api/v1/customer/saved-card/add/${reference}/complete`)
 			.then((res) => {
@@ -101,6 +102,8 @@ const Cards: NextPage = () => {
 				);
 				fetchCards();
 				dispatch(fetchUserProfile());
+				console.log('my enemy:', 'kotishow');
+
 				dispatch(LoadingStop());
 				dispatch(closeModal());
 			})
@@ -113,6 +116,8 @@ const Cards: NextPage = () => {
 						},
 					})
 				);
+				console.log('my enemy:', 'kotishow');
+
 				dispatch(LoadingStop());
 			});
 	};
