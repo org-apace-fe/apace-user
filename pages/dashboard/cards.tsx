@@ -86,35 +86,35 @@ const Cards: NextPage = () => {
 
 	const params = new URLSearchParams(window.location.search);
 
-	const addCardComplete = async (reference: any) => {
-		try {
-			dispatch(LoadingStart());
-			const res = await axios.patch(
-				`/api/v1/customer/saved-card/add/${reference}/complete`
-			);
-			dispatch(
-				openToastAndSetContent({
-					toastContent: res?.data?.message,
-					toastStyles: {
-						backgroundColor: 'green',
-					},
-				})
-			);
-			fetchCards();
-			dispatch(fetchUserProfile());
-			dispatch(LoadingStop());
-			dispatch(closeModal());
-		} catch (error: any) {
-			dispatch(
-				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-			dispatch(LoadingStop());
-		}
+	const addCardComplete = (reference: any) => {
+		dispatch(LoadingStart());
+		axios
+			.patch(`/api/v1/customer/saved-card/add/${reference}/complete`)
+			.then((res) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: res?.data?.message,
+						toastStyles: {
+							backgroundColor: 'green',
+						},
+					})
+				);
+				fetchCards();
+				dispatch(fetchUserProfile());
+				dispatch(LoadingStop());
+				dispatch(closeModal());
+			})
+			.catch((error) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: error?.response?.data?.message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				);
+				dispatch(LoadingStop());
+			});
 	};
 
 	const disableCard = async (cardId: any) => {

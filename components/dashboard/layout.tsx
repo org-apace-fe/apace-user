@@ -56,7 +56,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 	} else if (
 		onBoardingStep?.step_code === 'add-card' &&
 		onBoardingStep?.is_required &&
-		router.pathname !== '/dashboard/cards'
+		router.pathname !== '/dashboard/cards' &&
+		!router.pathname.includes('?')
 	) {
 		dispatch(
 			openModalAndSetContent({
