@@ -53,6 +53,10 @@ const Settings: NextPage = () => {
 								{onBoardingStep?.step_code === 'premium-review-ongoing' && (
 									<Gpending title='PREMIUM ACCOUNT' desc='Approval' />
 								)}
+								{onBoardingStep?.step_code ===
+									'add-account-statement-pending' && (
+									<Gpending title='PLUS ACCOUNT' desc='Verification' />
+								)}
 								{onBoardingStep?.step_code === 'Dashboard' && <AllCompleted />}
 							</div>
 						</div>
