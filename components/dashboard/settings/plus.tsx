@@ -21,7 +21,7 @@ const Plus = () => {
 		const monoInstance = new MonoConnect({
 			onClose: () => console.log('Widget closed'),
 			onLoad: () => console.log('Widget loaded successfully'),
-			onSuccess: ({ token }: { token: string }) => {
+			onSuccess: (token: any) => {
 			console.log("response for clarification", token)
 				axios
 					.post('/api/v1/customer/verification/bank-statement/add', {
