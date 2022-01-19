@@ -18,10 +18,11 @@ import Button from '../../components/button';
 import { background } from '../../utils/background';
 import { fetchUserProfile } from '../../store/actions/user.action';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 
 const Cards: NextPage = () => {
 	const dispatch = useDispatch();
-
+	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const token =
 		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 	const headersRequest = {
@@ -87,8 +88,8 @@ const Cards: NextPage = () => {
 	const params = new URLSearchParams(window.location.search);
 
 	const addCardComplete = (reference: any) => {
-		dispatch(LoadingStart());
-		console.log('my friend:', 'kinishow');
+		// dispatch(LoadingStart());
+		setSpinnerLoading(true);
 		axios
 			.patch(`/api/v1/customer/saved-card/add/${reference}/complete`)
 			.then((res) => {
@@ -102,9 +103,10 @@ const Cards: NextPage = () => {
 				);
 				fetchCards();
 				dispatch(fetchUserProfile());
-				console.log('my enemy:', 'kotishow');
 
-				dispatch(LoadingStop());
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
+
 				dispatch(closeModal());
 			})
 			.catch((error) => {
@@ -116,9 +118,9 @@ const Cards: NextPage = () => {
 						},
 					})
 				);
-				console.log('my enemy:', 'kotishow');
 
-				dispatch(LoadingStop());
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
 			});
 	};
 
@@ -166,6 +168,16 @@ const Cards: NextPage = () => {
 		<div>
 			<DashboardLayout>
 				<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden '>
+					<div className='absolute top-1/2 left-1/2'>
+						<Loader
+							type='Circles'
+							color='#ED6E24'
+							height={50}
+							width={50}
+							visible={spinnerLoading}
+						/>
+					</div>
+
 					<Container>
 						<>
 							{isEmpty(cards) ? (
