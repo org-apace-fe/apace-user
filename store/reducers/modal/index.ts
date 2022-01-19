@@ -37,9 +37,9 @@ const modalReducer = (
 				modalOpened: true,
 				modalContent: action.modalContent,
 				modalStyles: { ...state.modalStyles, ...action.modalStyles },
-				...(action.haveCloseIcon === undefined && {haveCloseIcon: true}),
-				...(action.haveCloseIcon === false && {haveCloseIcon: false}),
-				...(action.haveCloseIcon === true && {haveCloseIcon: true})
+				...(action.haveCloseIcon === undefined && { haveCloseIcon: true }),
+				...(action.haveCloseIcon === false && { haveCloseIcon: false }),
+				...(action.haveCloseIcon === true && { haveCloseIcon: true }),
 			};
 		}
 		default: {

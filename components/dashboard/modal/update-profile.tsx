@@ -46,6 +46,7 @@ const UpdateProfileModal = ({
 		lastname: '',
 		address: '',
 		dob: '',
+		mobile: '',
 	};
 	const [user, setUser] = useState<any>(initialState);
 
@@ -53,7 +54,7 @@ const UpdateProfileModal = ({
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
-	const { firstname, lastname, address, dob } = user;
+	const { firstname, lastname, address, dob, mobile } = user;
 
 	const onSubmit = async (e: any) => {
 		e.preventDefault();
@@ -160,6 +161,15 @@ const UpdateProfileModal = ({
 					type='text'
 					name='lastname'
 					value={lastname}
+					onChange={handleChange}
+					required
+				/>
+				<Input
+					placeholder='Mobile Number'
+					className='w-full mt-2 mb-6'
+					type='text'
+					name='mobile'
+					value={mobile}
 					onChange={handleChange}
 					required
 				/>

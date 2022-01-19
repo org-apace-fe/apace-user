@@ -18,10 +18,11 @@ import Button from '../../components/button';
 import { background } from '../../utils/background';
 import { fetchUserProfile } from '../../store/actions/user.action';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 
 const Cards: NextPage = () => {
 	const dispatch = useDispatch();
-
+	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const token =
 		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 	const headersRequest = {
@@ -86,35 +87,41 @@ const Cards: NextPage = () => {
 
 	const params = new URLSearchParams(window.location.search);
 
-	const addCardComplete = async (reference: any) => {
-		try {
-			dispatch(LoadingStart());
-			const res = await axios.patch(
-				`/api/v1/customer/saved-card/add/${reference}/complete`
-			);
-			dispatch(
-				openToastAndSetContent({
-					toastContent: res?.data?.message,
-					toastStyles: {
-						backgroundColor: 'green',
-					},
-				})
-			);
-			fetchCards();
-			dispatch(fetchUserProfile());
-			dispatch(LoadingStop());
-			dispatch(closeModal());
-		} catch (error: any) {
-			dispatch(
-				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-			dispatch(LoadingStop());
-		}
+	const addCardComplete = (reference: any) => {
+		// dispatch(LoadingStart());
+		setSpinnerLoading(true);
+		axios
+			.patch(`/api/v1/customer/saved-card/add/${reference}/complete`)
+			.then((res) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: res?.data?.message,
+						toastStyles: {
+							backgroundColor: 'green',
+						},
+					})
+				);
+				fetchCards();
+				dispatch(fetchUserProfile());
+
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
+
+				dispatch(closeModal());
+			})
+			.catch((error) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: error?.response?.data?.message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				);
+
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
+			});
 	};
 
 	const disableCard = async (cardId: any) => {
@@ -148,10 +155,11 @@ const Cards: NextPage = () => {
 
 
 	const txRef = params.get('tx_ref');
-	
-	if (txRef && txRef !== "") {
-		addCardComplete(txRef);
-	}
+	useEffect(() => {
+		if (txRef && txRef !== '') {
+			addCardComplete(txRef);
+		}
+	}, [txRef]);
 
 	useEffect(() => {
 		fetchCards();
@@ -161,6 +169,16 @@ const Cards: NextPage = () => {
 		<div>
 			<DashboardLayout>
 				<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden '>
+					<div className='absolute top-1/2 left-1/2'>
+						<Loader
+							type='Circles'
+							color='#ED6E24'
+							height={50}
+							width={50}
+							visible={spinnerLoading}
+						/>
+					</div>
+
 					<Container>
 						<>
 							{isEmpty(cards) ? (
@@ -175,40 +193,42 @@ const Cards: NextPage = () => {
 									</Button>
 								</div>
 							) : (
-								<div className='flex'>
+								<StyledWholeRap>
 									<div>
-										{cards?.map((card) => {
-											return (
-												<StyledCard key={card?.id}>
-													{/* <p> Card Token : {card?.card_token} </p> */}
-													{/* <p> Masked Pan : {card?.masked_pan} </p> */}
-													<div className='flex-first'>
-														<p className='flex-first-p'>
-															{personalInfo?.first_name}
-														</p>
-														<img className='flex-first-img' src='' alt='' />
-													</div>
-													<img
-														className='flex-second-img'
-														src='https://i.ibb.co/q99hjMq/Group-4.png'
-														alt=''
-													/>
-													<p className='flex-third-p'>{card?.masked_pan} </p>
-													<div className='footer'>
-														<button
-															className='bg-apace-orange-dark border-apace-orange-dark text-black rounded-full p-2'
-															onClick={() => disableCard(card?.id)}>
-															Disable
-														</button>
+										<StyledWrapper>
+											{cards?.map((card) => {
+												return (
+													<StyledCard key={card?.id}>
+														{/* <p> Card Token : {card?.card_token} </p> */}
+														{/* <p> Masked Pan : {card?.masked_pan} </p> */}
+														<div className='flex-first'>
+															<p className='flex-first-p'>
+																{personalInfo?.first_name}
+															</p>
+															<img className='flex-first-img' src='' alt='' />
+														</div>
+														<img
+															className='flex-second-img'
+															src='https://i.ibb.co/q99hjMq/Group-4.png'
+															alt=''
+														/>
+														<p className='flex-third-p'>{card?.masked_pan} </p>
+														<div className='footer'>
+															<button
+																className='bg-apace-orange-dark border-apace-orange-dark text-black rounded-full p-2'
+																onClick={() => disableCard(card?.id)}>
+																Disable
+															</button>
 
-														<p className='footer-p'>
-															Date created:{' '}
-															{moment(card?.date_created).format('ll')}
-														</p>
-													</div>
-												</StyledCard>
-											);
-										})}
+															<p className='footer-p'>
+																Date created:{' '}
+																{moment(card?.date_created).format('ll')}
+															</p>
+														</div>
+													</StyledCard>
+												);
+											})}
+										</StyledWrapper>
 									</div>
 
 									<div className='ml-4'>
@@ -218,7 +238,7 @@ const Cards: NextPage = () => {
 											Add Card +
 										</Button>
 									</div>
-								</div>
+								</StyledWholeRap>
 							)}
 						</>
 					</Container>
@@ -228,10 +248,29 @@ const Cards: NextPage = () => {
 	);
 };
 
+const StyledWholeRap = styled.div`
+	display: flex;
+	align-items: flex-start;
+	@media screen and (max-width: 640px) {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+`;
+
+const StyledWrapper = styled.div`
+	display: flex;
+	align-items: center;
+
+	@media screen and (max-width: 950px) {
+		flex-direction: column;
+	}
+`;
+
 const StyledCard = styled.div`
 	width: 407px;
 	height: 224.97px;
-
+	margin: 15px;
 	/* background: #293688; */
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25), 0px 0px 10px rgba(0, 0, 0, 0.03);
 	border-radius: 20px;
@@ -241,6 +280,11 @@ const StyledCard = styled.div`
 	background-repeat: no-repeat;
 	padding: 15px;
 	border: 1px solid #ffffff;
+
+	@media screen and (max-width: 470px) {
+		width: 320px;
+		height: 224.97px;
+	}
 
 	.flex-first {
 		display: flex;
@@ -257,6 +301,10 @@ const StyledCard = styled.div`
 
 	.flex-second-img {
 		margin: 1rem 20rem;
+
+		@media screen and (max-width: 470px) {
+			margin: 1rem 15rem;
+		}
 	}
 
 	.flex-third-p {

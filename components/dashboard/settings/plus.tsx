@@ -21,12 +21,12 @@ const Plus = () => {
 		const monoInstance = new MonoConnect({
 			onClose: () => console.log('Widget closed'),
 			onLoad: () => console.log('Widget loaded successfully'),
-			onSuccess: (token: {code: string}) => {
-				const {code} = token;
+			onSuccess: (token: { code: string }) => {
+				const { code } = token;
 				axios
 					.post('/api/v1/customer/verification/bank-statement/add', {
 						access_token: code,
-					})``
+					})
 					.then((res) => {
 						dispatch(
 							openToastAndSetContent({
@@ -79,6 +79,7 @@ const Plus = () => {
 						<span className='ml-2 mr-6'> I grant permission </span>
 					</label>
 					<Button
+						style={{ cursor: checked ? 'pointer' : 'not-allowed' }}
 						disabled={!checked}
 						className='text-black bg-purple-600 border-purple-600 '
 						onClick={() => monoConnect.open()}>
