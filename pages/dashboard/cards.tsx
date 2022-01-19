@@ -18,10 +18,11 @@ import Button from '../../components/button';
 import { background } from '../../utils/background';
 import { fetchUserProfile } from '../../store/actions/user.action';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 
 const Cards: NextPage = () => {
 	const dispatch = useDispatch();
-
+	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const token =
 		typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 	const headersRequest = {
@@ -86,35 +87,41 @@ const Cards: NextPage = () => {
 
 	const params = new URLSearchParams(window.location.search);
 
-	const addCardComplete = async (reference: any) => {
-		try {
-			dispatch(LoadingStart());
-			const res = await axios.patch(
-				`/api/v1/customer/saved-card/add/${reference}/complete`
-			);
-			dispatch(
-				openToastAndSetContent({
-					toastContent: res?.data?.message,
-					toastStyles: {
-						backgroundColor: 'green',
-					},
-				})
-			);
-			fetchCards();
-			dispatch(fetchUserProfile());
-			dispatch(LoadingStop());
-			dispatch(closeModal());
-		} catch (error: any) {
-			dispatch(
-				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-			dispatch(LoadingStop());
-		}
+	const addCardComplete = (reference: any) => {
+		// dispatch(LoadingStart());
+		setSpinnerLoading(true);
+		axios
+			.patch(`/api/v1/customer/saved-card/add/${reference}/complete`)
+			.then((res) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: res?.data?.message,
+						toastStyles: {
+							backgroundColor: 'green',
+						},
+					})
+				);
+				fetchCards();
+				dispatch(fetchUserProfile());
+
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
+
+				dispatch(closeModal());
+			})
+			.catch((error) => {
+				dispatch(
+					openToastAndSetContent({
+						toastContent: error?.response?.data?.message,
+						toastStyles: {
+							backgroundColor: 'red',
+						},
+					})
+				);
+
+				// dispatch(LoadingStop());
+				setSpinnerLoading(false);
+			});
 	};
 
 	const disableCard = async (cardId: any) => {
@@ -146,6 +153,7 @@ const Cards: NextPage = () => {
 		}
 	};
 
+
 	const txRef = params.get('tx_ref');
 	useEffect(() => {
 		if (txRef && txRef !== '') {
@@ -161,6 +169,16 @@ const Cards: NextPage = () => {
 		<div>
 			<DashboardLayout>
 				<div className='relative bg-apace-black text-white min-h-full py-8 overflow-hidden '>
+					<div className='absolute top-1/2 left-1/2'>
+						<Loader
+							type='Circles'
+							color='#ED6E24'
+							height={50}
+							width={50}
+							visible={spinnerLoading}
+						/>
+					</div>
+
 					<Container>
 						<>
 							{isEmpty(cards) ? (

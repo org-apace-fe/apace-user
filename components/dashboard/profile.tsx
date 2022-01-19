@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { background } from '../../utils/background';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -181,6 +182,7 @@ const Profile = () => {
 						<img
 							src={personalInfo?.avatar}
 							className='w-full h-full object-cover'
+							alt=''
 						/>
 					</div>
 				)}
@@ -190,7 +192,10 @@ const Profile = () => {
 						{' '}
 						{personalInfo?.first_name} {personalInfo?.last_name}{' '}
 					</p>
-					<p> {personalInfo?.mobile_number} </p>
+					<p>
+						{' '}
+						{personalInfo?.mobile_number ? personalInfo?.mobile_number : ''}
+					</p>
 					<p> {personalInfo?.email_address} </p>
 				</div>
 			</div>
