@@ -146,7 +146,9 @@ const Cards: NextPage = () => {
 		}
 	};
 
+
 	const txRef = params.get('tx_ref');
+	
 	if (txRef && txRef !== "") {
 		addCardComplete(txRef);
 	}

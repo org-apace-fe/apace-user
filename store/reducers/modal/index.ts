@@ -21,7 +21,6 @@ const initialModalState: ModalInterface = {
 		color: 'white',
 	},
 	modalOpened: false,
-	haveCloseIcon: true,
 };
 
 const modalReducer = (
@@ -38,7 +37,9 @@ const modalReducer = (
 				modalOpened: true,
 				modalContent: action.modalContent,
 				modalStyles: { ...state.modalStyles, ...action.modalStyles },
-				haveCloseIcon: action.haveCloseIcon,
+				...(action.haveCloseIcon === undefined && {haveCloseIcon: true}),
+				...(action.haveCloseIcon === false && {haveCloseIcon: false}),
+				...(action.haveCloseIcon === true && {haveCloseIcon: true})
 			};
 		}
 		default: {
