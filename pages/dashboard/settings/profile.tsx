@@ -28,7 +28,7 @@ const SettingsProfile: NextPage = () => {
 		lastname: '',
 		address: '',
 		dob: '',
-		mobile_number: '',
+		mobile: '',
 	};
 	const [user, setUser] = useState<any>(initialState);
 
@@ -36,7 +36,7 @@ const SettingsProfile: NextPage = () => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
-	const { firstname, lastname, address, dob, mobile_number } = user;
+	const { firstname, lastname, address, dob, mobile } = user;
 
 	const profileUpdate = async () => {
 		let fields: any[] = [];
@@ -139,6 +139,7 @@ const SettingsProfile: NextPage = () => {
 				? new Date(personalInfo?.date_of_birth).toISOString().substr(0, 10)
 				: '',
 			address: personalInfo?.address,
+			mobile: personalInfo?.mobile_number,
 		});
 	}, []);
 
@@ -195,8 +196,8 @@ const SettingsProfile: NextPage = () => {
 										placeholder='Mobile Number'
 										className='mt-2 mb-6'
 										type='text'
-										name='mobile_number'
-										value={mobile_number}
+										name='mobile'
+										value={mobile}
 										onChange={handleChange}
 										required
 									/>
