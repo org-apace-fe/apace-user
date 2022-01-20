@@ -90,7 +90,7 @@ const CreditLimitComponent = () => {
 	};
 
 	const increaseLimit = () => {
-		console.log('i am here:', onBoardingStep);
+		// console.log('i am here:', onBoardingStep);
 		if (onBoardingStep?.step_code === 'verify-bvn') {
 			dispatch(
 				openModalAndSetContent({
