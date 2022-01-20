@@ -29,17 +29,6 @@ const SettingsNotification: NextPage = () => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	const aStateObj: any = {};
-	// 	preferenceOptions?.map((each) => (aStateObj[each.code] = false));
-	// 	setEnabled(aStateObj);
-	// }, [preferenceOptions]);
-
-	// useEffect(() => {
-	// 	console.log('iamgood:', enabled);
-	// 	console.log('mypreference:', preference);
-	// }, [enabled, preference]);
-
 	useEffect(() => {
 		const aCheckObj: any = {};
 
@@ -73,8 +62,6 @@ const SettingsNotification: NextPage = () => {
 	};
 
 	const setPreference = async (code: string) => {
-		console.log('checking', !enabled[code]);
-		// setEnabled({ ...enabled, [code]: !enabled[code] });
 		try {
 			setEnabled({ ...enabled, [code]: !enabled[code] });
 			const token =

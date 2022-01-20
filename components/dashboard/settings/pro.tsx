@@ -64,7 +64,7 @@ const Pro = () => {
 				})
 			);
 
-			console.log('warimagbo:', res);
+			// console.log('warimagbo:', res);
 			fetchguarantorRequest();
 			dispatch(fetchUserProfile());
 			setGuarantorMessage(initialState);
