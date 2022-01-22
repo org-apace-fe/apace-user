@@ -22,6 +22,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CopyText from '../../utils/CopyToClipBoard';
 import axios from 'axios';
 import isEmpty from 'is-empty';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const Referrals: NextPage = () => {
 	const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Referrals: NextPage = () => {
 	};
 
 	const copyId = (Id: string | number) => {
-		CopyText(Id);
+		// CopyText(Id);
 		dispatch(
 			openToastAndSetContent({
 				toastContent: (
@@ -309,11 +310,14 @@ const Referrals: NextPage = () => {
 													<div className='relative flex flex-col items-center justify-center p-4'>
 														<div className='flex bg-gray-600 px-2 py-2 rounded-full '>
 															<p className='pr-2'> ADE23DRAX </p>
-															<div
-																style={{ cursor: 'pointer' }}
-																onClick={() => copyId('ADE23DRAX')}>
-																<img src='/icons/copy.svg' />
-															</div>
+
+															<CopyToClipboard text='ADE23DRAX'>
+																<div
+																	style={{ cursor: 'pointer' }}
+																	onClick={() => copyId('ADE23DRAX')}>
+																	<img src='/icons/copy.svg' />
+																</div>
+															</CopyToClipboard>
 														</div>
 													</div>
 													<div className='flex flex-col justify-center items-center m-1'>
@@ -347,13 +351,16 @@ const Referrals: NextPage = () => {
 															<p className='text-xs pr-2'>
 																apace.com/referralcode/ade23drax
 															</p>
-															<div
-																style={{ cursor: 'pointer' }}
-																onClick={() =>
-																	copyId('apace.com/referralcode/ade23drax')
-																}>
-																<img src='/icons/copy.svg' />
-															</div>
+															<CopyToClipboard text='apace.com/referralcode/ade23drax'>
+																<div
+																	style={{ cursor: 'pointer' }}
+																	onClick={() =>
+																		copyId('apace.com/referralcode/ade23drax')
+																	}>
+																	<img src='/icons/copy.svg' />
+																</div>
+															</CopyToClipboard>
+															;
 														</div>
 													</div>
 												</div>
