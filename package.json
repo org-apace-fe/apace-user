@@ -1,6 +1,8 @@
 {
   "name": "apace-user",
   "private": true,
+  "main": "build/index",
+  "typings": "build/index",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
