@@ -301,7 +301,7 @@ const Referrals: NextPage = () => {
 													className='relative h-full rounded-lg p-4 '
 													style={{ background: background.apacegray6 }}>
 													<div className='h-10 w-10 mx-auto mt-2'>
-														<img src='/icons/reward-illustration.png' />
+														<img src='/icons/reward-illustration.png' alt='' />
 													</div>
 													<div className='text-sm text-center pt-4'>
 														Refer a friend
@@ -315,7 +315,7 @@ const Referrals: NextPage = () => {
 																<div
 																	style={{ cursor: 'pointer' }}
 																	onClick={() => copyId('ADE23DRAX')}>
-																	<img src='/icons/copy.svg' />
+																	<img src='/icons/copy.svg' alt='' />
 																</div>
 															</CopyToClipboard>
 														</div>
