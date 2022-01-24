@@ -17,7 +17,6 @@ import axios from 'axios';
 import { openToastAndSetContent } from '../../../store/actions/toast/toastActions';
 
 const SignIn: NextPage = () => {
-
 	const [status, setStatus] = useState(false);
 	const initialState = {
 		identifier: '',
@@ -159,7 +158,11 @@ const SignIn: NextPage = () => {
 						</div>
 
 						<div className='mt-8 cursor-pointer'>
-							<div onClick={() => forgotPassword()} className='text-center'>
+							<div
+								onClick={() =>
+									router.push('/auth/verification/forgot-password')
+								}
+								className='text-center'>
 								Forgot Password ?
 							</div>
 							<div className=' lg:w-3/6 w-5/6 mx-auto '>
