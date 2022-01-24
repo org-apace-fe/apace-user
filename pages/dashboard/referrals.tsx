@@ -38,6 +38,9 @@ const Referrals: NextPage = () => {
 	const allReferallsPage = referrals?.page;
 	const referallsActivitiesPage = referralsActivities?.page;
 
+	const profile = useSelector((state: any) => state.auth);
+	const userName = profile?.user?.data?.peronal_info?.username;
+
 	//FOR COPY CONTENTS
 	const styles = {
 		productId: {
@@ -76,6 +79,8 @@ const Referrals: NextPage = () => {
 		Authorization: `Bearer ${token}`,
 		'auth-key': `${process.env.NEXT_PUBLIC_ENV_AUTH_KEY}`,
 	};
+
+	const referralUrl = `${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}/referralcode/${userName}`;
 
 	type DataReferral = {
 		customer_name: string;
@@ -309,12 +314,17 @@ const Referrals: NextPage = () => {
 
 													<div className='relative flex flex-col items-center justify-center p-4'>
 														<div className='flex bg-gray-600 px-2 py-2 rounded-full '>
-															<p className='pr-2'> ADE23DRAX </p>
+															<p className='pr-2'> {userName} </p>
 
-															<CopyToClipboard text='ADE23DRAX'>
+															<CopyToClipboard text={userName}>
 																<div
-																	style={{ cursor: 'pointer' }}
-																	onClick={() => copyId('ADE23DRAX')}>
+																	style={{
+																		cursor: 'pointer',
+																		display: 'flex',
+																		alignContent: 'center',
+																		justifyContent: 'center',
+																	}}
+																	onClick={() => copyId(`${userName}`)}>
 																	<img src='/icons/copy.svg' alt='' />
 																</div>
 															</CopyToClipboard>
@@ -349,18 +359,25 @@ const Referrals: NextPage = () => {
 													<div className='relative flex flex-col items-center justify-center p-4'>
 														<div className='flex bg-gray-600 px-3 py-1 rounded-full '>
 															<p className='text-xs pr-2'>
-																apace.com/referralcode/ade23drax
+																{`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`}
 															</p>
-															<CopyToClipboard text='apace.com/referralcode/ade23drax'>
+															<CopyToClipboard
+																text={`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`}>
 																<div
-																	style={{ cursor: 'pointer' }}
+																	style={{
+																		cursor: 'pointer',
+																		display: 'flex',
+																		alignContent: 'center',
+																		justifyContent: 'center',
+																	}}
 																	onClick={() =>
-																		copyId('apace.com/referralcode/ade23drax')
+																		copyId(
+																			`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`
+																		)
 																	}>
 																	<img src='/icons/copy.svg' />
 																</div>
 															</CopyToClipboard>
-															;
 														</div>
 													</div>
 												</div>
