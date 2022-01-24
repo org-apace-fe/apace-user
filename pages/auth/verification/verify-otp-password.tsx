@@ -10,58 +10,26 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import withoutAuth from '../../../route/without-auth';
-import {
-	LoadingStart,
-	LoadingStop,
-} from '../../../store/actions/loader/loaderActions';
-import axios from 'axios';
-import { openToastAndSetContent } from '../../../store/actions/toast/toastActions';
 
-const Verification: NextPage = () => {
+const NextVerification: NextPage = () => {
 	const apaceIdentifier = useSelector((state: any) => state.auth.identifier);
-	const [identifier, setIdentifier] = useState('');
+	const [otp, setOtp] = useState('');
 
 	//dispatch
 	const dispatch = useDispatch();
 	const router = useRouter();
 
 	const handleChange = (e: any) => {
-		setIdentifier(e.target.value);
+		setOtp(e.target.value);
 	};
 
-	const forgotPassword = async (e: any) => {
+	const onSubmit = (e: any) => {
 		e.preventDefault();
-		try {
-			dispatch(LoadingStart());
-			const res = await axios.post('/api/v1/customer/forgot-password', {
-				identifier,
-			});
-
-			dispatch(LoadingStop());
-			dispatch({
-				type: 'SET_IDENTIFIER',
-				payload: { identifier },
-			});
-			dispatch(
-				openToastAndSetContent({
-					toastContent: res?.data?.message,
-					toastStyles: {
-						backgroundColor: 'green',
-					},
-				})
-			);
-			router.push('/auth/verification/verify-otp-password');
-		} catch (error: any) {
-			dispatch(LoadingStop());
-			dispatch(
-				openToastAndSetContent({
-					toastContent: error?.response?.data?.message,
-					toastStyles: {
-						backgroundColor: 'red',
-					},
-				})
-			);
-		}
+		dispatch({
+			type: 'SET_OTP',
+			payload: otp,
+		});
+		router.push('/auth/reset-password');
 	};
 
 	return (
@@ -71,22 +39,22 @@ const Verification: NextPage = () => {
 					<h1 className='text-6xl font-black'>Verification</h1>
 				</div>
 				<div className='lg:w-4/12 md:w-7/12 w-full'>
-					<Form className='w-full ' onSubmit={forgotPassword}>
+					<Form className='w-full ' onSubmit={onSubmit}>
 						<Input
-							placeholder='Enter Your Email*'
+							placeholder='Verification Code*'
 							className='mt-2 mb-4'
 							type='text'
-							name='identifier'
+							name='otp'
 							onChange={handleChange}
-							value={identifier}
+							value={otp}
 							required
 						/>
 						<div className=' lg:w-3/6 w-5/6 mx-auto '>
 							<Button
 								className='flex justify-center py-0 mt-32 my-8 w-full mx-auto text-black border bg-apace-orange-light  border-apace-orange-light  '
 								type='submit'>
-								<img src='/icons/account.svg' className='mr-2' alt='' />
-								<p>submit</p>
+								<img src='/icons/account.svg' className='mr-2' />
+								<p> Verify</p>
 							</Button>
 						</div>
 					</Form>
@@ -100,4 +68,4 @@ const Verification: NextPage = () => {
 	);
 };
 
-export default withoutAuth(Verification);
+export default withoutAuth(NextVerification);
