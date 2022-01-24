@@ -54,8 +54,8 @@ function DashbardLayout({ children }: MyComponentProps) {
 			})
 		);
 	} else if (
-		onBoardingStep?.step_code === 'add-card' &&
-		onBoardingStep?.step_code === 'add-card-pending' &&
+		(onBoardingStep?.step_code === 'add-card' ||
+		onBoardingStep?.step_code === 'add-card-pending') &&
 		onBoardingStep?.is_required &&
 		router.pathname !== '/dashboard/cards' &&
 		!router.pathname.includes('?')
