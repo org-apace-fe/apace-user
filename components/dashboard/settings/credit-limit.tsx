@@ -21,6 +21,12 @@ const CreditLimitComponent = () => {
 	const profile = useSelector((state: any) => state.auth);
 	const onBoardingStep = profile?.user?.data?.on_boarding_step;
 
+	const customerTiers = profile?.user?.data?.customer_tiers;
+
+	const activeTiers = customerTiers?.find((tier: any) => {
+		return tier.is_active === true;
+	});
+
 	const [miscellaneousStatistics, setMiscellaneousStatistics] = useState<any>();
 
 	const fetchMiscellaneousStatistics = async () => {
@@ -105,6 +111,7 @@ const CreditLimitComponent = () => {
 								<p>Please verify your bvn to increase your credit limit</p>
 								<Button
 									onClick={() => {
+										router.push('/dashboard/settings/verification');
 										dispatch(closeModal());
 									}}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
@@ -132,6 +139,8 @@ const CreditLimitComponent = () => {
 								</p>
 								<Button
 									onClick={() => {
+										router.push('/dashboard/settings/verification');
+
 										dispatch(closeModal());
 									}}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
@@ -156,6 +165,8 @@ const CreditLimitComponent = () => {
 								<p>Add a guarantor to increase your credit limit</p>
 								<Button
 									onClick={() => {
+										router.push('/dashboard/settings/verification');
+
 										dispatch(closeModal());
 									}}
 									className=' bg-apace-orange-dark border-apace-orange-dark text-black'>
@@ -194,7 +205,8 @@ const CreditLimitComponent = () => {
 			</div>
 
 			<p className='text-xs my-4 '>
-				Apace Plus allows a credit limit of N200,000.00.
+				Apace {activeTiers?.tier_name} allows a credit limit of{' '}
+				{activeTiers?.default_limit_amount}.
 			</p>
 
 			<p
