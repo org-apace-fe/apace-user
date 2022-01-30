@@ -357,10 +357,10 @@ const Referrals: NextPage = () => {
 													<div className='relative flex flex-col items-center justify-center p-4'>
 														<div className='flex bg-gray-600 px-3 py-1 rounded-full '>
 															<p className='text-xs pr-2'>
-																{`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`}
+																{`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}/referralcode/${userName}`}
 															</p>
 															<CopyToClipboard
-																text={`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`}>
+																text={`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}/referralcode/${userName}`}>
 																<div
 																	style={{
 																		cursor: 'pointer',
@@ -370,7 +370,7 @@ const Referrals: NextPage = () => {
 																	}}
 																	onClick={() =>
 																		copyId(
-																			`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}referralcode/${userName}`
+																			`${process.env.NEXT_PUBLIC_ENV_USER_BASE_URL}/referralcode/${userName}`
 																		)
 																	}>
 																	<img src='/icons/copy.svg' />
