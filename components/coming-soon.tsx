@@ -15,7 +15,7 @@ import 'swiper/css/scrollbar';
 import { ArrowBack } from '../components/icons/logo';
 import { IItems } from '../interfaces/items.enum';
 
-export default function ContentNotAvailable() {
+export default function ComingSoon() {
 	const router = useRouter();
 
 	const items = [
@@ -43,26 +43,26 @@ export default function ContentNotAvailable() {
 			<Container>
 				<div className='relative flex lg:flex-row flex-col items-center lg:h-screen '>
 					<div className='lg:w-1/2 w-full lg:ml-8 ml-0'>
-						<h4 className='text-7xl font-black'>Means a lot</h4>
+						<h4 className='text-7xl font-black'> WE ARE</h4>
 						<h4 className='text-7xl font-black text-apace-orange-dark'>
-							to us.
+							COMING SOON
 						</h4>
 
 						<div className='w-5/6 my-10'>
 							<p>
-								Trust us, we're hard at work on bringing the right content here
+								We are working on the page to match your expectation. Sorry.
+								Check and try again, or ...
 							</p>
 						</div>
 
 						<div className='my-8 '>
 							<Button
-								className='w-36 bg-apace-orange-light border-apace-orange-light text-black mr-8 flex items-center'
+								className='w-44 bg-apace-orange-light border-apace-orange-light text-black mr-8 flex items-center'
 								onClick={() => router.back()}>
 								<div className='mr-2'>
-									{' '}
-									<ArrowBack />{' '}
-								</div>{' '}
-								Back home
+									<ArrowBack />
+								</div>
+								Get back home
 							</Button>
 						</div>
 					</div>
