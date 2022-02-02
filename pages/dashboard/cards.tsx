@@ -11,7 +11,10 @@ import {
 	LoadingStop,
 } from '../../store/actions/loader/loaderActions';
 import axios from 'axios';
-import { openToastAndSetContent } from '../../store/actions/toast/toastActions';
+import {
+	openToastAndSetContent,
+	closeToast,
+} from '../../store/actions/toast/toastActions';
 import isEmpty from 'is-empty';
 import moment from 'moment';
 import Button from '../../components/button';
@@ -58,6 +61,7 @@ const Cards: NextPage = () => {
 				{ headers: headersRequest }
 			);
 			const cardData = res?.data?.data;
+			console.log('mad', cardData?.payment_link);
 
 			if (cardData) {
 				window.open(cardData?.payment_link, '_self');
@@ -153,7 +157,6 @@ const Cards: NextPage = () => {
 		}
 	};
 
-
 	const txRef = params.get('tx_ref');
 	useEffect(() => {
 		if (txRef && txRef !== '') {
@@ -162,6 +165,7 @@ const Cards: NextPage = () => {
 	}, [txRef]);
 
 	useEffect(() => {
+		dispatch(closeToast());
 		fetchCards();
 	}, []);
 
