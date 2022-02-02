@@ -54,6 +54,10 @@ const UpdateProfileModal = ({
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
+	useEffect(() => {
+		console.log('am:', user);
+	}, [user]);
+
 	const { firstname, lastname, address, dob, mobile } = user;
 
 	const onSubmit = async (e: any) => {
@@ -129,6 +133,15 @@ const UpdateProfileModal = ({
 
 	useEffect(() => {}, []);
 
+	const handleFocus = (e: any) => {
+		e.currentTarget.type = 'date';
+	};
+
+	const handleBlur = (e: any) => {
+		e.currentTarget.type = 'text';
+		e.currentTarget.placeholder = 'Date of birth';
+	};
+
 	return (
 		<div className='text-white'>
 			<div
@@ -174,13 +187,15 @@ const UpdateProfileModal = ({
 					required
 				/>
 				<div className='flex flex-col mb-6'>
-					<Input
-						placeholder='Date of birth (DD/MM/YYYY)'
-						className='w-full mt-2 mb-1'
-						type='date'
+					<input
+						placeholder='Date of birth'
+						className='border border-gray-600 text-white bg-transparent outline-none rounded-md h-10 px-4 text-base mt-2 mb-1'
+						type='text'
 						name='dob'
 						value={dob}
 						onChange={handleChange}
+						onFocus={handleFocus}
+						onBlur={handleBlur}
 						required
 					/>
 					<small>Should match the date on valid ID </small>
