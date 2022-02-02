@@ -144,6 +144,16 @@ const SettingsProfile: NextPage = () => {
 	}, []);
 
 	useEffect(() => {}, []);
+
+	const handleFocus = (e: any) => {
+		e.currentTarget.type = 'date';
+	};
+
+	const handleBlur = (e: any) => {
+		e.currentTarget.type = 'text';
+		e.currentTarget.placeholder = 'Date of birth';
+	};
+
 	return (
 		<div>
 			<DashboardLayout>
@@ -172,15 +182,19 @@ const SettingsProfile: NextPage = () => {
 										required
 									/>
 									<div className='flex flex-col mb-6'>
-										<Input
-											placeholder='Date of birth (DD/MM/YYYY)'
-											className='mt-2 mb-1'
-											type='date'
+										<input
+											placeholder='Date of birth'
+											className='border border-gray-600 text-white bg-transparent outline-none rounded-md h-10 px-4 text-base mt-2 mb-1'
+											type='text'
 											name='dob'
 											value={dob}
 											onChange={handleChange}
+											onFocus={handleFocus}
+											onBlur={handleBlur}
 											required
 										/>
+										{/* onFocus={() => (ref.current.type = 'date')}
+										onBlur={() => (ref.current.type = 'text')} */}
 										<small>Should match the date on valid ID </small>
 									</div>
 									<Input
