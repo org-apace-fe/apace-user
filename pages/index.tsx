@@ -9,12 +9,12 @@ import withoutAuth from "../route/without-auth";
 const Home: NextPage = () => {
   return (
     <div>
-      <Layout>
+      /*<Layout>
         <Banner />
         <FavouriteStores />
         <Invite />
         <ApaceApp />
-      </Layout>
+      </Layout> */
     </div>
   );
 };
