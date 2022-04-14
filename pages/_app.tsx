@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 		},
 		(error) => {
 			if (error?.response?.status === 401) {
-				console.log(error?.response?.data?.message, error?.response?.status);
 
 				dispatch(
 					openToastAndSetContent({
