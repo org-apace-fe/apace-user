@@ -53,8 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<Provider store={store}>
 					<PersistGate persistor={store?.__PERSISTOR} loading={null}>
 						<ErrorBoundary>
-							<div />
-							/* <Component {...pageProps} /> */
+							<Component {...pageProps} />
 						</ErrorBoundary>
 					</PersistGate>
 				</Provider>
