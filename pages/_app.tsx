@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<>
-			<div className='bg-apace-black font-body'>
+<!-- 			<div className='bg-apace-black font-body'>
 				<Provider store={store}>
 					<PersistGate persistor={store?.__PERSISTOR} loading={null}>
 						<ErrorBoundary>
@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 						</ErrorBoundary>
 					</PersistGate>
 				</Provider>
-			</div>
+			</div> -->
 		</>
 	);
 }
@@ -65,4 +65,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 const makeStore = () => store;
 const wrapper = createWrapper(makeStore);
 
-export default wrapper.withRedux(MyApp);
+// export default wrapper.withRedux(MyApp);
