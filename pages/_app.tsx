@@ -48,8 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	);
 
 	return (
-		<div/>
-		/*<>
+		<>
 			<div className='bg-apace-black font-body'>
 				<Provider store={store}>
 					<PersistGate persistor={store?.__PERSISTOR} loading={null}>
@@ -59,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					</PersistGate>
 				</Provider>
 			</div>
-		</> */
+		</>
 	);
 }
 
